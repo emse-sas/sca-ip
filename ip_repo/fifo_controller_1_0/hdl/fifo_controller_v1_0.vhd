@@ -8,7 +8,7 @@ entity fifo_controller_v1_0 is
 
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
-
+        depth_g : integer := 8192;
 
 		-- Parameters of Axi Slave Bus Interface S_AXI
 		C_S_AXI_DATA_WIDTH	: integer	:= 32;

@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity fifo_controller_v1_0_S_AXI is
 	generic (
 		-- Users to add parameters here
-        
+        depth_g : integer := 8192;
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
