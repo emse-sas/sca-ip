@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <spirit:component xmlns:xilinx="http://www.xilinx.com" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <spirit:vendor>xilinx.com</spirit:vendor>
-  <spirit:library>user</spirit:library>
+  <spirit:vendor>emse.sas</spirit:vendor>
+  <spirit:library>sca</spirit:library>
   <spirit:name>fifo_controller</spirit:name>
   <spirit:version>1.0</spirit:version>
   <spirit:busInterfaces>
@@ -298,7 +298,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>39d4e035</spirit:value>
+            <spirit:value>fc7e0a0f</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -314,7 +314,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>39d4e035</spirit:value>
+            <spirit:value>fc7e0a0f</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -328,7 +328,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>dfe15212</spirit:value>
+            <spirit:value>44e59e51</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -342,7 +342,21 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>16328387</spirit:value>
+            <spirit:value>45a2f450</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_softwaredriver</spirit:name>
+        <spirit:displayName>Software Driver</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:sw.driver</spirit:envIdentifier>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_softwaredriver_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>77608740</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -824,7 +838,7 @@
       <spirit:file>
         <spirit:name>hdl/fifo_controller_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_4a44ba09</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_3da2f938</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -856,6 +870,35 @@
       <spirit:file>
         <spirit:name>bd/bd.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_softwaredriver_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>drivers/fifo_controller_1_0/src/xfifo_hw.h</spirit:name>
+        <spirit:fileType>cSource</spirit:fileType>
+        <spirit:isIncludeFile>true</spirit:isIncludeFile>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/fifo_controller_1_0/data/fifo_controller.mdd</spirit:name>
+        <spirit:userFileType>mdd</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/fifo_controller_1_0/data/fifo_controller.tcl</spirit:name>
+        <spirit:fileType>tclSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/fifo_controller_1_0/src/xfifo.c</spirit:name>
+        <spirit:fileType>cSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/fifo_controller_1_0/src/xfifo.h</spirit:name>
+        <spirit:fileType>cSource</spirit:fileType>
+        <spirit:isIncludeFile>true</spirit:isIncludeFile>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/fifo_controller_1_0/src/Makefile</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
   </spirit:fileSets>
@@ -925,8 +968,11 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>FIFO Controller</xilinx:displayName>
-      <xilinx:coreRevision>14</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2020-07-20T18:05:55Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>3</xilinx:coreRevision>
+      <xilinx:upgrades>
+        <xilinx:canUpgradeFrom>xilinx.com:user:fifo_controller:1.0</xilinx:canUpgradeFrom>
+      </xilinx:upgrades>
+      <xilinx:coreCreationDateTime>2020-08-26T21:53:46Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5d394feb_ARCHIVE_LOCATION">d:/codesign/ip/ip_repo/fifo_controller_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@14daaaf9_ARCHIVE_LOCATION">d:/codesign/ip/ip_repo/fifo_controller_1.0</xilinx:tag>
@@ -1153,14 +1199,63 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@1e99a2a0_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@57e72302_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@30af1394_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@45ef758a_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ea31027_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f0093c1_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6201df53_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ecfd02a_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@87708c4_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@65903f51_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@610138e5_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b87c8c4_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4c745b53_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@64b651f9_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@904e025_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@13d7cd6c_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@755c80a9_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6865ac3c_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1c590f66_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d397e63_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@376bbc20_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@aed4889_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10902327_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7bb3e9d9_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3764a816_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@47f81bf5_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@16b92074_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@41915f75_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@74c5f0e8_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6c3ec0a1_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@c484706_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@56d9867f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@66f306c4_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1e546f7c_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@515bf1e2_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4a967e56_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7516af4e_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@260a0ff0_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@676363ac_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6dc37c5b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2fa75629_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@376bf39d_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2064e54_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ed6cf2c_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7904f9b4_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4a72ba1_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@20084b30_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@61d94aa7_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@287f8330_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2df4cf01_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b378d59_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6dc1c8be_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_controller_1_0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="cd35d8c3"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="c30980da"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="8898812a"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="88b7f54a"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="ff4a17b8"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="ac862443"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="f9a38560"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="236595b7"/>
     </xilinx:packagingInfo>

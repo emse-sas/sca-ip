@@ -282,7 +282,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>53b8c309</spirit:value>
+            <spirit:value>ec395bce</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -298,7 +298,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>53b8c309</spirit:value>
+            <spirit:value>ec395bce</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -312,7 +312,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>d7baddf7</spirit:value>
+            <spirit:value>a0a4b965</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -326,7 +326,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>16328387</spirit:value>
+            <spirit:value>45a2f450</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -341,7 +341,21 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>c43f9419</spirit:value>
+            <spirit:value>5f665721</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_softwaredriver</spirit:name>
+        <spirit:displayName>Software Driver</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:sw.driver</spirit:envIdentifier>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_softwaredriver_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>6cea0921</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -846,7 +860,7 @@
       <spirit:file>
         <spirit:name>hdl/tdc_bank_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_b8d3e0df</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_e3f8104f</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -921,6 +935,35 @@
         <spirit:userFileType>USED_IN_testbench</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_softwaredriver_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>drivers/tdc_bank_1.0/src/xtdc.h</spirit:name>
+        <spirit:fileType>cSource</spirit:fileType>
+        <spirit:isIncludeFile>true</spirit:isIncludeFile>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/tdc_bank_1.0/src/xtdc_hw.h</spirit:name>
+        <spirit:fileType>cSource</spirit:fileType>
+        <spirit:isIncludeFile>true</spirit:isIncludeFile>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/tdc_bank_1.0/src/xtdc.c</spirit:name>
+        <spirit:fileType>cSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/tdc_bank_1.0/data/tdc_bank.mdd</spirit:name>
+        <spirit:userFileType>mdd</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/tdc_bank_1.0/data/tdc_bank.tcl</spirit:name>
+        <spirit:fileType>tclSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>drivers/tdc_bank_1.0/src/Makefile</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+      </spirit:file>
+    </spirit:fileSet>
   </spirit:fileSets>
   <spirit:description>TDC sensor bank</spirit:description>
   <spirit:parameters>
@@ -992,8 +1035,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>Time to Digital Converter (TDC)</xilinx:displayName>
-      <xilinx:coreRevision>16</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2020-07-21T08:22:17Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>18</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2020-08-26T23:16:47Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@61a16a5e_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@1653b297_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
@@ -1381,14 +1424,29 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@59287495_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@74abbf75_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@1f7693fe_ARCHIVE_LOCATION">d:/sca_framework/vivado_ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@752cfa15_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@e08039f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@32278a6_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@27ccc9ad_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3e05fb53_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@e21c94f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b87c386_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b464fd7_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1e618508_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@22058ac6_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@14f6caee_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@70e05712_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5af34359_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f3f8d72_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@25f1ebb0_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/tdc_bank_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="f6b97cbd"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="c30980da"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="d7e637c8"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="18989902"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="c328c68a"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="27b1e3a2"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="0d4e5e44"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="c84cbaf9"/>
     </xilinx:packagingInfo>

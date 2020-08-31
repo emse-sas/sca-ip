@@ -1,11 +1,11 @@
 
 `timescale 1ns / 1ps
-`include "tdc_bank_v1_0_tb_include.svh"
+`include "aes_v1_0_tb_include.svh"
 
 import axi_vip_pkg::*;
-import tdc_bank_v1_0_bfm_1_master_0_0_pkg::*;
+import aes_v1_0_bfm_1_master_0_0_pkg::*;
 
-module tdc_bank_v1_0_tb();
+module aes_v1_0_tb();
 
 
 xil_axi_uint                            error_cnt = 0;
@@ -104,7 +104,7 @@ axi_ready_gen                           awready_gen2;
 axi_ready_gen                           wready_gen2;  
 axi_ready_gen                           arready_gen2;  
 xil_axi_payload_byte                    data_mem[xil_axi_ulong];  
-tdc_bank_v1_0_bfm_1_master_0_0_mst_t          mst_agent_0;
+aes_v1_0_bfm_1_master_0_0_mst_t          mst_agent_0;
 
   `BD_WRAPPER DUT(
       .ARESETN(reset), 
@@ -112,7 +112,7 @@ tdc_bank_v1_0_bfm_1_master_0_0_mst_t          mst_agent_0;
     ); 
   
 initial begin
-     mst_agent_0 = new("master vip agent",DUT.`BD_INST_NAME.master_0.InstancePtr.IF);//ms  
+     mst_agent_0 = new("master vip agent",DUT.`BD_INST_NAME.master_0.inst.IF);//ms  
    mst_agent_0.vif_proxy.set_dummy_drive_type(XIL_AXI_VIF_DRIVE_NONE); 
    mst_agent_0.set_agent_tag("Master VIP"); 
    mst_agent_0.set_verbosity(mst_agent_verbosity); 
