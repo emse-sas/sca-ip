@@ -27,6 +27,7 @@ typedef struct
 {
     u16 DeviceId;
     u32 BaseAddr;
+    u32 Depth;
 } XFIFO_Config;
 
 typedef struct
@@ -87,6 +88,8 @@ typedef struct
                    XFIFO_SetStatus0(XFIFO_STATUS_WRITE_MASK, \
                                     XFIFO_ReadReg((BaseAddr), XFIFO_STATUS_WR_OFFSET)))
 
+
+
 XFIFO_Config XFIFO_ConfigTable[];
 
 int XFIFO_CfgInitialize(XFIFO *InstancePtr, XFIFO_Config *ConfigPtr);
@@ -105,9 +108,12 @@ uint32_t XFIFO_Pop(XFIFO *InstancePtr);
  * @brief Pops all the values contained in the FIFO
  * 
  * @param Data buffer for contained values
- * @param Len count of elements in the buffer
+ * @param Start Index of first value to read.
+ * @param End Ending index.
  * @return number of elements read until the FIFO is empty or `XFIFO_ERR_NONE`
  */
-int XFIFO_Read(XFIFO *InstancePtr, u32 Data[], u32 Len);
+int XFIFO_Read(XFIFO *InstancePtr, u32 Data[], u32 Start, u32 End);
+
+void XFIFO_WaitFull(XFIFO *InstancePtr);
 
 #endif //XFIFO_H

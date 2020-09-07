@@ -1,6 +1,10 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use ieee.math_real.all;
+
+library work;
+use work.all;
 
 entity fifo_controller_v1_0_S_AXI is
 	generic (
@@ -118,20 +122,6 @@ architecture arch_imp of fifo_controller_v1_0_S_AXI is
 	------------------------------------------------
 	---- Signals for user logic register space example
 	signal reset_s, read_s, write_s : std_logic;
-	
-	component fifo_controller
-    port (
-        clock_i : in std_logic;
-        reset_i : in std_logic;
-        read_i : in std_logic;
-        write_i : in std_logic;
-        empty_i : in std_logic;
-		full_i : in std_logic;
-        write_o : out std_logic;
-        read_o : out std_logic;
-        reset_o : out std_logic
-    ) ;
-    end component;
 
 	--------------------------------------------------
 	---- Number of Slave Registers 4
@@ -412,8 +402,8 @@ begin
 	end process;
     
 	-- Add user logic here
-	write_s <= 	slv_reg2(2) when slv_reg2(3) = '0' else (start_i and slv_reg2(2));
-    top: fifo_controller
+	write_s <= slv_reg2(2) when slv_reg2(3) = '0' else (start_i and slv_reg2(2));
+	top: entity work.fifo_controller(fifo_controller_arch)
     port map(
         clock_i => clock_i,
         reset_i => slv_reg2(0),

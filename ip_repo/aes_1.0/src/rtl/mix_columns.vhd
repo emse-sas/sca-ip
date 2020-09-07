@@ -9,7 +9,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 library lib_thirdparty;
-use lib_thirdparty.all;
+use lib_thirdparty.mix_prod;
 use lib_thirdparty.crypt_pack.all;
 
 entity mix_columns is
@@ -23,14 +23,6 @@ end entity mix_columns;
 
 architecture mix_columns_arch of mix_columns is
 
-	component mix_prod
-	port(   
-		data_i : in col_state_t;
-		inv_i : in std_logic;
-		data_o : out col_state_t
-		);
-	end component;
-
 	signal data_is, data_os : word_t;
 
 begin
@@ -38,7 +30,7 @@ begin
 	data_o <= word_to_state(data_os) when en_i = '1' else data_i;
 
 	col_prod : for j in 0 to 3 generate
-		prod: mix_prod
+		prod: entity lib_thirdparty.mix_prod
 		port map(
 			data_i => data_is(j),
 			inv_i => inv_i,

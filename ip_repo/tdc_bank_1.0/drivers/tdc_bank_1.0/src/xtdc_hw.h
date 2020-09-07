@@ -7,7 +7,6 @@
 #define XTDC_FINE_OFFSET 0x10
 #define XTDC_COARSE_OFFSET 0x14
 #define XTDC_SEL_OFFSET 0x18
-
 #define XTDC_DEFAULT_CALIBRATE_IT 8192
 #define XTDC_CALIBRATE_TARGET 16
 #define XTDC_COARSE_MAX 0x3
@@ -28,3 +27,6 @@
     Xil_In32((addr) + (offset))
 #define XTDC_WriteReg(addr, offset, data) \
     Xil_Out32((addr) + (offset), (data))
+
+#define XTDC_Offset(count, len) \
+    count * len * 2

@@ -6,9 +6,6 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "C_S_AXI_BASEADDR" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_S_AXI_HIGHADDR" -parent ${Page_0}
 
-  ipgui::add_param $IPINST -name "deepth_g"
-  ipgui::add_param $IPINST -name "C_S_AXI_DATA_WIDTH"
-  ipgui::add_param $IPINST -name "C_S_AXI_ADDR_WIDTH"
 
 }
 
@@ -30,12 +27,12 @@ proc validate_PARAM_VALUE.C_S_AXI_DATA_WIDTH { PARAM_VALUE.C_S_AXI_DATA_WIDTH } 
 	return true
 }
 
-proc update_PARAM_VALUE.deepth_g { PARAM_VALUE.deepth_g } {
-	# Procedure called to update deepth_g when any of the dependent parameters in the arguments change
+proc update_PARAM_VALUE.depth_g { PARAM_VALUE.depth_g } {
+	# Procedure called to update depth_g when any of the dependent parameters in the arguments change
 }
 
-proc validate_PARAM_VALUE.deepth_g { PARAM_VALUE.deepth_g } {
-	# Procedure called to validate deepth_g
+proc validate_PARAM_VALUE.depth_g { PARAM_VALUE.depth_g } {
+	# Procedure called to validate depth_g
 	return true
 }
 
@@ -58,9 +55,9 @@ proc validate_PARAM_VALUE.C_S_AXI_HIGHADDR { PARAM_VALUE.C_S_AXI_HIGHADDR } {
 }
 
 
-proc update_MODELPARAM_VALUE.deepth_g { MODELPARAM_VALUE.deepth_g PARAM_VALUE.deepth_g } {
+proc update_MODELPARAM_VALUE.depth_g { MODELPARAM_VALUE.depth_g PARAM_VALUE.depth_g } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.deepth_g}] ${MODELPARAM_VALUE.deepth_g}
+	set_property value [get_property value ${PARAM_VALUE.depth_g}] ${MODELPARAM_VALUE.depth_g}
 }
 
 proc update_MODELPARAM_VALUE.C_S_AXI_DATA_WIDTH { MODELPARAM_VALUE.C_S_AXI_DATA_WIDTH PARAM_VALUE.C_S_AXI_DATA_WIDTH } {

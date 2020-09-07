@@ -43,15 +43,25 @@ uint32_t XFIFO_Pop(XFIFO *InstancePtr)
     return value;
 }
 
-int XFIFO_Read(XFIFO *InstancePtr, u32 Data[], u32 Len)
+int XFIFO_Read(XFIFO *InstancePtr, u32 Data[], u32 Start, u32 End)
 {
-    u32 idx = 0;
+    u32 read = 0;
     u32 addr = InstancePtr->Config.BaseAddr;
-    for (; idx < Len && !XFIFO_IsEmpty(addr); idx++)
+    for (; read < End && !XFIFO_IsEmpty(addr); read++)
     {
         XFIFO_StartRead(addr);
-        Data[idx] = XFIFO_ReadReg(addr, XFIFO_DATA_OFFSET);
+        if (read >= Start)
+        {
+            Data[read - Start] = XFIFO_ReadReg(addr, XFIFO_DATA_OFFSET);
+        }
         XFIFO_StopRead(addr);
     }
-    return idx;
+    return read - Start;
+}
+
+void XFIFO_WaitFull(XFIFO *InstancePtr)
+{
+    while (!XFIFO_IsFull(InstancePtr->Config.BaseAddr))
+    {
+    }
 }
