@@ -1,4 +1,4 @@
-odlibrary ieee;
+library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
@@ -485,35 +485,49 @@ begin
 		case loc_addr is
 			when b"0000" =>
 				reg_data_out <= slv_reg0;
+
 			when b"0001" =>
 				reg_data_out <= slv_reg1;
+
 			when b"0010" =>
 				reg_data_out <= slv_reg2;
+
 			when b"0011" =>
 				reg_data_out <= slv_reg3;
+
 			when b"0100" =>
 				reg_data_out <= data_os(127 downto 96);
+
 			when b"0101" =>
 				reg_data_out <= data_os(95 downto 64);
+
 			when b"0110" =>
 				reg_data_out <= data_os(63 downto 32);
+
 			when b"0111" =>
 				reg_data_out <= data_os(31 downto 0);
+
 			when b"1000" =>
 				reg_data_out <= slv_reg8;
+
 			when b"1001" =>
 				reg_data_out <= slv_reg9;
+
 			when b"1010" =>
 				reg_data_out <= slv_reg10;
+
 			when b"1011" =>
 				reg_data_out <= slv_reg11;
+
 			when b"1100" =>
 				reg_data_out <= slv_reg12;
+
 			when b"1101" =>
 				reg_data_out(0)                               <= done_s;
 				reg_data_out(C_S_AXI_DATA_WIDTH - 1 downto 1) <= (others => '0');
-			when others                                              =>
-				reg_data_out <= (others                                  => '0');
+
+			when others             =>
+				reg_data_out <= (others => '0');
 		end case;
 	end process;
 
