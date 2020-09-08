@@ -1,9 +1,12 @@
-library ieee;
+odlibrary ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 library lib_thirdparty;
 use lib_thirdparty.crypt_pack.all;
+
+library lib_rtl;
+use lib_rtl.all;
 
 entity aes_v1_0_S_AXI is
 	generic (
@@ -145,19 +148,6 @@ architecture arch_imp of aes_v1_0_S_AXI is
 	signal reg_data_out : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 	signal byte_index   : integer;
 	signal aw_en        : std_logic;
-
-	component aes
-		port (
-			data_i  : in bit128;
-			key_i   : in bit128;
-			clock_i : in std_logic;
-			reset_i : in std_logic;
-			start_i : in std_logic;
-			inv_i   : in std_logic;
-			data_o  : out bit128;
-			done_o  : out std_logic
-		);
-	end component aes;
 
 begin
 	-- I/O Connections assignments
@@ -545,32 +535,33 @@ begin
 		end if;
 	end process;
 	-- Add user logic here
+	slv_reg13(0) <= done_s;
+
 	reset_s <= slv_reg12(0);
 	reset_o <= reset_s;
+
 	start_s <= slv_reg12(1) when rising_edge(clock_i) else
 		start_s;
 	start_o <= start_s;
 
-	inv_s <= slv_reg12(2);
-	inv_o <= inv_s;
-
-	slv_reg13(0) <= done_s;
-	done_o       <= done_s;
+	inv_s  <= slv_reg12(2);
+	inv_o  <= inv_s;
+	done_o <= done_s;
 
 	data_is <= slv_reg0 & slv_reg1 & slv_reg2 & slv_reg3;
 	key_s   <= slv_reg8 & slv_reg9 & slv_reg10 & slv_reg11;
 
-	U0 : aes
-	port map(
-		data_i  => data_is,
-		key_i   => key_s,
-		clock_i => clock_i,
-		reset_i => reset_s,
-		start_i => start_s,
-		inv_i   => inv_s,
-		data_o  => data_os,
-		done_o  => done_s
-	);
+	top : entity lib_rtl.aes(aes_arch)
+		port map(
+			data_i  => data_is,
+			key_i   => key_s,
+			clock_i => clock_i,
+			reset_i => reset_s,
+			start_i => start_s,
+			inv_i   => inv_s,
+			data_o  => data_os,
+			done_o  => done_s
+		);
 	-- User logic ends
 
 end arch_imp;
