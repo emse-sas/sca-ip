@@ -1,4 +1,4 @@
- -------------------------------------------------------
+-------------------------------------------------------
 --! @author Sami Dahoux (s.dahoux@emse.fr)
 --! @file mix_prod.vhd
 --! @brief Mix column Gallois field product for an AES state column
@@ -12,32 +12,36 @@ library lib_thirdparty;
 use lib_thirdparty.crypt_pack.all;
 
 entity mix_prod is
-port(   
-	data_i : in col_state_t;
-	inv_i : in std_logic;
-	data_o : out col_state_t
+	port (
+		data_i : in col_state_t;
+		inv_i  : in std_logic;
+		data_o : out col_state_t
 	);
 end mix_prod;
 
 architecture mix_prod_arch of mix_prod is
-signal data2_s : col_state_t;
-signal data4_s : col_state_t;
-signal data8_s : col_state_t;
-signal data3_s : col_state_t;
-signal data9_s : col_state_t;
-signal datab_s : col_state_t;
-signal datad_s : col_state_t;
-signal datae_s : col_state_t;
+	signal data2_s : col_state_t;
+	signal data4_s : col_state_t;
+	signal data8_s : col_state_t;
+	signal data3_s : col_state_t;
+	signal data9_s : col_state_t;
+	signal datab_s : col_state_t;
+	signal datad_s : col_state_t;
+	signal datae_s : col_state_t;
 
-signal data_s, data_inv_s : col_state_t;
+	signal data_s, data_inv_s : col_state_t;
 
 begin
-	data_o <= data_s when inv_i = '0' else data_inv_s;
+	data_o <= data_s when inv_i = '0' else
+		data_inv_s;
 
 	even_prod : for j in 0 to 3 generate
-		data2_s(j) <= (data_i(j)(6 downto 0) & '0') xor "00011011" when data_i(j)(7) = '1'  else data_i(j)(6 downto 0) & '0';
-		data4_s(j) <= (data2_s(j)(6 downto 0) & '0') xor "00011011" when data2_s(j)(7) = '1'  else data2_s(j)(6 downto 0) & '0';
-		data8_s(j) <= (data4_s(j)(6 downto 0) & '0') xor "00011011" when data4_s(j)(7) = '1'  else data4_s(j)(6 downto 0) & '0';	
+		data2_s(j) <= (data_i(j)(6 downto 0) & '0') xor "00011011" when data_i(j)(7) = '1' else
+		data_i(j)(6 downto 0) & '0';
+		data4_s(j) <= (data2_s(j)(6 downto 0) & '0') xor "00011011" when data2_s(j)(7) = '1' else
+		data2_s(j)(6 downto 0) & '0';
+		data8_s(j) <= (data4_s(j)(6 downto 0) & '0') xor "00011011" when data4_s(j)(7) = '1' else
+		data4_s(j)(6 downto 0) & '0';
 	end generate;
 
 	odd_prod : for j in 0 to 3 generate
@@ -57,6 +61,5 @@ begin
 	data_inv_s(1) <= data9_s(0) xor datae_s(1) xor datab_s(2) xor datad_s(3);
 	data_inv_s(2) <= datad_s(0) xor data9_s(1) xor datae_s(2) xor datab_s(3);
 	data_inv_s(3) <= datab_s(0) xor datad_s(1) xor data9_s(2) xor datae_s(3);
-	
-end architecture mix_prod_arch;
 
+end architecture mix_prod_arch;

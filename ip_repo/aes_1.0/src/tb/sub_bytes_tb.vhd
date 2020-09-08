@@ -1,4 +1,4 @@
- -------------------------------------------------------
+-------------------------------------------------------
 --! @author Sami Dahoux (s.dahoux@emse.fr)
 --! @file sub_bytes_tb.vhd
 -------------------------------------------------------
@@ -9,7 +9,7 @@ library lib_thirdparty;
 
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use ieee.STD_LOGIC_UNSIGNED.ALL;
+use ieee.STD_LOGIC_UNSIGNED.all;
 use lib_thirdparty.crypt_pack.all;
 use lib_round.all;
 
@@ -19,11 +19,11 @@ end entity;
 architecture sub_bytes_tb_arch of sub_bytes_tb is
 
 	component sub_bytes
-	port (
-		data_i : in state_t;
-		en_i : in std_logic;
-		inv_i : in std_logic;
-		data_o : out state_t
+		port (
+			data_i : in state_t;
+			en_i   : in std_logic;
+			inv_i  : in std_logic;
+			data_o : out state_t
 		);
 	end component;
 
@@ -31,21 +31,21 @@ architecture sub_bytes_tb_arch of sub_bytes_tb is
 
 begin
 	DUT : sub_bytes
-	port map (
+	port map(
 		data_i => data_is,
-		en_i => '1',
-		inv_i => '0',
+		en_i   => '1',
+		inv_i  => '0',
 		data_o => data_os
-		);
+	);
 
 	PUT : process
-		variable count  : std_logic_vector(7 downto 0) := "00000000";
+		variable count : std_logic_vector(7 downto 0) := "00000000";
 	begin
 		wait for 100 ns;
 		if count = "11111111" then
-		    count := "00000000";
+			count := "00000000";
 		else
-		    count := std_logic_vector(count + 1);
+			count := std_logic_vector(count + 1);
 		end if;
 		for i in 0 to 3 loop
 			for j in 0 to 3 loop

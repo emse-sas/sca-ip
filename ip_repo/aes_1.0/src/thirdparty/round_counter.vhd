@@ -1,4 +1,4 @@
- -------------------------------------------------------
+-------------------------------------------------------
 --! @author Sami Dahoux (s.dahoux@emse.fr)
 --! @file round_counter.vhd
 --! @brief AES round counter
@@ -13,12 +13,12 @@ use lib_thirdparty.crypt_pack.all;
 
 entity round_counter is
   port (
-    clock_i : in std_logic;
+    clock_i  : in std_logic;
     resetb_i : in std_logic;
-    en_i : in std_logic;
-    up_i : in std_logic;
-    count_i : in bit4;
-    count_o : out bit4
+    en_i     : in std_logic;
+    up_i     : in std_logic;
+    count_i  : in bit4;
+    count_o  : out bit4
   );
 end round_counter;
 
@@ -30,7 +30,7 @@ begin
 
   count_o <= std_logic_vector(to_unsigned(count_s, 4));
 
-  count : process( clock_i, resetb_i )
+  count : process (clock_i, resetb_i)
   begin
     if (resetb_i = '0') then
       count_s <= 0;
@@ -53,6 +53,6 @@ begin
         end if;
       end if;
     end if;
-  end process ; -- count
+  end process; -- count
 
-end round_counter_arch ; -- round_counter_arch
+end round_counter_arch; -- round_counter_arch

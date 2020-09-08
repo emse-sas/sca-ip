@@ -1,4 +1,4 @@
- -------------------------------------------------------
+-------------------------------------------------------
 --! @author Sami Dahoux (s.dahoux@emse.fr)
 --! @file key_expander.vhd
 --! @brief Key expansion top level combinatorial
@@ -15,21 +15,21 @@ library lib_round;
 use lib_round.all;
 
 entity key_expander is
-port (
-	key_i : in bit128;
-	rcon_i : in bit8;
-	inv_i : in std_logic;
-	key_o : out bit128
+	port (
+		key_i  : in bit128;
+		rcon_i : in bit8;
+		inv_i  : in std_logic;
+		key_o  : out bit128
 	);
 end entity key_expander;
 
 architecture key_expander_arch of key_expander is
 
-	signal key_s : word_t;
-	signal rot_s : word_t;
-	signal sub_s : word_t;
-	signal xor_s : word_t;
-	signal mix_s : state_t;
+	signal key_s  : word_t;
+	signal rot_s  : word_t;
+	signal sub_s  : word_t;
+	signal xor_s  : word_t;
+	signal mix_s  : state_t;
 	signal rcon_s : col_state_t;
 
 begin

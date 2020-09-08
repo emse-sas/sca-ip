@@ -1,4 +1,4 @@
- -------------------------------------------------------
+-------------------------------------------------------
 --! @author Sami Dahoux (s.dahoux@emse.fr)
 --! @file state_reg.vhd
 --! @brief Synchronous register for round and key data block
@@ -13,12 +13,12 @@ use lib_thirdparty.crypt_pack.all;
 
 entity state_reg is
 	port (
-		data_i : in bit128;
+		data_i   : in bit128;
 		resetb_i : in std_logic;
-		clock_i : in std_logic;
-		we_i : in std_logic;
-		data_o : out bit128
-	) ;
+		clock_i  : in std_logic;
+		we_i     : in std_logic;
+		data_o   : out bit128
+	);
 end state_reg;
 
 architecture state_reg_arch of state_reg is
@@ -28,7 +28,7 @@ architecture state_reg_arch of state_reg is
 begin
 	data_o <= data_s;
 
-	data_register: process( clock_i, resetb_i )
+	data_register : process (clock_i, resetb_i)
 	begin
 		if resetb_i = '0' then
 			data_s <= (others => '0');
@@ -39,6 +39,6 @@ begin
 				data_s <= data_s;
 			end if;
 		end if;
-	end process ; -- register
+	end process; -- register
 
-end state_reg_arch ; -- state_reg_arch
+end state_reg_arch; -- state_reg_arch
