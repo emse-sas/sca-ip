@@ -27,8 +27,7 @@ architecture mix_columns_arch of mix_columns is
 
 begin
 	data_is <= state_to_word(data_i);
-	data_o  <= word_to_state(data_os) when en_i = '1' else
-		data_i;
+	data_o  <= word_to_state(data_os) when en_i = '1' else data_i;
 
 	col_prod : for j in 0 to 3 generate
 		prod : entity lib_thirdparty.mix_prod

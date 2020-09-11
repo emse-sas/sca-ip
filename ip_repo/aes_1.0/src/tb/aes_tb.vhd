@@ -33,14 +33,14 @@ architecture aes_tb_arch of aes_tb is
 		);
 	end component;
 
-	signal count_test_s : integer   := 1;
-	signal clock_s      : std_logic := '1';
-	signal reset_s      : std_logic;
-	signal start_s      : std_logic;
-	signal done_s       : std_logic;
-	signal inv_s        : std_logic := '0';
+	signal count_test_s : integer := 1;
+	signal clock_s : std_logic := '1';
+	signal reset_s : std_logic;
+	signal start_s : std_logic;
+	signal done_s : std_logic;
+	signal inv_s : std_logic := '0';
 
-	signal key_s                     : bit128;
+	signal key_s : bit128;
 	signal data_is, data_os, data_es : bit128;
 
 	signal cond_s : boolean;
@@ -104,7 +104,7 @@ begin
 		inv_s <= not inv_s;
 
 		wait for 200 ns;
-		start_s      <= '0';
+		start_s <= '0';
 		count_test_s <= count_test_s + 1;
 
 	end process PUT;

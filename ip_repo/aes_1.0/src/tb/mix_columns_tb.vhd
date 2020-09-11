@@ -32,9 +32,9 @@ architecture mix_columns_tb_arch of mix_columns_tb is
     signal data_is : state_t;
     signal data_os : state_t;
     signal data_es : state_t;
-    signal en_s    : std_logic;
-    signal inv_s   : std_logic := '0';
-    signal cond_s  : boolean;
+    signal en_s : std_logic;
+    signal inv_s : std_logic := '0';
+    signal cond_s : boolean;
 
 begin
     DUT : mix_columns

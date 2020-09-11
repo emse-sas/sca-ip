@@ -16,9 +16,9 @@ package test_pack is
 	type test_data_t is array(0 to 10) of state_t;
 	type round_data_t is array(0 to 11) of bit128;
 
-	constant std_input_c     : bit128       := x"00112233445566778899aabbccddeeff";
-	constant std_output_c    : bit128       := x"69c4e0d86a7b0430d8cdb78070b4c55a";
-	constant std_input_key_c : bit128       := x"000102030405060708090a0b0c0d0e0f";
+	constant std_input_c : bit128 := x"00112233445566778899aabbccddeeff";
+	constant std_output_c : bit128 := x"69c4e0d86a7b0430d8cdb78070b4c55a";
+	constant std_input_key_c : bit128 := x"000102030405060708090a0b0c0d0e0f";
 	constant std_rounddata_c : round_data_t :=
 	(
 	x"00112233445566778899aabbccddeeff",

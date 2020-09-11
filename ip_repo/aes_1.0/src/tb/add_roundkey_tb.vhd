@@ -19,7 +19,7 @@ end entity;
 architecture add_roundkey_tb_arch of add_roundkey_tb is
     signal data_is : state_t;
     signal data_os : state_t;
-    signal key_is  : state_t;
+    signal key_is : state_t;
 
     component add_roundkey
         port (
@@ -43,7 +43,7 @@ begin
         for i in 0 to 3 loop
             for j in 0 to 3 loop
                 data_is(i)(j) <= x"FF";
-                key_is(i)(j)  <= x"FF";
+                key_is(i)(j) <= x"FF";
             end loop;
         end loop;
         wait;

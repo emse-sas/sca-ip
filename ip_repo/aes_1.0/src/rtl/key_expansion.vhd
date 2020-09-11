@@ -72,29 +72,25 @@ architecture key_expansion_arch of key_expansion is
 		);
 	end component;
 
-	signal en_mix_s       : std_logic;
-	signal we_key_s       : std_logic;
+	signal en_mix_s : std_logic;
+	signal we_key_s : std_logic;
 	signal key_changedb_s : std_logic;
-	signal invb_s         : std_logic;
+	signal invb_s : std_logic;
 
-	signal rcon_s             : bit8;
+	signal rcon_s : bit8;
 	signal key_s, round_key_s : bit128;
-	signal reg_key_s          : keyexp_t;
-	signal key_mix_s          : state_t;
-	signal we_reg_s           : bit11;
+	signal reg_key_s : keyexp_t;
+	signal key_mix_s : state_t;
+	signal we_reg_s : bit11;
 
 begin
 	invb_s <= not inv_i;
-
-	key_changedb_s <= '1' when key_i = reg_key_s(0) else
-		'0';
-
-	en_mix_s <= '0' when count_i = x"a" or count_i = x"0" else
-		inv_i;
+	key_changedb_s <= '1' when key_i = reg_key_s(0) else '0';
+	en_mix_s <= '0' when count_i = x"a" or count_i = x"0" else inv_i;
 
 	rcon_s <= rcon_c(to_integer(unsigned(count_i)));
-	key_s  <= reg_key_s(to_integer(unsigned(count_i)));
-	key_o  <= state_to_bit128(key_mix_s);
+	key_s <= reg_key_s(to_integer(unsigned(count_i)));
+	key_o <= state_to_bit128(key_mix_s);
 
 	fsm : key_expansion_fsm port map(
 		clock_i        => clock_i,

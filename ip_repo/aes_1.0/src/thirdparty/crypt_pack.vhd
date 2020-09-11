@@ -26,12 +26,12 @@ package crypt_pack is
 	type rcon_t is array(0 to 10) of bit8;
 
 	function state_to_bit128(data_i : state_t) return bit128;
-	function state_to_word(data_i   : state_t) return word_t;
-	function word_to_bit128(data_i  : word_t) return bit128;
-	function word_to_state(data_i   : word_t) return state_t;
+	function state_to_word(data_i : state_t) return word_t;
+	function word_to_bit128(data_i : word_t) return bit128;
+	function word_to_state(data_i : word_t) return state_t;
 	function bit128_to_state(data_i : bit128) return state_t;
-	function bit128_to_word(data_i  : bit128) return word_t;
-	function "xor" (L, R            : col_state_t) return col_state_t;
+	function bit128_to_word(data_i : bit128) return word_t;
+	function "xor" (L, R : col_state_t) return col_state_t;
 
 	constant rcon_c : rcon_t :=
 	(
@@ -100,7 +100,7 @@ end crypt_pack;
 package body crypt_pack is
 
 	function state_to_bit128(data_i : state_t) return bit128 is
-		variable data_v                 : bit128;
+		variable data_v : bit128;
 	begin
 		for i in 0 to 3 loop
 			for j in 0 to 3 loop
@@ -112,7 +112,7 @@ package body crypt_pack is
 	end function;
 
 	function state_to_word(data_i : state_t) return word_t is
-		variable data_v               : word_t;
+		variable data_v : word_t;
 	begin
 		for i in 0 to 3 loop
 			for j in 0 to 3 loop
@@ -124,7 +124,7 @@ package body crypt_pack is
 	end function;
 
 	function word_to_bit128(data_i : word_t) return bit128 is
-		variable data_v                : bit128;
+		variable data_v : bit128;
 	begin
 		for i in 0 to 3 loop
 			for j in 0 to 3 loop
@@ -136,7 +136,7 @@ package body crypt_pack is
 	end function;
 
 	function word_to_state(data_i : word_t) return state_t is
-		variable data_v               : state_t;
+		variable data_v : state_t;
 	begin
 		for i in 0 to 3 loop
 			for j in 0 to 3 loop
@@ -148,7 +148,7 @@ package body crypt_pack is
 	end function;
 
 	function bit128_to_state(data_i : bit128) return state_t is
-		variable data_v                 : state_t;
+		variable data_v : state_t;
 	begin
 		for i in 0 to 3 loop
 			for j in 0 to 3 loop
@@ -160,7 +160,7 @@ package body crypt_pack is
 	end function;
 
 	function bit128_to_word(data_i : bit128) return word_t is
-		variable data_v                : word_t;
+		variable data_v : word_t;
 	begin
 		for i in 0 to 3 loop
 			for j in 0 to 3 loop
@@ -172,7 +172,7 @@ package body crypt_pack is
 	end function;
 
 	function "xor" (l, r : col_state_t) return col_state_t is
-		variable result      : col_state_t;
+		variable result : col_state_t;
 	begin
 		for i in 0 to 3 loop
 			result(i) := l(i) xor r(i);

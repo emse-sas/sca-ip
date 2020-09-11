@@ -97,69 +97,69 @@ end aes_v1_0_S_AXI;
 architecture arch_imp of aes_v1_0_S_AXI is
 
 	-- AXI4LITE signals
-	signal axi_awaddr  : std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
+	signal axi_awaddr : std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
 	signal axi_awready : std_logic;
-	signal axi_wready  : std_logic;
-	signal axi_bresp   : std_logic_vector(1 downto 0);
-	signal axi_bvalid  : std_logic;
-	signal axi_araddr  : std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
+	signal axi_wready : std_logic;
+	signal axi_bresp : std_logic_vector(1 downto 0);
+	signal axi_bvalid : std_logic;
+	signal axi_araddr : std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
 	signal axi_arready : std_logic;
-	signal axi_rdata   : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal axi_rresp   : std_logic_vector(1 downto 0);
-	signal axi_rvalid  : std_logic;
+	signal axi_rdata : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal axi_rresp : std_logic_vector(1 downto 0);
+	signal axi_rvalid : std_logic;
 
 	-- Example-specific design signals
 	-- local parameter for addressing 32 bit / 64 bit C_S_AXI_DATA_WIDTH
 	-- ADDR_LSB is used for addressing 32/64 bit registers/memories
 	-- ADDR_LSB = 2 for 32 bits (n downto 2)
 	-- ADDR_LSB = 3 for 64 bits (n downto 3)
-	constant ADDR_LSB          : integer := (C_S_AXI_DATA_WIDTH/32) + 1;
+	constant ADDR_LSB : integer := (C_S_AXI_DATA_WIDTH/32) + 1;
 	constant OPT_MEM_ADDR_BITS : integer := 3;
 	------------------------------------------------
 	---- Signals for user logic register space example
 
-	signal data_is       : bit128;
-	signal data_os       : bit128;
-	signal key_s         : bit128;
-	signal reset_s       : std_logic;
-	signal start_s       : std_logic;
+	signal data_is : bit128;
+	signal data_os : bit128;
+	signal key_s : bit128;
+	signal reset_s : std_logic;
+	signal start_s : std_logic;
 	signal start_gated_s : std_logic;
-	signal inv_s         : std_logic;
-	signal done_s        : std_logic;
+	signal inv_s : std_logic;
+	signal done_s : std_logic;
 
 	--------------------------------------------------
 	---- Number of Slave Registers 14
-	signal slv_reg0     : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal slv_reg1     : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal slv_reg2     : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal slv_reg3     : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal slv_reg4     : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal slv_reg5     : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal slv_reg6     : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal slv_reg7     : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal slv_reg8     : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal slv_reg9     : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal slv_reg10    : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal slv_reg11    : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal slv_reg12    : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal slv_reg13    : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg0 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg1 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg2 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg3 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg4 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg5 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg6 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg7 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg8 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg9 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg10 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg11 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg12 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal slv_reg13 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 	signal slv_reg_rden : std_logic;
 	signal slv_reg_wren : std_logic;
 	signal reg_data_out : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal byte_index   : integer;
-	signal aw_en        : std_logic;
+	signal byte_index : integer;
+	signal aw_en : std_logic;
 
 begin
 	-- I/O Connections assignments
 
 	S_AXI_AWREADY <= axi_awready;
-	S_AXI_WREADY  <= axi_wready;
-	S_AXI_BRESP   <= axi_bresp;
-	S_AXI_BVALID  <= axi_bvalid;
+	S_AXI_WREADY <= axi_wready;
+	S_AXI_BRESP <= axi_bresp;
+	S_AXI_BVALID <= axi_bvalid;
 	S_AXI_ARREADY <= axi_arready;
-	S_AXI_RDATA   <= axi_rdata;
-	S_AXI_RRESP   <= axi_rresp;
-	S_AXI_RVALID  <= axi_rvalid;
+	S_AXI_RDATA <= axi_rdata;
+	S_AXI_RRESP <= axi_rresp;
+	S_AXI_RVALID <= axi_rvalid;
 	-- Implement axi_awready generation
 	-- axi_awready is asserted for one S_AXI_ACLK clock cycle when both
 	-- S_AXI_AWVALID and S_AXI_WVALID are asserted. axi_awready is
@@ -170,7 +170,7 @@ begin
 		if rising_edge(S_AXI_ACLK) then
 			if S_AXI_ARESETN = '0' then
 				axi_awready <= '0';
-				aw_en       <= '1';
+				aw_en <= '1';
 			else
 				if (axi_awready = '0' and S_AXI_AWVALID = '1' and S_AXI_WVALID = '1' and aw_en = '1') then
 					-- slave is ready to accept write address when
@@ -178,9 +178,9 @@ begin
 					-- on the write address and data bus. This design 
 					-- expects no outstanding transactions. 
 					axi_awready <= '1';
-					aw_en       <= '0';
+					aw_en <= '0';
 				elsif (S_AXI_BREADY = '1' and axi_bvalid = '1') then
-					aw_en       <= '1';
+					aw_en <= '1';
 					axi_awready <= '0';
 				else
 					axi_awready <= '0';
@@ -245,16 +245,16 @@ begin
 	begin
 		if rising_edge(S_AXI_ACLK) then
 			if S_AXI_ARESETN = '0' then
-				slv_reg0  <= (others => '0');
-				slv_reg1  <= (others => '0');
-				slv_reg2  <= (others => '0');
-				slv_reg3  <= (others => '0');
-				slv_reg4  <= (others => '0');
-				slv_reg5  <= (others => '0');
-				slv_reg6  <= (others => '0');
-				slv_reg7  <= (others => '0');
-				slv_reg8  <= (others => '0');
-				slv_reg9  <= (others => '0');
+				slv_reg0 <= (others => '0');
+				slv_reg1 <= (others => '0');
+				slv_reg2 <= (others => '0');
+				slv_reg3 <= (others => '0');
+				slv_reg4 <= (others => '0');
+				slv_reg5 <= (others => '0');
+				slv_reg6 <= (others => '0');
+				slv_reg7 <= (others => '0');
+				slv_reg8 <= (others => '0');
+				slv_reg9 <= (others => '0');
 				slv_reg10 <= (others => '0');
 				slv_reg11 <= (others => '0');
 				slv_reg12 <= (others => '0');
@@ -376,16 +376,16 @@ begin
 								end if;
 							end loop;
 						when others =>
-							slv_reg0  <= slv_reg0;
-							slv_reg1  <= slv_reg1;
-							slv_reg2  <= slv_reg2;
-							slv_reg3  <= slv_reg3;
-							slv_reg4  <= slv_reg4;
-							slv_reg5  <= slv_reg5;
-							slv_reg6  <= slv_reg6;
-							slv_reg7  <= slv_reg7;
-							slv_reg8  <= slv_reg8;
-							slv_reg9  <= slv_reg9;
+							slv_reg0 <= slv_reg0;
+							slv_reg1 <= slv_reg1;
+							slv_reg2 <= slv_reg2;
+							slv_reg3 <= slv_reg3;
+							slv_reg4 <= slv_reg4;
+							slv_reg5 <= slv_reg5;
+							slv_reg6 <= slv_reg6;
+							slv_reg7 <= slv_reg7;
+							slv_reg8 <= slv_reg8;
+							slv_reg9 <= slv_reg9;
 							slv_reg10 <= slv_reg10;
 							slv_reg11 <= slv_reg11;
 							slv_reg12 <= slv_reg12;
@@ -407,13 +407,13 @@ begin
 		if rising_edge(S_AXI_ACLK) then
 			if S_AXI_ARESETN = '0' then
 				axi_bvalid <= '0';
-				axi_bresp  <= "00"; --need to work more on the responses
+				axi_bresp <= "00"; --need to work more on the responses
 			else
 				if (axi_awready = '1' and S_AXI_AWVALID = '1' and axi_wready = '1' and S_AXI_WVALID = '1' and axi_bvalid = '0') then
 					axi_bvalid <= '1';
-					axi_bresp  <= "00";
+					axi_bresp <= "00";
 				elsif (S_AXI_BREADY = '1' and axi_bvalid = '1') then --check if bready is asserted while bvalid is high)
-					axi_bvalid <= '0';                                   -- (there is a possibility that bready is always asserted high)
+					axi_bvalid <= '0'; -- (there is a possibility that bready is always asserted high)
 				end if;
 			end if;
 		end if;
@@ -431,7 +431,7 @@ begin
 		if rising_edge(S_AXI_ACLK) then
 			if S_AXI_ARESETN = '0' then
 				axi_arready <= '0';
-				axi_araddr  <= (others => '1');
+				axi_araddr <= (others => '1');
 			else
 				if (axi_arready = '0' and S_AXI_ARVALID = '1') then
 					-- indicates that the slave has acceped the valid read address
@@ -458,12 +458,12 @@ begin
 		if rising_edge(S_AXI_ACLK) then
 			if S_AXI_ARESETN = '0' then
 				axi_rvalid <= '0';
-				axi_rresp  <= "00";
+				axi_rresp <= "00";
 			else
 				if (axi_arready = '1' and S_AXI_ARVALID = '1' and axi_rvalid = '0') then
 					-- Valid read data is available at the read data bus
 					axi_rvalid <= '1';
-					axi_rresp  <= "00"; -- 'OKAY' response
+					axi_rresp <= "00"; -- 'OKAY' response
 				elsif (axi_rvalid = '1' and S_AXI_RREADY = '1') then
 					-- Read data is accepted by the master
 					axi_rvalid <= '0';
@@ -523,10 +523,10 @@ begin
 				reg_data_out <= slv_reg12;
 
 			when b"1101" =>
-				reg_data_out(0)                               <= done_s;
+				reg_data_out(0) <= done_s;
 				reg_data_out(C_S_AXI_DATA_WIDTH - 1 downto 1) <= (others => '0');
 
-			when others             =>
+			when others =>
 				reg_data_out <= (others => '0');
 		end case;
 	end process;
@@ -549,7 +549,7 @@ begin
 		end if;
 	end process;
 	-- Add user logic here
-	slv_reg13(0) <= done_s;
+	done_o <= done_s;
 
 	reset_s <= slv_reg12(0);
 	reset_o <= reset_s;
@@ -558,12 +558,11 @@ begin
 		start_s;
 	start_o <= start_s;
 
-	inv_s  <= slv_reg12(2);
-	inv_o  <= inv_s;
-	done_o <= done_s;
+	inv_s <= slv_reg12(2);
+	inv_o <= inv_s;
 
 	data_is <= slv_reg0 & slv_reg1 & slv_reg2 & slv_reg3;
-	key_s   <= slv_reg8 & slv_reg9 & slv_reg10 & slv_reg11;
+	key_s <= slv_reg8 & slv_reg9 & slv_reg10 & slv_reg11;
 
 	top : entity lib_rtl.aes(aes_arch)
 		port map(

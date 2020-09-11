@@ -75,19 +75,19 @@ begin
 	begin
 		case current_state is
 			when reset | hold =>
-				end_o    <= key_changedb_i;
+				end_o <= key_changedb_i;
 				we_key_o <= '0';
 			when start =>
-				end_o    <= invb_i;
+				end_o <= invb_i;
 				we_key_o <= '1';
 			when compute =>
-				end_o    <= '0';
+				end_o <= '0';
 				we_key_o <= '1';
 			when done =>
-				end_o    <= '1';
+				end_o <= '1';
 				we_key_o <= '0';
 			when others =>
-				end_o    <= '0';
+				end_o <= '0';
 				we_key_o <= '0';
 		end case;
 	end process out_comb;

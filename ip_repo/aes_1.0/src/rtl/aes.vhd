@@ -91,39 +91,32 @@ architecture aes_arch of aes is
 	end component;
 
 	signal resetb_s : std_logic;
-	signal invb_s   : std_logic;
-	signal done_s   : std_logic;
+	signal invb_s : std_logic;
+	signal done_s : std_logic;
 
 	signal en_mixcolumns_s : std_logic;
-	signal en_round_s      : std_logic;
-	signal en_count_s      : std_logic;
-	signal en_out_s        : std_logic;
-	signal we_data_s       : std_logic;
-	signal data_src_s      : std_logic;
-	signal up_count_s      : std_logic;
+	signal en_round_s : std_logic;
+	signal en_count_s : std_logic;
+	signal en_out_s : std_logic;
+	signal we_data_s : std_logic;
+	signal data_src_s : std_logic;
+	signal up_count_s : std_logic;
 
 	signal start_keyexp_s : std_logic;
-	signal end_keyexp_s   : std_logic;
+	signal end_keyexp_s : std_logic;
 
-	signal count_s, init_count_s                              : bit4;
+	signal count_s, init_count_s : bit4;
 	signal input_data_s, round_data_s, reg_data_s, out_data_s : bit128;
-	signal key_s                                              : bit128;
+	signal key_s : bit128;
 
 begin
-
-	init_count_s <= x"0" when up_count_s = '1' else
-		x"a";
-
-	data_o <= reg_data_s when done_s = '1' else
-		out_data_s;
-
-	input_data_s <= data_i when data_src_s = '1' else
-		round_data_s;
-
+	init_count_s <= x"0" when up_count_s = '1' else x"a";
 	resetb_s <= not reset_i;
-
 	invb_s <= not inv_i;
 
+	input_data_s <= data_i when data_src_s = '1' else round_data_s;
+
+	data_o <= reg_data_s when done_s = '1' else out_data_s;
 	done_o <= done_s;
 
 	out_reg : state_reg

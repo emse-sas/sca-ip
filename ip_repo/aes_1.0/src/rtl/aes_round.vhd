@@ -60,10 +60,10 @@ architecture aes_round_arch of aes_round is
 	end component;
 
 	signal data_s, subbytes_s, shiftrows_s, mixcolumns_s, addroundkey_s : state_t;
-	signal key_s                                                        : state_t;
+	signal key_s : state_t;
 
 begin
-	key_s  <= bit128_to_state(key_i);
+	key_s <= bit128_to_state(key_i);
 	data_s <= bit128_to_state(data_i);
 	data_o <= state_to_bit128(addroundkey_s);
 

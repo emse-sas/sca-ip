@@ -31,7 +31,7 @@ begin
 	row : for i in 0 to 3 generate
 		col : for j in 0 to 3 generate
 			-- left shift i times
-			data_s(i)(j)                 <= data_i(i)((j + i) mod 4);
+			data_s(i)(j) <= data_i(i)((j + i) mod 4);
 			data_inv_s(i)((j + i) mod 4) <= data_i(i)(j);
 		end generate;
 	end generate;

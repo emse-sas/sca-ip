@@ -23,8 +23,7 @@ architecture add_roundkey_arch of add_roundkey is
     signal data_s : state_t;
 
 begin
-    data_o <= data_s when en_i = '1' else
-        data_i;
+    data_o <= data_s when en_i = '1' else data_i;
 
     row : for i in 0 to 3 generate
         col : for j in 0 to 3 generate

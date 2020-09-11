@@ -25,11 +25,11 @@ end entity key_expander;
 
 architecture key_expander_arch of key_expander is
 
-	signal key_s  : word_t;
-	signal rot_s  : word_t;
-	signal sub_s  : word_t;
-	signal xor_s  : word_t;
-	signal mix_s  : state_t;
+	signal key_s : word_t;
+	signal rot_s : word_t;
+	signal sub_s : word_t;
+	signal xor_s : word_t;
+	signal mix_s : state_t;
 	signal rcon_s : col_state_t;
 
 begin

@@ -23,11 +23,16 @@
 #define XFIFO_MODE_SW XFIFO_STATUS_NULL_MASK
 #define XFIFO_MODE_HW XFIFO_STATUS_MODE_MASK
 
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+
+typedef void (*XFIFO_WrAction)(void);
+
 typedef struct
 {
     u16 DeviceId;
     u32 BaseAddr;
     u32 Depth;
+    u32 Width;
 } XFIFO_Config;
 
 typedef struct
@@ -35,6 +40,10 @@ typedef struct
     XFIFO_Config Config;
     u32 IsReady;
     u32 IsStarted;
+    u32 IsEmpty;
+    u32 IsFull;
+    u32 Mode;
+    u32 Count;
 } XFIFO;
 
 /**
@@ -88,21 +97,36 @@ typedef struct
                    XFIFO_SetStatus0(XFIFO_STATUS_WRITE_MASK, \
                                     XFIFO_ReadReg((BaseAddr), XFIFO_STATUS_WR_OFFSET)))
 
+#define XFIFO_StartReset(BaseAddr, Mode) \
+    XFIFO_WriteReg(                      \
+        (BaseAddr),                      \
+        XFIFO_STATUS_WR_OFFSET,          \
+        XFIFO_SetStatus1(XFIFO_STATUS_RESET_MASK, (Mode)))
 
+#define XFIFO_StopReset(BaseAddr)                 \
+    XFIFO_WriteReg(                               \
+        (BaseAddr),                               \
+        XFIFO_STATUS_WR_OFFSET,                   \
+        XFIFO_SetStatus0(XFIFO_STATUS_RESET_MASK, \
+                         XFIFO_ReadReg((BaseAddr), XFIFO_STATUS_WR_OFFSET)))
+
+#define XFIFO_SetCount(BaseAddr, Count)   \
+    XFIFO_WriteReg((BaseAddr),            \
+                   XFIFO_COUNT_IN_OFFSET, \
+                   (Count))
+
+#define XFIFO_GetCount(BaseAddr) \
+    XFIFO_ReadReg((BaseAddr),    \
+                  XFIFO_COUNT_OUT_OFFSET)
 
 XFIFO_Config XFIFO_ConfigTable[];
 
-int XFIFO_CfgInitialize(XFIFO *InstancePtr, XFIFO_Config *ConfigPtr);
+int XFIFO_CfgInitialize(XFIFO *InstancePtr, XFIFO_Config *ConfigPtr, UINTPTR EffectiveAddress);
 
 /**
  * @brief Flushes the FIFO
  */
-void XFIFO_Reset(XFIFO *InstancePtr, u32 Mode);
-
-/**
- * @brief Pops a single value from the FIFO
- */
-uint32_t XFIFO_Pop(XFIFO *InstancePtr);
+void XFIFO_Reset(XFIFO *InstancePtr);
 
 /**
  * @brief Pops all the values contained in the FIFO
@@ -112,8 +136,8 @@ uint32_t XFIFO_Pop(XFIFO *InstancePtr);
  * @param End Ending index.
  * @return number of elements read until the FIFO is empty or `XFIFO_ERR_NONE`
  */
-int XFIFO_Read(XFIFO *InstancePtr, u32 Data[], u32 Start, u32 End);
+u32 XFIFO_Read(XFIFO *InstancePtr, u32 Data[], u32 Start, u32 End, u32 Words);
 
-void XFIFO_WaitFull(XFIFO *InstancePtr);
+u32 XFIFO_Write(XFIFO *InstancePtr, u32 End, XFIFO_WrAction Action);
 
 #endif //XFIFO_H

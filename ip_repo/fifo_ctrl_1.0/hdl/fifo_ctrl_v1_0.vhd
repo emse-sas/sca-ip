@@ -2,30 +2,32 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity fifo_controller_v1_0 is
+entity fifo_ctrl_v1_0 is
 	generic (
 		-- Users to add parameters here
 
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
-		depth_g : integer := 8192;
+		depth_g : positive := 8192;
+		width_g : positive := 32;
 
 		-- Parameters of Axi Slave Bus Interface S_AXI
 		C_S_AXI_DATA_WIDTH : integer := 32;
-		C_S_AXI_ADDR_WIDTH : integer := 4
+		C_S_AXI_ADDR_WIDTH : integer := 5
 	);
 	port (
 		-- Users to add ports here
-
-		clock_i : in std_logic;
-		empty_i : in std_logic;
-		full_i  : in std_logic;
-		start_i : in std_logic;
-		done_i  : in std_logic;
-		data_i  : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-		reset_o : out std_logic;
-		write_o : out std_logic;
-		read_o  : out std_logic;
+		clock_rd_i : in std_logic;
+		clock_wr_i : in std_logic;
+		empty_i    : in std_logic;
+		full_i     : in std_logic;
+		start_i    : in std_logic;
+		done_i     : in std_logic;
+		data_i     : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+		reset_o    : out std_logic;
+		write_o    : out std_logic;
+		read_o     : out std_logic;
+		count_o    : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 
 		-- User ports ends
 		-- Do not modify the ports beyond this line
@@ -52,26 +54,32 @@ entity fifo_controller_v1_0 is
 		s_axi_rvalid  : out std_logic;
 		s_axi_rready  : in std_logic
 	);
-end fifo_controller_v1_0;
+end fifo_ctrl_v1_0;
 
-architecture arch_imp of fifo_controller_v1_0 is
+architecture arch_imp of fifo_ctrl_v1_0 is
 
 	-- component declaration
-	component fifo_controller_v1_0_S_AXI is
+	component fifo_ctrl_v1_0_S_AXI is
 		generic (
+			depth_g : positive := 8192;
+			width_g : positive := 32;
+
 			C_S_AXI_DATA_WIDTH : integer := 32;
-			C_S_AXI_ADDR_WIDTH : integer := 4
+			C_S_AXI_ADDR_WIDTH : integer := 5
 		);
 		port (
-			clock_i       : in std_logic;
-			empty_i       : in std_logic;
-			full_i        : in std_logic;
-			start_i       : in std_logic;
-			done_i        : in std_logic;
-			data_i        : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-			reset_o       : out std_logic;
-			write_o       : out std_logic;
-			read_o        : out std_logic;
+			clock_rd_i : in std_logic;
+			clock_wr_i : in std_logic;
+			empty_i    : in std_logic;
+			full_i     : in std_logic;
+			start_i    : in std_logic;
+			done_i     : in std_logic;
+			data_i     : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+			reset_o    : out std_logic;
+			write_o    : out std_logic;
+			read_o     : out std_logic;
+			count_o    : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+
 			S_AXI_ACLK    : in std_logic;
 			S_AXI_ARESETN : in std_logic;
 			S_AXI_AWADDR  : in std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
@@ -94,18 +102,21 @@ architecture arch_imp of fifo_controller_v1_0 is
 			S_AXI_RVALID  : out std_logic;
 			S_AXI_RREADY  : in std_logic
 		);
-	end component fifo_controller_v1_0_S_AXI;
+	end component fifo_ctrl_v1_0_S_AXI;
 
 begin
 
 	-- Instantiation of Axi Bus Interface S_AXI
-	fifo_controller_v1_0_S_AXI_inst : fifo_controller_v1_0_S_AXI
+	fifo_ctrl_v1_0_S_AXI_inst : fifo_ctrl_v1_0_S_AXI
 	generic map(
+		depth_g            => depth_g,
+		width_g            => width_g,
 		C_S_AXI_DATA_WIDTH => C_S_AXI_DATA_WIDTH,
 		C_S_AXI_ADDR_WIDTH => C_S_AXI_ADDR_WIDTH
 	)
 	port map(
-		clock_i       => clock_i,
+		clock_rd_i    => clock_rd_i,
+		clock_wr_i    => clock_wr_i,
 		empty_i       => empty_i,
 		full_i        => full_i,
 		start_i       => start_i,
@@ -114,6 +125,7 @@ begin
 		reset_o       => reset_o,
 		read_o        => read_o,
 		write_o       => write_o,
+		count_o       => count_o,
 		S_AXI_ACLK    => s_axi_aclk,
 		S_AXI_ARESETN => s_axi_aresetn,
 		S_AXI_AWADDR  => s_axi_awaddr,

@@ -33,7 +33,7 @@ begin
 
     row : for i in 0 to 3 generate
         col : for j in 0 to 3 generate
-            data_s(i)(j)     <= sbox_c(to_integer(unsigned(data_i(i)(j))));
+            data_s(i)(j) <= sbox_c(to_integer(unsigned(data_i(i)(j))));
             data_inv_s(i)(j) <= inv_sbox_c(to_integer(unsigned(data_i(i)(j))));
         end generate col;
     end generate row;
