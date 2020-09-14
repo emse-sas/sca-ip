@@ -15,11 +15,11 @@
 #define XTDC_Delay_64(fine, coarse) \
     ((((u64)(coarse) << 32) | ((u64)(fine) & 0xffffffff)))
 #define XTDC_Fine_Mask(id) \
-    ((u32)((0xfffffff0 << (4 * (id))) | (0x0ffffff >> (4 * (4 - (id) + 2)))))
+    ~((u32)(0x0000000f << (4 * (id))))
 #define XTDC_Coarse_Mask(id) \
-    ((u32)((0xfffffffc << (2 * (id))) | (0xcffffff >> (2 * (4 - (id) + 8)))))
+    ~((u32)(0x00000003 << (2 * (id))))
 #define XTDC_Weight_Mask(id) \
-    ((u32)((0xffffff00 << (8 * (id))) | (0x00ffffff >> (8 * (4 - (id) - 1)))))
+    ~((u32)(0x000000ff << (8 * (id))))
 #define XTDC_Weight(weights, id) \
     ((u32)(((weights) & ~XTDC_Weight_Mask(id)) >> (8 * (id))))
 

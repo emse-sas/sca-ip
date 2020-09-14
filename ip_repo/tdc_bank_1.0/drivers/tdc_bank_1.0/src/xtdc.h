@@ -46,8 +46,11 @@ typedef struct
 #define XTDC_ReadRaw(BaseAddr) \
     XTDC_ReadReg((BaseAddr), XTDC_RAW_OFFSET)
 
-#define XTDC_ReadWeight(BaseAddr, Id) \
-    Id != -1 ? XTDC_Weight(XTDC_ReadReg((BaseAddr), XTDC_W0_OFFSET), (Id)) : XTDC_ReadReg((BaseAddr), XTDC_W0_OFFSET)
+#define XTDC_ReadAll(BaseAddr, Offset) \
+    XTDC_ReadReg((BaseAddr), (Offset) * 4)
+
+#define XTDC_Read(BaseAddr, Id) \
+    XTDC_Weight(XTDC_ReadReg(InstancePtr->Config.BaseAddr, ((Id) / 4) * 4), (Id % 4))
 
 XTDC_Config XTDC_ConfigTable[];
 

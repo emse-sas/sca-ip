@@ -14,69 +14,64 @@ entity fifo_fsm is
 		read_o    : out std_logic;
 		reset_o   : out std_logic;
 		en_o      : out std_logic;
+		up_o      : out std_logic;
 		clk_sel_o : out std_logic
 	);
 end fifo_fsm;
 
 architecture fifo_fsm_arch of fifo_fsm is
 
-	type fifo_state_t is (hold, start_pop, start_push, pop, push, done_push, done_pop, reset);
+	type fifo_state_t is (hold, pop, push, popped, reset);
 
 	signal current_state, next_state : fifo_state_t;
 begin
 
-	state_reg : process (clock_i, reset_i, locked_i, full_i, write_i)
+	state_reg : process (clock_i, reset_i)
 	begin
 		if reset_i = '1' then
 			current_state <= reset;
-		elsif locked_i = '1' and write_i = '1' then
-			current_state <= done_push;
-		elsif full_i = '1' and write_i = '1' then
-			current_state <= done_push;
 		elsif rising_edge(clock_i) then
 			current_state <= next_state;
 		end if;
 	end process state_reg;
 
-	state_comb : process (current_state, read_i, write_i, empty_i, full_i)
+	state_comb : process (current_state, read_i, write_i, empty_i, full_i, locked_i)
 	begin
 		case current_state is
 			when reset =>
 				next_state <= hold;
 			when hold =>
-				if read_i = '1' and empty_i = '0' then
-					next_state <= start_pop;
-				elsif write_i = '1' and full_i = '0' then
-					next_state <= start_push;
+				if locked_i = '0' then
+					if read_i = '1' and empty_i = '0' then
+						next_state <= pop;
+					elsif write_i = '1' and full_i = '0' then
+						next_state <= push;
+					else
+						next_state <= hold;
+					end if;
 				else
 					next_state <= hold;
 				end if;
-			when start_push =>
-				next_state <= push;
-			when start_pop =>
-				next_state <= pop;
 			when pop =>
-				next_state <= done_pop;
+				next_state <= popped;
 			when push =>
-				if write_i = '0' then
-					next_state <= done_push;
+				if write_i = '0' or full_i = '1' or locked_i = '1' then
+					next_state <= hold;
 				else
 					next_state <= push;
 				end if;
-			when done_push =>
-				next_state <= hold;
-			when done_pop =>
+			when popped =>
 				if read_i = '0' then
 					next_state <= hold;
 				else
-					next_state <= done_pop;
+					next_state <= popped;
 				end if;
 			when others =>
 				next_state <= reset;
 		end case;
 	end process state_comb;
 
-	out_comb : process (current_state)
+	out_comb : process (current_state, locked_i, full_i)
 	begin
 		case current_state is
 			when reset =>
@@ -84,54 +79,42 @@ begin
 				read_o <= '0';
 				reset_o <= '1';
 				en_o <= '0';
+				up_o <= '0';
 				clk_sel_o <= '0';
 			when hold =>
 				write_o <= '0';
 				read_o <= '0';
 				reset_o <= '0';
 				en_o <= '0';
-				clk_sel_o <= '0';
-			when start_push =>
-				write_o <= '0';
-				read_o <= '0';
-				reset_o <= '0';
-				en_o <= '1';
-				clk_sel_o <= '1';
-			when start_pop =>
-				write_o <= '0';
-				read_o <= '0';
-				reset_o <= '0';
-				en_o <= '1';
+				up_o <= '1';
 				clk_sel_o <= '0';
 			when pop =>
 				write_o <= '0';
 				read_o <= '1';
 				reset_o <= '0';
 				en_o <= '1';
+				up_o <= '0';
 				clk_sel_o <= '0';
 			when push =>
-				write_o <= '1';
+				write_o <= not locked_i and not full_i;
 				read_o <= '0';
 				reset_o <= '0';
-				en_o <= '1';
+				en_o <= not locked_i and not full_i;
+				up_o <= '1';
 				clk_sel_o <= '1';
-			when done_push =>
+			when popped =>
 				write_o <= '0';
 				read_o <= '0';
 				reset_o <= '0';
 				en_o <= '0';
-				clk_sel_o <= '0';
-			when done_pop =>
-				write_o <= '0';
-				read_o <= '0';
-				reset_o <= '0';
-				en_o <= '0';
+				up_o <= '0';
 				clk_sel_o <= '0';
 			when others =>
 				write_o <= '0';
 				read_o <= '0';
 				reset_o <= '0';
 				en_o <= '0';
+				up_o <= '0';
 				clk_sel_o <= '0';
 		end case;
 	end process out_comb;

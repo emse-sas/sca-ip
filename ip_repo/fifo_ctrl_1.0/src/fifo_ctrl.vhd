@@ -47,6 +47,7 @@ architecture fifo_ctrl_arch of fifo_ctrl is
 			read_o    : out std_logic;
 			reset_o   : out std_logic;
 			en_o      : out std_logic;
+			up_o      : out std_logic;
 			clk_sel_o : out std_logic
 		);
 	end component;
@@ -58,19 +59,18 @@ architecture fifo_ctrl_arch of fifo_ctrl is
 		port (
 			clock_i  : in std_logic;
 			reset_i  : in std_logic;
-			up_i     : in std_logic;
 			en_i     : in std_logic;
+			up_i     : in std_logic;
 			target_i : in std_logic_vector(width_g - 1 downto 0);
 			count_o  : out std_logic_vector(width_g - 1 downto 0);
 			locked_o : out std_logic
 		);
 	end component;
 
-	signal clock_s, write_s, read_s, locked_s, en_s, clk_sel_s : std_logic;
+	signal clock_s, read_s, locked_s, en_s, clk_sel_s, up_s : std_logic;
 begin
 	clock_s <= clock_wr_i when clk_sel_s = '1' else clock_rd_i;
-	write_o <= write_s;
-	
+
 	counter : fifo_counter
 	generic map(
 		width_g => width_g
@@ -78,7 +78,7 @@ begin
 	port map(
 		clock_i  => clock_s,
 		reset_i  => reset_i,
-		up_i     => write_s,
+		up_i     => up_s,
 		en_i     => en_s,
 		target_i => count_i,
 		count_o  => count_o,
@@ -94,10 +94,11 @@ begin
 		empty_i  => empty_i,
 		full_i   => full_i,
 		locked_i => locked_s,
-		write_o  => write_s,
+		write_o  => write_o,
 		read_o   => read_o,
 		reset_o  => reset_o,
 		en_o     => en_s,
+		up_o     => up_s,
 		clk_sel_o => clk_sel_s
 	);
 

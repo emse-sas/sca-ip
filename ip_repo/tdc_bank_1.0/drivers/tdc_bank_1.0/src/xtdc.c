@@ -88,7 +88,8 @@ u64 XTDC_Calibrate(XTDC *InstancePtr, int iterations, int verbose)
 
     if (verbose)
     {
-        printf("target: %d\n\r", target);
+        printf("target: %u\n", target / iterations);
+        printf("iterations: %u\n", iterations);
     }
 
     XTDC_WriteDelay(InstancePtr, -1, 0, 0);
@@ -96,7 +97,7 @@ u64 XTDC_Calibrate(XTDC *InstancePtr, int iterations, int verbose)
     {
         if (verbose)
         {
-            printf("id: %d\n\r", id);
+            printf("id: %d\n", id);
         }
         best_value = UINT32_MAX;
         XTDC_WriteReg(addr, XTDC_SEL_OFFSET, id);
@@ -115,7 +116,7 @@ u64 XTDC_Calibrate(XTDC *InstancePtr, int iterations, int verbose)
                 }
                 if (verbose)
                 {
-                    printf("(%lx, %lx): %5.2f (p: %5.2f)\n\r", fine, coarse, (float)value / iterations, (float)polarity / iterations);
+                    printf("(%lx, %lx): %5.2f (p: %5.2f)\n", fine, coarse, (float)value / iterations, (float)polarity / iterations);
                 }
                 if ((DIST(target, value) < DIST(target, best_value)) && polarity > -iterations / 2)
                 {
@@ -124,6 +125,10 @@ u64 XTDC_Calibrate(XTDC *InstancePtr, int iterations, int verbose)
                     best_coarse = coarse;
                 }
             }
+        }
+        if(verbose)
+        {
+            printf("best: (%lx, %lx)\n", best_fine, best_coarse);
         }
         XTDC_WriteDelay(InstancePtr, id, best_fine, best_coarse);
     }

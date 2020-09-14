@@ -21,7 +21,8 @@ architecture fifo_ctrl_tb_arch of fifo_ctrl_tb is
 
     signal clock_rd_s : std_logic := '0';
     signal clock_wr_s : std_logic := '0';
-    signal full_s : std_logic := '1';
+    signal full_s : std_logic := '0';
+    signal empty_s : std_logic := '1';
     signal count_is : std_logic_vector(width_c - 1 downto 0) := "0010";
     signal count_os : std_logic_vector(width_c - 1 downto 0);
 
@@ -39,7 +40,7 @@ begin
             reset_i    => reset_is,
             read_i     => read_is,
             write_i    => write_is,
-            empty_i    => '0',
+            empty_i    => empty_s,
             full_i     => full_s,
             count_i    => count_is,
             write_o    => write_os,
@@ -61,13 +62,16 @@ begin
         write_is <= '0';
         wait for 400 ns;
         
-        full_s <= not full_s;
+
 
         wait for 300 ns;
         write_is <= '1';
-        wait for 200 ns;
+        wait for 400 ns;
         write_is <= '0';
         wait for 400 ns;
+        
+        full_s <= '1';
+        empty_s <= '0';
 
         wait for 200 ns;
         count_is <= "0000";
@@ -77,6 +81,8 @@ begin
         wait for 800 ns;
         read_is <= '0';
 
+        full_s <= '0';
+
         wait for 800 ns;
         read_is <= '1';
         wait for 800 ns;
@@ -86,6 +92,13 @@ begin
         read_is <= '1';
         wait for 800 ns;
         read_is <= '0';
+
+        wait for 800 ns;
+        read_is <= '1';
+        wait for 800 ns;
+        read_is <= '0';
+
+        empty_s <= '1';
 
         wait for 800 ns;
         read_is <= '1';

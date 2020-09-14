@@ -56,6 +56,7 @@ u32 XFIFO_Read(XFIFO *InstancePtr, u32 Data[], u32 Start, u32 End, u32 Words)
 
     u32 read = 0, count = InstancePtr->Count;
     u32 addr = InstancePtr->Config.BaseAddr;
+    u32 x0;
     XFIFO_SetCount(addr, 0);
     InstancePtr->IsStarted = XIL_COMPONENT_IS_STARTED;
 
@@ -64,18 +65,19 @@ u32 XFIFO_Read(XFIFO *InstancePtr, u32 Data[], u32 Start, u32 End, u32 Words)
         XFIFO_StartRead(addr);
         if (read >= Start)
         {
-            Data[read - Start] = XFIFO_ReadReg(addr, XFIFO_DATA0_OFFSET);
+            x0 = Words * read - Start;
+            Data[x0] = XFIFO_ReadReg(addr, XFIFO_DATA0_OFFSET);
             if (Words > 1)
             {
-                Data[read - Start + 1] = XFIFO_ReadReg(addr, XFIFO_DATA1_OFFSET);
+                Data[x0 + 1] = XFIFO_ReadReg(addr, XFIFO_DATA1_OFFSET);
             }
             if (Words > 2)
             {
-                Data[read - Start + 2] = XFIFO_ReadReg(addr, XFIFO_DATA2_OFFSET);
+                Data[x0 + 2] = XFIFO_ReadReg(addr, XFIFO_DATA2_OFFSET);
             }
             if (Words > 3)
             {
-                Data[read - Start + 3] = XFIFO_ReadReg(addr, XFIFO_DATA3_OFFSET);
+                Data[x0 + 3] = XFIFO_ReadReg(addr, XFIFO_DATA3_OFFSET);
             }
         }
         XFIFO_StopRead(addr);

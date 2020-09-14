@@ -18,7 +18,7 @@ entity fifo_counter is
 end fifo_counter;
 
 architecture fifo_counter_arch of fifo_counter is
-    type counter_state_t is (reset, hold, run, locked);
+    type counter_state_t is (reset, run, locked);
     signal current_count, next_count : unsigned(width_g - 1 downto 0);
     signal current_target, next_target : unsigned(width_g - 1 downto 0);
     signal current_state, next_state : counter_state_t;
@@ -44,22 +44,15 @@ begin
     begin
         case current_state is
             when reset =>
-                next_state <= hold;
+                next_state <= run;
                 next_target <= current_target;
                 next_count <= current_count;
                 
-            when hold =>
-                if en_i = '1' then
-                    next_state <= run;
-                else
-                    next_state <= hold;
-                end if;
-                next_count <= current_count;
-                next_target <= unsigned(target_i);
-
             when run =>
                 if en_i = '1' then
-                    if current_count = current_target - 1 or current_count = current_target + 1 then
+                    if current_count = current_target - 1 and up_i = '1' then
+                        next_state <= locked;
+                    elsif current_count = current_target + 1 and up_i = '0' then
                         next_state <= locked;
                     else
                         next_state <= run;
@@ -71,14 +64,14 @@ begin
                         next_count <= current_count - 1;
                     end if;
                 else
-                    next_state <= hold;
+                    next_state <= run;
                     next_count <= current_count;
                 end if;
-                next_target <= current_target;
+                next_target <= unsigned(target_i);
 
             when locked =>
                 if unsigned(target_i) /= current_target then
-                    next_state <= hold;
+                    next_state <= run;
                 else
                     next_state <= locked;
                 end if;

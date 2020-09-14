@@ -23,7 +23,7 @@ entity fifo_ctrl_v1_0 is
 		full_i     : in std_logic;
 		start_i    : in std_logic;
 		done_i     : in std_logic;
-		data_i     : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+		data_i     : in std_logic_vector(width_g - 1 downto 0);
 		reset_o    : out std_logic;
 		write_o    : out std_logic;
 		read_o     : out std_logic;
@@ -74,7 +74,7 @@ architecture arch_imp of fifo_ctrl_v1_0 is
 			full_i     : in std_logic;
 			start_i    : in std_logic;
 			done_i     : in std_logic;
-			data_i     : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+			data_i     : in std_logic_vector(width_g - 1 downto 0);
 			reset_o    : out std_logic;
 			write_o    : out std_logic;
 			read_o     : out std_logic;
