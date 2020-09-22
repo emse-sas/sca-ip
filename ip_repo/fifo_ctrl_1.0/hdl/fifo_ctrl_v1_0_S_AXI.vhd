@@ -8,7 +8,7 @@ entity fifo_ctrl_v1_0_S_AXI is
 		-- Users to add parameters here
 		depth_g : positive := 8192;
 		width_g : positive := 32;
-
+		state_width_g  : positive range 1 to 32 := 32;
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 

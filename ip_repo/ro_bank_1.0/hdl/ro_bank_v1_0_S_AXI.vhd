@@ -9,8 +9,9 @@ use work.all;
 entity ro_bank_v1_0_S_AXI is
 	generic (
 		-- Users to add parameters here
-		count_ro_g     : positive := 8;
-		sampling_len_g : positive := 8;
+		count_ro_g     : positive               := 8;
+		sampling_len_g : positive               := 8;
+		state_width_g  : positive range 1 to 32 := 32;
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
@@ -22,9 +23,9 @@ entity ro_bank_v1_0_S_AXI is
 	port (
 		-- Users to add ports here
 		clock_i  : in std_logic;
-		state_o  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-		counts_o : out std_logic_vector(count_ro_g * C_S_AXI_DATA_WIDTH - 1 downto 0);
-		count_o  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+		state_o  : out std_logic_vector(state_width_g - 1 downto 0);
+		counts_o : out std_logic_vector(count_ro_g * state_width_g - 1 downto 0);
+		count_o  : out std_logic_vector(state_width_g - 1 downto 0);
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 
@@ -115,9 +116,12 @@ architecture arch_imp of ro_bank_v1_0_S_AXI is
 	------------------------------------------------
 	---- Signals for user logic register space example
 
-	signal state_s : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal counts_s : std_logic_vector(count_ro_g * C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal count_s : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	constant sel_width_c : positive := integer(ceil(log2(real(count_ro_g))));
+
+	signal state_s : std_logic_vector(state_width_g - 1 downto 0);
+	signal counts_s : std_logic_vector(count_ro_g * state_width_g - 1 downto 0);
+	signal count_s : std_logic_vector(state_width_g - 1 downto 0);
+	signal sel_s : std_logic_vector(sel_width_c - 1 downto 0);
 
 	--------------------------------------------------
 	---- Number of Slave Registers 8
@@ -410,9 +414,9 @@ begin
 		loc_addr := axi_araddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
 		case loc_addr is
 			when b"000" =>
-				reg_data_out <= slv_reg0;
+				reg_data_out <= count_s(C_S_AXI_DATA_WIDTH - 1 downto 0);
 			when b"001" =>
-				reg_data_out <= slv_reg1;
+				reg_data_out <= state_s(C_S_AXI_DATA_WIDTH - 1 downto 0);
 			when b"010" =>
 				reg_data_out <= slv_reg2;
 			when b"011" =>
@@ -448,22 +452,25 @@ begin
 		end if;
 	end process;
 	-- Add user logic here
+	count_o <= count_s;
 	counts_o <= counts_s;
-	slv_reg0 <= count_s;
-	slv_reg1 <= state_s;
+	state_o <= state_s;
+
+	slv_reg2(sel_width_c - 1 downto 0) <= sel_s;
+	slv_reg2(C_S_AXI_DATA_WIDTH - 1 downto sel_width_c) <= (others => '0');
 
 	top : entity work.ro_bank(ro_bank_arch)
-	generic map(
-		sampling_len_g => sampling_len_g,
-		width_g        => C_S_AXI_DATA_WIDTH
-	)
-	port map(
-		clock_i  => clock_i,
-		sel_i    => slv_reg6(integer(ceil(log2(real(count_ro_g)))) - 1 downto 0),
-		state_o  => state_s(sampling_len_g - 1 downto 0),
-		counts_o => counts_s,
-		count_o  => count_s
-	);
+		generic map(
+			sampling_len_g => sampling_len_g,
+			state_width_g  => state_width_g
+		)
+		port map(
+			clock_i  => clock_i,
+			sel_i    => sel_s,
+			state_o  => state_s,
+			counts_o => counts_s,
+			count_o  => count_s
+		);
 	-- User logic ends
 
 end arch_imp;

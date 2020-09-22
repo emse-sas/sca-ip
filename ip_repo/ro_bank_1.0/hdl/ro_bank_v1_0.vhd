@@ -5,8 +5,9 @@ use ieee.numeric_std.all;
 entity ro_bank_v1_0 is
 	generic (
 		-- Users to add parameters here
-		count_ro_g     : positive := 8;
-		sampling_len_g : positive := 8;
+		count_ro_g     : positive               := 8;
+		sampling_len_g : positive               := 8;
+		state_width_g  : positive range 1 to 32 := 32;
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 		-- Parameters of Axi Slave Bus Interface S_AXI
@@ -16,9 +17,9 @@ entity ro_bank_v1_0 is
 	port (
 		-- Users to add ports here
 		clock_i  : in std_logic;
-		state_o  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-		counts_o : out std_logic_vector(count_ro_g * C_S_AXI_DATA_WIDTH - 1 downto 0);
-		count_o  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+		state_o  : out std_logic_vector(state_width_g - 1 downto 0);
+		counts_o : out std_logic_vector(count_ro_g * state_width_g - 1 downto 0);
+		count_o  : out std_logic_vector(state_width_g - 1 downto 0);
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 		-- Ports of Axi Slave Bus Interface S_AXI
@@ -51,16 +52,18 @@ architecture arch_imp of ro_bank_v1_0 is
 	-- component declaration
 	component ro_bank_v1_0_S_AXI is
 		generic (
-			count_ro_g         : positive := 8;
-			sampling_len_g     : positive := 8;
-			C_S_AXI_DATA_WIDTH : integer  := 32;
-			C_S_AXI_ADDR_WIDTH : integer  := 5
+			count_ro_g     : positive               := 8;
+			sampling_len_g : positive               := 8;
+			state_width_g  : positive range 1 to 32 := 32;
+
+			C_S_AXI_DATA_WIDTH : integer := 32;
+			C_S_AXI_ADDR_WIDTH : integer := 5
 		);
 		port (
 			clock_i  : in std_logic;
-			state_o  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-			counts_o : out std_logic_vector(count_ro_g * C_S_AXI_DATA_WIDTH - 1 downto 0);
-			count_o  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+			state_o  : out std_logic_vector(state_width_g - 1 downto 0);
+			counts_o : out std_logic_vector(count_ro_g * state_width_g - 1 downto 0);
+			count_o  : out std_logic_vector(state_width_g - 1 downto 0);
 
 			S_AXI_ACLK    : in std_logic;
 			S_AXI_ARESETN : in std_logic;
@@ -93,6 +96,7 @@ begin
 	generic map(
 		count_ro_g     => count_ro_g,
 		sampling_len_g => sampling_len_g,
+		state_wdith_g  => state_width_g,
 
 		C_S_AXI_DATA_WIDTH => C_S_AXI_DATA_WIDTH,
 		C_S_AXI_ADDR_WIDTH => C_S_AXI_ADDR_WIDTH
