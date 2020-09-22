@@ -3,13 +3,14 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.math_real.all;
 
-entity tdc_bank_v1_0_S_AXI is
+library work;
+use work.all;
+
+entity ro_bank_v1_0_S_AXI is
 	generic (
 		-- Users to add parameters here
-		coarse_len_g   : positive;
-		fine_len_g     : positive;
-		sampling_len_g : positive;
-		count_tdc_g    : positive;
+		count_ro_g     : positive := 8;
+		sampling_len_g : positive := 8;
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
@@ -20,12 +21,10 @@ entity tdc_bank_v1_0_S_AXI is
 	);
 	port (
 		-- Users to add ports here
-		clock_i   : in std_logic;
-		delta_i   : in std_logic;
-		delta_o   : out std_logic_vector(count_tdc_g - 1 downto 0);
-		weights_o : out std_logic_vector(8 * count_tdc_g - 1 downto 0);
-		raw_o     : out std_logic_vector(4 * sampling_len_g - 1 downto 0);
-		weight_o  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+		clock_i  : in std_logic;
+		state_o  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+		counts_o : out std_logic_vector(count_ro_g * C_S_AXI_DATA_WIDTH - 1 downto 0);
+		count_o  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 
@@ -90,9 +89,9 @@ entity tdc_bank_v1_0_S_AXI is
 		-- accept the read data and response information.
 		S_AXI_RREADY : in std_logic
 	);
-end tdc_bank_v1_0_S_AXI;
+end ro_bank_v1_0_S_AXI;
 
-architecture arch_imp of tdc_bank_v1_0_S_AXI is
+architecture arch_imp of ro_bank_v1_0_S_AXI is
 
 	-- AXI4LITE signals
 	signal axi_awaddr : std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
@@ -116,31 +115,9 @@ architecture arch_imp of tdc_bank_v1_0_S_AXI is
 	------------------------------------------------
 	---- Signals for user logic register space example
 
-	signal coarse_delay_s : std_logic_vector(2 * count_tdc_g - 1 downto 0);
-	signal fine_delay_s : std_logic_vector(4 * count_tdc_g - 1 downto 0);
-	signal weights_s : std_logic_vector(4 * C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal raw_s : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal weight_s : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-
-	component tdc_bank
-		generic (
-			coarse_len_g   : positive;
-			fine_len_g     : positive;
-			sampling_len_g : positive;
-			count_tdc_g    : positive
-		);
-		port (
-			clock_i        : in std_logic;
-			delta_i        : in std_logic;
-			sel_i          : in std_logic_vector(integer(ceil(log2(real(count_tdc_g)))) - 1 downto 0);
-			coarse_delay_i : in std_logic_vector(2 * count_tdc_g - 1 downto 0);
-			fine_delay_i   : in std_logic_vector(4 * count_tdc_g - 1 downto 0);
-			delta_o        : out std_logic_vector(count_tdc_g - 1 downto 0);
-			weights_o      : out std_logic_vector(8 * count_tdc_g - 1 downto 0);
-			raw_o          : out std_logic_vector(4 * sampling_len_g - 1 downto 0);
-			weight_o       : out std_logic_vector(31 downto 0)
-		);
-	end component;
+	signal state_s : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal counts_s : std_logic_vector(count_ro_g * C_S_AXI_DATA_WIDTH - 1 downto 0);
+	signal count_s : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 
 	--------------------------------------------------
 	---- Number of Slave Registers 8
@@ -426,20 +403,20 @@ begin
 	-- and the slave is ready to accept the read address.
 	slv_reg_rden <= axi_arready and S_AXI_ARVALID and (not axi_rvalid);
 
-	process (slv_reg0, slv_reg1, slv_reg2, slv_reg3, slv_reg4, slv_reg5, slv_reg6, slv_reg7, weights_s, axi_araddr, S_AXI_ARESETN, slv_reg_rden)
+	process (slv_reg0, slv_reg1, slv_reg2, slv_reg3, slv_reg4, slv_reg5, slv_reg6, slv_reg7, axi_araddr, S_AXI_ARESETN, slv_reg_rden)
 		variable loc_addr : std_logic_vector(OPT_MEM_ADDR_BITS downto 0);
 	begin
 		-- Address decoding for reading registers
 		loc_addr := axi_araddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
 		case loc_addr is
 			when b"000" =>
-				reg_data_out <= weights_s(C_S_AXI_DATA_WIDTH - 1 downto 0);
+				reg_data_out <= slv_reg0;
 			when b"001" =>
-				reg_data_out <= weights_s(2 * C_S_AXI_DATA_WIDTH - 1 downto C_S_AXI_DATA_WIDTH);
+				reg_data_out <= slv_reg1;
 			when b"010" =>
-				reg_data_out <= raw_s;
+				reg_data_out <= slv_reg2;
 			when b"011" =>
-				reg_data_out <= weight_s;
+				reg_data_out <= slv_reg3;
 			when b"100" =>
 				reg_data_out <= slv_reg4;
 			when b"101" =>
@@ -471,33 +448,22 @@ begin
 		end if;
 	end process;
 	-- Add user logic here
+	counts_o <= counts_s;
+	slv_reg0 <= count_s;
+	slv_reg1 <= state_s;
 
-	weights_o <= weights_s(8 * count_tdc_g - 1 downto 0);
-	weights_s(4 * C_S_AXI_DATA_WIDTH - 1 downto 8 * count_tdc_g) <= (others => '0');
-
-	raw_o <= raw_s(4 * sampling_len_g - 1 downto 0);
-	raw_s(C_S_AXI_DATA_WIDTH - 1 downto 4 * sampling_len_g) <= (others => '0');
-
-	weight_o <= weight_s;
-	top : tdc_bank
+	top : entity work.ro_bank(ro_bank_arch)
 	generic map(
-		coarse_len_g   => coarse_len_g,
-		fine_len_g     => fine_len_g,
 		sampling_len_g => sampling_len_g,
-		count_tdc_g    => count_tdc_g
+		width_g        => C_S_AXI_DATA_WIDTH
 	)
 	port map(
-		clock_i        => clock_i,
-		delta_i        => delta_i,
-		coarse_delay_i => slv_reg5(2 * count_tdc_g - 1 downto 0),
-		fine_delay_i   => slv_reg4(4 * count_tdc_g - 1 downto 0),
-		sel_i          => slv_reg6(integer(ceil(log2(real(count_tdc_g)))) - 1 downto 0),
-		delta_o        => delta_o,
-		weights_o      => weights_s(8 * count_tdc_g - 1 downto 0),
-		raw_o          => raw_s(4 * sampling_len_g - 1 downto 0),
-		weight_o       => weight_s
+		clock_i  => clock_i,
+		sel_i    => slv_reg6(integer(ceil(log2(real(count_ro_g)))) - 1 downto 0),
+		state_o  => state_s(sampling_len_g - 1 downto 0),
+		counts_o => counts_s,
+		count_o  => count_s
 	);
-
 	-- User logic ends
 
 end arch_imp;
