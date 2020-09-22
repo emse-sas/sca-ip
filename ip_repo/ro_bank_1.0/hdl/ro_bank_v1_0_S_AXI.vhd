@@ -462,7 +462,7 @@ begin
 	top : entity work.ro_bank(ro_bank_arch)
 		generic map(
 			sampling_len_g => sampling_len_g,
-			state_width_g  => state_width_g
+			width_g  => state_width_g
 		)
 		port map(
 			clock_i  => clock_i,

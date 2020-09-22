@@ -96,7 +96,7 @@ begin
 	generic map(
 		count_ro_g     => count_ro_g,
 		sampling_len_g => sampling_len_g,
-		state_wdith_g  => state_width_g,
+		state_width_g  => state_width_g,
 
 		C_S_AXI_DATA_WIDTH => C_S_AXI_DATA_WIDTH,
 		C_S_AXI_ADDR_WIDTH => C_S_AXI_ADDR_WIDTH

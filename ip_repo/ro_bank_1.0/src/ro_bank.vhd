@@ -8,12 +8,12 @@ entity ro_bank is
     generic (
         count_ro_g     : positive := 8;
         sampling_len_g : positive := 8;
-        width_g        : positive := 8
+        width_g        : positive := 32
     );
     port (
         clock_i  : in std_logic;
         sel_i    : in std_logic_vector(integer(ceil(log2(real(count_ro_g)))) - 1 downto 0);
-        state_o  : out std_logic_vector(sampling_len_g - 1 downto 0);
+        state_o  : out std_logic_vector(width_g - 1 downto 0);
         counts_o : out std_logic_vector(count_ro_g * width_g - 1 downto 0);
         count_o  : out std_logic_vector(width_g - 1 downto 0)
     );
@@ -93,6 +93,6 @@ begin
         count_o <= std_logic_vector(sum_v);
     end process; -- counts
 
-    state_o <= state_is(sampling_len_g * (to_integer(unsigned(sel_i)) + 1) - 1 downto sampling_len_g * to_integer(unsigned(sel_i)));
+    state_o <= state_os(width_g * (to_integer(unsigned(sel_i)) + 1) - 1 downto width_g * to_integer(unsigned(sel_i)));
 
 end ro_bank_arch; -- ro_bank_arch
