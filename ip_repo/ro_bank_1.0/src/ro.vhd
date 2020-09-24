@@ -28,6 +28,7 @@ architecture ro_arch of ro is
 
 	attribute dont_touch of clock_s, last_s : signal is "true";
 	attribute dont_touch of state_s : signal is "true";
+	attribute allow_combinatorial_loops of clock_s : signal is "true";
 
 	attribute dont_touch of oscillator : label is "true";
 	attribute allow_combinatorial_loops of oscillator : label is "true";

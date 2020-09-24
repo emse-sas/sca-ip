@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.math_real.all;
 
-entity state_coder is
+entity ro_coder is
     generic (
         sampling_len_g : positive := 8;
         width_g        : positive := 32
@@ -12,8 +12,8 @@ entity state_coder is
         state_i : in std_logic_vector(sampling_len_g - 1 downto 0);
         state_o : out std_logic_vector(width_g - 1 downto 0)
     );
-end state_coder;
-architecture state_coder_arch of state_coder is
+end ro_coder;
+architecture ro_coder_arch of ro_coder is
 
     constant sampling_len_c : unsigned(width_g - 1 downto 0) := to_unsigned(sampling_len_g, width_g);
 
@@ -38,4 +38,4 @@ begin
 
     end process; -- encoder
 
-end state_coder_arch; -- state_coder_arch
+end ro_coder_arch; -- ro_coder_arch

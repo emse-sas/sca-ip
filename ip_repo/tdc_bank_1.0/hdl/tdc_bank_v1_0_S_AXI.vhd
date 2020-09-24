@@ -479,6 +479,7 @@ begin
 	raw_s(C_S_AXI_DATA_WIDTH - 1 downto 4 * sampling_len_g) <= (others => '0');
 
 	weight_o <= weight_s;
+
 	top : tdc_bank
 	generic map(
 		coarse_len_g   => coarse_len_g,

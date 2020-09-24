@@ -1,3 +1,5 @@
+#include "xil_io.h"
+
 #define XTDC_WORD_SIZE 4
 
 #define XTDC_W0_OFFSET 0x00
