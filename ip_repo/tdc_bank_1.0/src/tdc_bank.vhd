@@ -86,8 +86,8 @@ begin
             sum_v := sum_v + weight_v(i);
         end loop; -- concat 
         weight_o <= std_logic_vector(sum_v);
-    end process; -- weigths
+        raw_o <= data_s(4 * sampling_len_g * (to_integer(unsigned(sel_i)) + 1) - 1 downto 4 * sampling_len_g * to_integer(unsigned(sel_i)));
 
-    raw_o <= data_s(4 * sampling_len_g * (to_integer(unsigned(sel_i)) + 1) - 1 downto 4 * sampling_len_g * to_integer(unsigned(sel_i)));
+    end process; -- weigths
 
 end tdc_bank_arch; -- tdc_bank_arch

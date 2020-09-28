@@ -13,8 +13,8 @@ int XRO_CfgInitialize(XRO *InstancePtr, XRO_Config *ConfigPtr)
     }
     InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
     InstancePtr->Config.BaseAddr = ConfigPtr->BaseAddr;
-    InstancePtr->Config.SamplingLen = ConfigPtr->SamplingLen;
-    InstancePtr->Config.CountRo = ConfigPtr->CountRo;
+    InstancePtr->Config.Depth = ConfigPtr->Depth;
+    InstancePtr->Config.Count = ConfigPtr->Count;
     InstancePtr->IsStarted = 0;
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 

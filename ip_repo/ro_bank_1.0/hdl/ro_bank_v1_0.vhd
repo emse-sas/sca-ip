@@ -2,12 +2,17 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+library rtl;
+use rtl.ro_pack.all;
+
 entity ro_bank_v1_0 is
 	generic (
 		-- Users to add parameters here
-		count_ro_g     : positive               := 8;
-		sampling_len_g : positive               := 8;
-		state_width_g  : positive range 1 to 32 := 32;
+		count_g : positive   := 2;
+		depth_g : positive   := 8;
+		width_g : positive   := 32;
+		mode_g  : string := "step";
+
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 		-- Parameters of Axi Slave Bus Interface S_AXI
@@ -16,10 +21,8 @@ entity ro_bank_v1_0 is
 	);
 	port (
 		-- Users to add ports here
-		clock_i  : in std_logic;
-		state_o  : out std_logic_vector(state_width_g - 1 downto 0);
-		counts_o : out std_logic_vector(count_ro_g * state_width_g - 1 downto 0);
-		count_o  : out std_logic_vector(state_width_g - 1 downto 0);
+		clock_i : in std_logic;
+		data_o  : out std_logic_vector(width_g - 1 downto 0);
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 		-- Ports of Axi Slave Bus Interface S_AXI
@@ -52,18 +55,17 @@ architecture arch_imp of ro_bank_v1_0 is
 	-- component declaration
 	component ro_bank_v1_0_S_AXI is
 		generic (
-			count_ro_g     : positive               := 8;
-			sampling_len_g : positive               := 8;
-			state_width_g  : positive range 1 to 32 := 32;
+			count_g : positive   := 2;
+			depth_g : positive   := 8;
+			width_g : positive   := 32;
+			mode_g  : string;
 
 			C_S_AXI_DATA_WIDTH : integer := 32;
 			C_S_AXI_ADDR_WIDTH : integer := 5
 		);
 		port (
-			clock_i  : in std_logic;
-			state_o  : out std_logic_vector(state_width_g - 1 downto 0);
-			counts_o : out std_logic_vector(count_ro_g * state_width_g - 1 downto 0);
-			count_o  : out std_logic_vector(state_width_g - 1 downto 0);
+			clock_i : in std_logic;
+			data_o  : out std_logic_vector(width_g - 1 downto 0);
 
 			S_AXI_ACLK    : in std_logic;
 			S_AXI_ARESETN : in std_logic;
@@ -94,18 +96,17 @@ begin
 	-- Instantiation of Axi Bus Interface S_AXI
 	ro_bank_v1_0_S_AXI_inst : ro_bank_v1_0_S_AXI
 	generic map(
-		count_ro_g     => count_ro_g,
-		sampling_len_g => sampling_len_g,
-		state_width_g  => state_width_g,
+		count_g => count_g,
+		depth_g => depth_g,
+		width_g => width_g,
+		mode_g  => mode_g,
 
 		C_S_AXI_DATA_WIDTH => C_S_AXI_DATA_WIDTH,
 		C_S_AXI_ADDR_WIDTH => C_S_AXI_ADDR_WIDTH
 	)
 	port map(
-		clock_i  => clock_i,
-		state_o  => state_o,
-		counts_o => counts_o,
-		count_o  => count_o,
+		clock_i => clock_i,
+		data_o  => data_o,
 
 		S_AXI_ACLK    => s_axi_aclk,
 		S_AXI_ARESETN => s_axi_aresetn,

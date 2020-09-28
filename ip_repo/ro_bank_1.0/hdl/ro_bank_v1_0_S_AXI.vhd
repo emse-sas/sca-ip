@@ -3,15 +3,19 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.math_real.all;
 
-library work;
-use work.all;
+library rtl;
+use rtl.all;
+use rtl.ro_pack.all;
 
 entity ro_bank_v1_0_S_AXI is
 	generic (
 		-- Users to add parameters here
-		count_ro_g     : positive               := 8;
-		sampling_len_g : positive               := 8;
-		state_width_g  : positive range 1 to 32 := 32;
+
+		count_g : positive;
+		depth_g : positive;
+		width_g : positive;
+		mode_g  : string;
+
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
@@ -22,10 +26,8 @@ entity ro_bank_v1_0_S_AXI is
 	);
 	port (
 		-- Users to add ports here
-		clock_i  : in std_logic;
-		state_o  : out std_logic_vector(state_width_g - 1 downto 0);
-		counts_o : out std_logic_vector(count_ro_g * state_width_g - 1 downto 0);
-		count_o  : out std_logic_vector(state_width_g - 1 downto 0);
+		clock_i : in std_logic;
+		data_o  : out std_logic_vector(width_g - 1 downto 0);
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 
@@ -116,13 +118,28 @@ architecture arch_imp of ro_bank_v1_0_S_AXI is
 	------------------------------------------------
 	---- Signals for user logic register space example
 
-	constant sel_width_c : positive := integer(ceil(log2(real(count_ro_g))));
+	constant state_width_c : positive := state_width(depth_g);
+	constant sel_width_c : positive := sel_width(count_g);
 
-	signal state_s : std_logic_vector(state_width_g - 1 downto 0);
-	signal counts_s : std_logic_vector(count_ro_g * state_width_g - 1 downto 0);
-	signal count_s : std_logic_vector(state_width_g - 1 downto 0);
+	signal state_s : std_logic_vector(state_width_c - 1 downto 0);
+	signal steps_s : std_logic_vector(count_g * state_width_c - 1 downto 0);
+	signal step_s : std_logic_vector(width_g - 1 downto 0);
 	signal sel_s : std_logic_vector(sel_width_c - 1 downto 0);
 
+	component ro_bank is
+		generic (
+			count_g : positive;
+			depth_g : positive;
+			width_g : positive
+		);
+		port (
+			clock_i : in std_logic;
+			sel_i   : in std_logic_vector(sel_width(count_g) - 1 downto 0);
+			step_o  : out std_logic_vector(width_g - 1 downto 0);
+			steps_o : out std_logic_vector(count_g * state_width(depth_g) - 1 downto 0);
+			state_o : out std_logic_vector(state_width(depth_g) - 1 downto 0)
+		);
+	end component;
 	--------------------------------------------------
 	---- Number of Slave Registers 8
 	signal slv_reg0 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
@@ -407,16 +424,18 @@ begin
 	-- and the slave is ready to accept the read address.
 	slv_reg_rden <= axi_arready and S_AXI_ARVALID and (not axi_rvalid);
 
-	process (slv_reg0, slv_reg1, slv_reg2, slv_reg3, slv_reg4, slv_reg5, slv_reg6, slv_reg7, axi_araddr, S_AXI_ARESETN, slv_reg_rden)
+	process (step_s, state_s, slv_reg2, slv_reg3, slv_reg4, slv_reg5, slv_reg6, slv_reg7, axi_araddr, S_AXI_ARESETN, slv_reg_rden)
 		variable loc_addr : std_logic_vector(OPT_MEM_ADDR_BITS downto 0);
 	begin
 		-- Address decoding for reading registers
 		loc_addr := axi_araddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
 		case loc_addr is
 			when b"000" =>
-				reg_data_out <= count_s(C_S_AXI_DATA_WIDTH - 1 downto 0);
+				reg_data_out(width_g - 1 downto 0) <= step_s;
+				reg_data_out(C_S_AXI_DATA_WIDTH - 1 downto width_g) <= (others => '0');
 			when b"001" =>
-				reg_data_out <= state_s(C_S_AXI_DATA_WIDTH - 1 downto 0);
+				reg_data_out(state_width_c - 1 downto 0) <= state_s;
+				reg_data_out(C_S_AXI_DATA_WIDTH - 1 downto state_width_c) <= (others => '0');
 			when b"010" =>
 				reg_data_out <= slv_reg2;
 			when b"011" =>
@@ -452,24 +471,36 @@ begin
 		end if;
 	end process;
 	-- Add user logic here
-	count_o <= count_s;
-	counts_o <= counts_s;
-	state_o <= state_s;
+
+	out_state: if mode_g = "state" generate
+		data_o(state_width_c - 1 downto 0) <= state_s;
+		data_o(width_g - 1 downto state_width_c) <= state_s;
+	end generate;
+
+	out_steps: if mode_g = "steps" generate
+		data_o(count_g * state_width_c - 1 downto 0) <= steps_s;
+		data_o(width_g - 1 downto count_g * state_width_c) <= (others => '0');
+	end generate;
+
+	out_step: if mode_g = "step" generate
+		data_o <= step_s;
+	end generate;
 
 	slv_reg2(sel_width_c - 1 downto 0) <= sel_s;
 	slv_reg2(C_S_AXI_DATA_WIDTH - 1 downto sel_width_c) <= (others => '0');
 
-	top : entity work.ro_bank(ro_bank_arch)
+	top : ro_bank
 		generic map(
-			sampling_len_g => sampling_len_g,
-			width_g  => state_width_g
+			count_g => count_g,
+			depth_g => depth_g,
+			width_g => width_g
 		)
 		port map(
-			clock_i  => clock_i,
-			sel_i    => sel_s,
-			state_o  => state_s,
-			counts_o => counts_s,
-			count_o  => count_s
+			clock_i => clock_i,
+			sel_i   => sel_s,
+			state_o => state_s,
+			steps_o => steps_s,
+			step_o  => step_s
 		);
 	-- User logic ends
 

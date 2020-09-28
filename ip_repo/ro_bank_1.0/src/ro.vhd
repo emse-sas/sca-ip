@@ -1,17 +1,16 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_arith.all;
 
 library unisim;
 use unisim.vcomponents.all;
 
 entity ro is
 	generic (
-		sampling_len_g : positive := 8
+		depth_g : positive := 8
 	);
 	port (
 		clock_i : in std_logic;
-		state_o : out std_logic_vector(sampling_len_g - 1 downto 0)
+		state_o : out std_logic_vector(depth_g - 1 downto 0)
 	);
 	attribute dont_touch : string;
 	attribute dont_touch of ro : entity is "true";
@@ -24,7 +23,7 @@ end ro;
 architecture ro_arch of ro is
 
 	signal clock_s, last_s : std_logic;
-	signal state_s : std_logic_vector(sampling_len_g - 1 downto 0);
+	signal state_s : std_logic_vector(depth_g - 1 downto 0);
 
 	attribute dont_touch of clock_s, last_s : signal is "true";
 	attribute dont_touch of state_s : signal is "true";
@@ -51,7 +50,7 @@ begin
 		INIT => "01")
 	port map(
 		O  => last_s,
-		I0 => state_s(sampling_len_g - 1)
+		I0 => state_s(depth_g - 1)
 	);
 
 	count_reg0 : FDCE
@@ -65,7 +64,7 @@ begin
 		D   => last_s
 	);
 
-	counter : for k in 1 to sampling_len_g - 1 generate
+	counter : for k in 1 to depth_g - 1 generate
 		attribute dont_touch of count_reg : label is "true";
 	begin
 		count_reg : FDCE
@@ -80,7 +79,7 @@ begin
 		);
 	end generate; -- counter
 
-	sampling : for k in 0 to sampling_len_g - 1 generate
+	sampling : for k in 0 to depth_g - 1 generate
 		attribute dont_touch of sampling_reg : label is "true";
 	begin
 		sampling_reg : FDCE

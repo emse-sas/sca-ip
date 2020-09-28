@@ -8,8 +8,8 @@ typedef struct
 {
     u16 DeviceId;
     u32 BaseAddr;
-    u8 SamplingLen;
-    u8 CountRo;
+    u8 Depth;
+    u8 Count;
 } XRO_Config;
 
 typedef struct

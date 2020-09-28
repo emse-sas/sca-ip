@@ -6,9 +6,10 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "C_S_AXI_BASEADDR" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_S_AXI_HIGHADDR" -parent ${Page_0}
 
-  ipgui::add_param $IPINST -name "count_ro_g"
-  ipgui::add_param $IPINST -name "sampling_len_g"
-  ipgui::add_param $IPINST -name "state_width_g"
+  ipgui::add_param $IPINST -name "count_g"
+  ipgui::add_param $IPINST -name "depth_g"
+  ipgui::add_param $IPINST -name "width_g"
+  ipgui::add_param $IPINST -name "mode_g"
   ipgui::add_param $IPINST -name "C_S_AXI_DATA_WIDTH"
   ipgui::add_param $IPINST -name "C_S_AXI_ADDR_WIDTH"
 
@@ -32,30 +33,39 @@ proc validate_PARAM_VALUE.C_S_AXI_DATA_WIDTH { PARAM_VALUE.C_S_AXI_DATA_WIDTH } 
 	return true
 }
 
-proc update_PARAM_VALUE.count_ro_g { PARAM_VALUE.count_ro_g } {
-	# Procedure called to update count_ro_g when any of the dependent parameters in the arguments change
+proc update_PARAM_VALUE.count_g { PARAM_VALUE.count_g } {
+	# Procedure called to update count_g when any of the dependent parameters in the arguments change
 }
 
-proc validate_PARAM_VALUE.count_ro_g { PARAM_VALUE.count_ro_g } {
-	# Procedure called to validate count_ro_g
+proc validate_PARAM_VALUE.count_g { PARAM_VALUE.count_g } {
+	# Procedure called to validate count_g
 	return true
 }
 
-proc update_PARAM_VALUE.sampling_len_g { PARAM_VALUE.sampling_len_g } {
-	# Procedure called to update sampling_len_g when any of the dependent parameters in the arguments change
+proc update_PARAM_VALUE.depth_g { PARAM_VALUE.depth_g } {
+	# Procedure called to update depth_g when any of the dependent parameters in the arguments change
 }
 
-proc validate_PARAM_VALUE.sampling_len_g { PARAM_VALUE.sampling_len_g } {
-	# Procedure called to validate sampling_len_g
+proc validate_PARAM_VALUE.depth_g { PARAM_VALUE.depth_g } {
+	# Procedure called to validate depth_g
 	return true
 }
 
-proc update_PARAM_VALUE.state_width_g { PARAM_VALUE.state_width_g } {
-	# Procedure called to update state_width_g when any of the dependent parameters in the arguments change
+proc update_PARAM_VALUE.mode_g { PARAM_VALUE.mode_g } {
+	# Procedure called to update mode_g when any of the dependent parameters in the arguments change
 }
 
-proc validate_PARAM_VALUE.state_width_g { PARAM_VALUE.state_width_g } {
-	# Procedure called to validate state_width_g
+proc validate_PARAM_VALUE.mode_g { PARAM_VALUE.mode_g } {
+	# Procedure called to validate mode_g
+	return true
+}
+
+proc update_PARAM_VALUE.width_g { PARAM_VALUE.width_g } {
+	# Procedure called to update width_g when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.width_g { PARAM_VALUE.width_g } {
+	# Procedure called to validate width_g
 	return true
 }
 
@@ -78,19 +88,24 @@ proc validate_PARAM_VALUE.C_S_AXI_HIGHADDR { PARAM_VALUE.C_S_AXI_HIGHADDR } {
 }
 
 
-proc update_MODELPARAM_VALUE.count_ro_g { MODELPARAM_VALUE.count_ro_g PARAM_VALUE.count_ro_g } {
+proc update_MODELPARAM_VALUE.count_g { MODELPARAM_VALUE.count_g PARAM_VALUE.count_g } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.count_ro_g}] ${MODELPARAM_VALUE.count_ro_g}
+	set_property value [get_property value ${PARAM_VALUE.count_g}] ${MODELPARAM_VALUE.count_g}
 }
 
-proc update_MODELPARAM_VALUE.sampling_len_g { MODELPARAM_VALUE.sampling_len_g PARAM_VALUE.sampling_len_g } {
+proc update_MODELPARAM_VALUE.depth_g { MODELPARAM_VALUE.depth_g PARAM_VALUE.depth_g } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.sampling_len_g}] ${MODELPARAM_VALUE.sampling_len_g}
+	set_property value [get_property value ${PARAM_VALUE.depth_g}] ${MODELPARAM_VALUE.depth_g}
 }
 
-proc update_MODELPARAM_VALUE.state_width_g { MODELPARAM_VALUE.state_width_g PARAM_VALUE.state_width_g } {
+proc update_MODELPARAM_VALUE.width_g { MODELPARAM_VALUE.width_g PARAM_VALUE.width_g } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.state_width_g}] ${MODELPARAM_VALUE.state_width_g}
+	set_property value [get_property value ${PARAM_VALUE.width_g}] ${MODELPARAM_VALUE.width_g}
+}
+
+proc update_MODELPARAM_VALUE.mode_g { MODELPARAM_VALUE.mode_g PARAM_VALUE.mode_g } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.mode_g}] ${MODELPARAM_VALUE.mode_g}
 }
 
 proc update_MODELPARAM_VALUE.C_S_AXI_DATA_WIDTH { MODELPARAM_VALUE.C_S_AXI_DATA_WIDTH PARAM_VALUE.C_S_AXI_DATA_WIDTH } {
