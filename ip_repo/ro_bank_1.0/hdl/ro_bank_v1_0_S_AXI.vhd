@@ -126,20 +126,6 @@ architecture arch_imp of ro_bank_v1_0_S_AXI is
 	signal step_s : std_logic_vector(width_g - 1 downto 0);
 	signal sel_s : std_logic_vector(sel_width_c - 1 downto 0);
 
-	component ro_bank is
-		generic (
-			count_g : positive;
-			depth_g : positive;
-			width_g : positive
-		);
-		port (
-			clock_i : in std_logic;
-			sel_i   : in std_logic_vector(sel_width(count_g) - 1 downto 0);
-			step_o  : out std_logic_vector(width_g - 1 downto 0);
-			steps_o : out std_logic_vector(count_g * state_width(depth_g) - 1 downto 0);
-			state_o : out std_logic_vector(state_width(depth_g) - 1 downto 0)
-		);
-	end component;
 	--------------------------------------------------
 	---- Number of Slave Registers 8
 	signal slv_reg0 : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
@@ -489,7 +475,7 @@ begin
 	slv_reg2(sel_width_c - 1 downto 0) <= sel_s;
 	slv_reg2(C_S_AXI_DATA_WIDTH - 1 downto sel_width_c) <= (others => '0');
 
-	top : ro_bank
+	top : entity rtl.ro_bank
 		generic map(
 			count_g => count_g,
 			depth_g => depth_g,

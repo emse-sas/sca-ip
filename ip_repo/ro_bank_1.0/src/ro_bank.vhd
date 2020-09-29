@@ -20,6 +20,8 @@ entity ro_bank is
         steps_o : out std_logic_vector(count_g * state_width(depth_g) - 1 downto 0);
         state_o : out std_logic_vector(state_width(depth_g) - 1 downto 0)
     );
+    attribute dont_touch : string;
+    attribute dont_touch of ro_bank : entity is "true";
 end ro_bank;
 
 architecture ro_bank_arch of ro_bank is

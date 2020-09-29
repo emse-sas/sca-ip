@@ -282,7 +282,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>c285f976</spirit:value>
+            <spirit:value>de549365</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -298,7 +298,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>c285f976</spirit:value>
+            <spirit:value>de549365</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -312,7 +312,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>7b96b6bd</spirit:value>
+            <spirit:value>db85e327</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -676,17 +676,17 @@
       <spirit:modelParameter xsi:type="spirit:nameValueTypeType" spirit:dataType="integer">
         <spirit:name>count_g</spirit:name>
         <spirit:displayName>Count G</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.count_g" spirit:minimum="0">2</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.count_g" spirit:minimum="0" spirit:rangeType="long">2</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>depth_g</spirit:name>
         <spirit:displayName>Depth G</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.depth_g" spirit:minimum="0">8</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.depth_g" spirit:minimum="0" spirit:rangeType="long">8</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>width_g</spirit:name>
         <spirit:displayName>Width G</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.width_g" spirit:minimum="0">32</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.width_g" spirit:minimum="0" spirit:rangeType="long">32</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>mode_g</spirit:name>
@@ -706,6 +706,12 @@
     </spirit:modelParameters>
   </spirit:model>
   <spirit:choices>
+    <spirit:choice>
+      <spirit:name>choice_list_09aa6d70</spirit:name>
+      <spirit:enumeration>step</spirit:enumeration>
+      <spirit:enumeration>steps</spirit:enumeration>
+      <spirit:enumeration>state</spirit:enumeration>
+    </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_list_6fc15197</spirit:name>
       <spirit:enumeration>32</spirit:enumeration>
@@ -800,7 +806,7 @@
       <spirit:file>
         <spirit:name>xgui/ro_bank_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_7b96b6bd</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_db85e327</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -844,23 +850,23 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>count_g</spirit:name>
-      <spirit:displayName>Count G</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.count_g" spirit:minimum="0" spirit:rangeType="long">2</spirit:value>
+      <spirit:displayName>Count</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.count_g" spirit:minimum="2" spirit:maximum="128" spirit:rangeType="long">2</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>depth_g</spirit:name>
-      <spirit:displayName>Depth G</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.depth_g" spirit:minimum="0" spirit:rangeType="long">8</spirit:value>
+      <spirit:displayName>Depth</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.depth_g">8</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>width_g</spirit:name>
-      <spirit:displayName>Width G</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.width_g" spirit:minimum="0" spirit:rangeType="long">32</spirit:value>
+      <spirit:displayName>Width</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.width_g">32</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>mode_g</spirit:name>
-      <spirit:displayName>Mode G</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.mode_g">step</spirit:value>
+      <spirit:displayName>Mode</spirit:displayName>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.mode_g" spirit:choiceRef="choice_list_09aa6d70">step</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>C_S_AXI_DATA_WIDTH</spirit:name>
@@ -882,11 +888,11 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>Ring Oscillator (RO)</xilinx:displayName>
-      <xilinx:coreRevision>1</xilinx:coreRevision>
+      <xilinx:coreRevision>6</xilinx:coreRevision>
       <xilinx:upgrades>
         <xilinx:canUpgradeFrom>user.org:user:ro_bank:1.0</xilinx:canUpgradeFrom>
       </xilinx:upgrades>
-      <xilinx:coreCreationDateTime>2020-09-28T15:21:19Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2020-09-29T11:43:35Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5e74370f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@699bbd9d_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
@@ -1042,16 +1048,127 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@3f66662e_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@414df0e7_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@30b6a386_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@417b8591_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@15372bba_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@646130c8_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@f98c636_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7540587b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@532a0444_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6976285a_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@59027a37_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2fe8f853_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4c84c26b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a441284_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@a608604_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6a2a666e_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@20da164c_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5607d1b0_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@281a7cf9_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5b599b76_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6a37b733_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7a22b9ac_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@11eda057_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4d04afd5_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f77da2_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1995f5d0_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c20b1e4_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7a71e990_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6eb12c89_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3eae7d8a_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@72bca1cf_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1fd93856_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57ef04ba_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6c4b9264_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5af74ec9_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@54bb1965_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9387b10_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5cb8dfb2_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b41a83e_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4369826c_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7f708a7f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1df1bd89_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5922782f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@629a284d_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@242b5b7f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@26f9a729_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@708502d8_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@153f9bde_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ef476b3_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3a39fd65_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7770a5a_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@19c1755f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@43801363_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5b9f1078_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@224d4a45_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@f1a34b6_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4cbea5d_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@29030bd_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5af93fbb_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1be1a224_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5e8ffddd_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3c5d4aaf_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@721e8f20_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@16285527_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@73568984_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@202c3aeb_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@14e9341f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@44e7ff5_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2cc9af05_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@270d29d7_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@70eb027c_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@54af78c1_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@78748e68_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@15b15d9f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@632354a3_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@51719761_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@44b871a9_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a80c741_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@586e97b9_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1329a006_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@48ca5d3b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@354babf4_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c97bf39_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@145fb1f0_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c4df0ed_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@118e3f10_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@70674971_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@311405de_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@510b5376_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b999256_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@538f6ea9_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10652c77_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@33a3ccdf_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c277f6d_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@48df4ab8_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@430273b6_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1970b312_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@65658ef8_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@758eadcf_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a97e5f0_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5607cc7b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5f0f189e_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@13340de8_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ec468c3_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f14ee02_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10b783cd_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@49b9a4d7_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@13b764e4_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4072d6eb_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@76a4aac7_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@257cb0b4_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@38e45aea_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@30e5ba24_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@71e4db4b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/ro_bank_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="f6b97cbd"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="c30980da"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="9feee6b5"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="7d1b74c1"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="9e157d88"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="b6469cc0"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="1ed988c2"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="b5e87d3b"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="65be17c4"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

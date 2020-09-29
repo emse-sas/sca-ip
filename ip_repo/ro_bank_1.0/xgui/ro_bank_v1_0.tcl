@@ -6,10 +6,14 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "C_S_AXI_BASEADDR" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_S_AXI_HIGHADDR" -parent ${Page_0}
 
-  ipgui::add_param $IPINST -name "count_g"
-  ipgui::add_param $IPINST -name "depth_g"
-  ipgui::add_param $IPINST -name "width_g"
-  ipgui::add_param $IPINST -name "mode_g"
+  set count_g [ipgui::add_param $IPINST -name "count_g"]
+  set_property tooltip {Count of sensors} ${count_g}
+  set depth_g [ipgui::add_param $IPINST -name "depth_g"]
+  set_property tooltip {Depth of RO JRC counter} ${depth_g}
+  set width_g [ipgui::add_param $IPINST -name "width_g"]
+  set_property tooltip {Output data width} ${width_g}
+  set mode_g [ipgui::add_param $IPINST -name "mode_g" -widget comboBox]
+  set_property tooltip {Output mode} ${mode_g}
   ipgui::add_param $IPINST -name "C_S_AXI_DATA_WIDTH"
   ipgui::add_param $IPINST -name "C_S_AXI_ADDR_WIDTH"
 
