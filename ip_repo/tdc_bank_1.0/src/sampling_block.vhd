@@ -8,12 +8,15 @@ use ieee.std_logic_1164.all;
 library unisim;
 use unisim.vcomponents.all;
 
+library rtl;
+use rtl.tdc_pack.all;
+
 entity sampling_block is
 	port (
 		clock_i : in std_logic;
 		delta_i : in std_logic;
 		delta_o : out std_logic;
-		data_o  : out std_logic_vector(3 downto 0)
+		state_o  : out std_logic_vector(bits_per_depth_c - 1 downto 0)
 	);
 	attribute dont_touch : string;
 	attribute dont_touch of sampling_block : entity is "true";
@@ -44,7 +47,7 @@ begin
 		reg : fdce
 		generic map(INIT => '0')
 		port map(
-			Q   => data_o(n),
+			Q   => state_o(n),
 			C   => clock_i,
 			CE  => '1',
 			CLR => '0',

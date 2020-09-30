@@ -15,23 +15,23 @@ architecture tdc_tb_arch of tdc_tb is
 
     signal clock_s : std_logic := '0';
     signal delta_s : std_logic;
-    signal coarse_delay_s : std_logic_vector(1 downto 0) := "00";
-    signal fine_delay_s : std_logic_vector(3 downto 0) := "0000";
+    signal coarse_delay_s : std_logic_vector(bits_per_coarse_c - 1 downto 0) := "00";
+    signal fine_delay_s : std_logic_vector(bits_per_fine_c - 1 downto 0) := "0000";
     signal data_s : std_logic_vector(31 downto 0);
 
     component tdc
       generic (
-        coarse_len_g : positive;
-        fine_len_g : positive;
-        sampling_len_g : positive
+        length_coarse_g : positive;
+        length_fine_g : positive;
+        depth_g : positive
       );
       port (
         clock_i : in std_logic;
         delta_i  : in std_logic;
-        coarse_delay_i : in std_logic_vector(1 downto 0);
-        fine_delay_i : in std_logic_vector(3 downto 0);
+        coarse_delay_i : in std_logic_vector(bits_per_coarse_c - 1 downto 0);
+        fine_delay_i : in std_logic_vector(bits_per_fine_c - 1 downto 0);
         delta_o : out std_logic;
-        data_o : out std_logic_vector(4 * sampling_len_g - 1 downto 0)
+        data_o : out std_logic_vector(4 * depth_g - 1 downto 0)
       );
     end component;
 
@@ -43,9 +43,9 @@ begin
 
     DUT : tdc
     generic map(
-      coarse_len_g => 2,
-      fine_len_g => 2,
-      sampling_len_g => 8
+      length_coarse_g => 2,
+      length_fine_g => 2,
+      depth_g => 8
     )
     port map (
         clock_i => clock_s,

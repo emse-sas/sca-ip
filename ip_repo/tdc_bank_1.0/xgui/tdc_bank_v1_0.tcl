@@ -1,15 +1,12 @@
 # Definitional proc to organize widgets for parameters.
 proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "Component_Name"
-  #Adding Page
-  set Page_0 [ipgui::add_page $IPINST -name "Page 0"]
-  ipgui::add_param $IPINST -name "C_S_AXI_BASEADDR" -parent ${Page_0}
-  ipgui::add_param $IPINST -name "C_S_AXI_HIGHADDR" -parent ${Page_0}
-
-  ipgui::add_param $IPINST -name "coarse_len_g"
-  ipgui::add_param $IPINST -name "fine_len_g"
-  ipgui::add_param $IPINST -name "sampling_len_g"
-  ipgui::add_param $IPINST -name "count_tdc_g"
+  ipgui::add_param $IPINST -name "length_coarse_g"
+  ipgui::add_param $IPINST -name "length_fine_g"
+  ipgui::add_param $IPINST -name "depth_g"
+  ipgui::add_param $IPINST -name "count_g"
+  ipgui::add_param $IPINST -name "width_g"
+  ipgui::add_param $IPINST -name "mode_g"
   ipgui::add_param $IPINST -name "C_S_AXI_DATA_WIDTH"
   ipgui::add_param $IPINST -name "C_S_AXI_ADDR_WIDTH"
 
@@ -33,39 +30,57 @@ proc validate_PARAM_VALUE.C_S_AXI_DATA_WIDTH { PARAM_VALUE.C_S_AXI_DATA_WIDTH } 
 	return true
 }
 
-proc update_PARAM_VALUE.coarse_len_g { PARAM_VALUE.coarse_len_g } {
-	# Procedure called to update coarse_len_g when any of the dependent parameters in the arguments change
+proc update_PARAM_VALUE.count_g { PARAM_VALUE.count_g } {
+	# Procedure called to update count_g when any of the dependent parameters in the arguments change
 }
 
-proc validate_PARAM_VALUE.coarse_len_g { PARAM_VALUE.coarse_len_g } {
-	# Procedure called to validate coarse_len_g
+proc validate_PARAM_VALUE.count_g { PARAM_VALUE.count_g } {
+	# Procedure called to validate count_g
 	return true
 }
 
-proc update_PARAM_VALUE.count_tdc_g { PARAM_VALUE.count_tdc_g } {
-	# Procedure called to update count_tdc_g when any of the dependent parameters in the arguments change
+proc update_PARAM_VALUE.depth_g { PARAM_VALUE.depth_g } {
+	# Procedure called to update depth_g when any of the dependent parameters in the arguments change
 }
 
-proc validate_PARAM_VALUE.count_tdc_g { PARAM_VALUE.count_tdc_g } {
-	# Procedure called to validate count_tdc_g
+proc validate_PARAM_VALUE.depth_g { PARAM_VALUE.depth_g } {
+	# Procedure called to validate depth_g
 	return true
 }
 
-proc update_PARAM_VALUE.fine_len_g { PARAM_VALUE.fine_len_g } {
-	# Procedure called to update fine_len_g when any of the dependent parameters in the arguments change
+proc update_PARAM_VALUE.length_coarse_g { PARAM_VALUE.length_coarse_g } {
+	# Procedure called to update length_coarse_g when any of the dependent parameters in the arguments change
 }
 
-proc validate_PARAM_VALUE.fine_len_g { PARAM_VALUE.fine_len_g } {
-	# Procedure called to validate fine_len_g
+proc validate_PARAM_VALUE.length_coarse_g { PARAM_VALUE.length_coarse_g } {
+	# Procedure called to validate length_coarse_g
 	return true
 }
 
-proc update_PARAM_VALUE.sampling_len_g { PARAM_VALUE.sampling_len_g } {
-	# Procedure called to update sampling_len_g when any of the dependent parameters in the arguments change
+proc update_PARAM_VALUE.length_fine_g { PARAM_VALUE.length_fine_g } {
+	# Procedure called to update length_fine_g when any of the dependent parameters in the arguments change
 }
 
-proc validate_PARAM_VALUE.sampling_len_g { PARAM_VALUE.sampling_len_g } {
-	# Procedure called to validate sampling_len_g
+proc validate_PARAM_VALUE.length_fine_g { PARAM_VALUE.length_fine_g } {
+	# Procedure called to validate length_fine_g
+	return true
+}
+
+proc update_PARAM_VALUE.mode_g { PARAM_VALUE.mode_g } {
+	# Procedure called to update mode_g when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.mode_g { PARAM_VALUE.mode_g } {
+	# Procedure called to validate mode_g
+	return true
+}
+
+proc update_PARAM_VALUE.width_g { PARAM_VALUE.width_g } {
+	# Procedure called to update width_g when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.width_g { PARAM_VALUE.width_g } {
+	# Procedure called to validate width_g
 	return true
 }
 
@@ -88,24 +103,34 @@ proc validate_PARAM_VALUE.C_S_AXI_HIGHADDR { PARAM_VALUE.C_S_AXI_HIGHADDR } {
 }
 
 
-proc update_MODELPARAM_VALUE.coarse_len_g { MODELPARAM_VALUE.coarse_len_g PARAM_VALUE.coarse_len_g } {
+proc update_MODELPARAM_VALUE.length_coarse_g { MODELPARAM_VALUE.length_coarse_g PARAM_VALUE.length_coarse_g } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.coarse_len_g}] ${MODELPARAM_VALUE.coarse_len_g}
+	set_property value [get_property value ${PARAM_VALUE.length_coarse_g}] ${MODELPARAM_VALUE.length_coarse_g}
 }
 
-proc update_MODELPARAM_VALUE.fine_len_g { MODELPARAM_VALUE.fine_len_g PARAM_VALUE.fine_len_g } {
+proc update_MODELPARAM_VALUE.length_fine_g { MODELPARAM_VALUE.length_fine_g PARAM_VALUE.length_fine_g } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.fine_len_g}] ${MODELPARAM_VALUE.fine_len_g}
+	set_property value [get_property value ${PARAM_VALUE.length_fine_g}] ${MODELPARAM_VALUE.length_fine_g}
 }
 
-proc update_MODELPARAM_VALUE.sampling_len_g { MODELPARAM_VALUE.sampling_len_g PARAM_VALUE.sampling_len_g } {
+proc update_MODELPARAM_VALUE.depth_g { MODELPARAM_VALUE.depth_g PARAM_VALUE.depth_g } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.sampling_len_g}] ${MODELPARAM_VALUE.sampling_len_g}
+	set_property value [get_property value ${PARAM_VALUE.depth_g}] ${MODELPARAM_VALUE.depth_g}
 }
 
-proc update_MODELPARAM_VALUE.count_tdc_g { MODELPARAM_VALUE.count_tdc_g PARAM_VALUE.count_tdc_g } {
+proc update_MODELPARAM_VALUE.count_g { MODELPARAM_VALUE.count_g PARAM_VALUE.count_g } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.count_tdc_g}] ${MODELPARAM_VALUE.count_tdc_g}
+	set_property value [get_property value ${PARAM_VALUE.count_g}] ${MODELPARAM_VALUE.count_g}
+}
+
+proc update_MODELPARAM_VALUE.width_g { MODELPARAM_VALUE.width_g PARAM_VALUE.width_g } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.width_g}] ${MODELPARAM_VALUE.width_g}
+}
+
+proc update_MODELPARAM_VALUE.mode_g { MODELPARAM_VALUE.mode_g PARAM_VALUE.mode_g } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.mode_g}] ${MODELPARAM_VALUE.mode_g}
 }
 
 proc update_MODELPARAM_VALUE.C_S_AXI_DATA_WIDTH { MODELPARAM_VALUE.C_S_AXI_DATA_WIDTH PARAM_VALUE.C_S_AXI_DATA_WIDTH } {

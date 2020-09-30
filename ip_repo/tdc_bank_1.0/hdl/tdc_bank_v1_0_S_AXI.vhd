@@ -3,13 +3,20 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.math_real.all;
 
+library rtl;
+use rtl.all;
+use rtl.tdc_pack.all;
+
 entity tdc_bank_v1_0_S_AXI is
 	generic (
 		-- Users to add parameters here
-		coarse_len_g   : positive;
-		fine_len_g     : positive;
-		sampling_len_g : positive;
-		count_tdc_g    : positive;
+		length_coarse_g : positive := 1;
+		length_fine_g   : positive := 1;
+		depth_g         : positive := 4;
+		count_g         : positive := 2;
+		width_g         : positive := 32;
+		mode_g          : string   := "weight";
+
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
@@ -20,12 +27,9 @@ entity tdc_bank_v1_0_S_AXI is
 	);
 	port (
 		-- Users to add ports here
-		clock_i   : in std_logic;
-		delta_i   : in std_logic;
-		delta_o   : out std_logic_vector(count_tdc_g - 1 downto 0);
-		weights_o : out std_logic_vector(8 * count_tdc_g - 1 downto 0);
-		raw_o     : out std_logic_vector(4 * sampling_len_g - 1 downto 0);
-		weight_o  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+		clock_i : in std_logic;
+		delta_i : in std_logic;
+		data_o  : out std_logic_vector(width_g - 1 downto 0);
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 
@@ -116,31 +120,18 @@ architecture arch_imp of tdc_bank_v1_0_S_AXI is
 	------------------------------------------------
 	---- Signals for user logic register space example
 
-	signal coarse_delay_s : std_logic_vector(2 * count_tdc_g - 1 downto 0);
-	signal fine_delay_s : std_logic_vector(4 * count_tdc_g - 1 downto 0);
-	signal weights_s : std_logic_vector(4 * C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal raw_s : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-	signal weight_s : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+	constant state_width_c : positive := state_width(depth_g);
+	constant sel_width_c : positive := sel_width(count_g);
+	constant coarse_width_c : positive := coarse_width(count_g);
+	constant fine_width_c : positive := fine_width(count_g);
+	constant weights_width_c : positive := weights_width(count_g, depth_g);
 
-	component tdc_bank
-		generic (
-			coarse_len_g   : positive;
-			fine_len_g     : positive;
-			sampling_len_g : positive;
-			count_tdc_g    : positive
-		);
-		port (
-			clock_i        : in std_logic;
-			delta_i        : in std_logic;
-			sel_i          : in std_logic_vector(integer(ceil(log2(real(count_tdc_g)))) - 1 downto 0);
-			coarse_delay_i : in std_logic_vector(2 * count_tdc_g - 1 downto 0);
-			fine_delay_i   : in std_logic_vector(4 * count_tdc_g - 1 downto 0);
-			delta_o        : out std_logic_vector(count_tdc_g - 1 downto 0);
-			weights_o      : out std_logic_vector(8 * count_tdc_g - 1 downto 0);
-			raw_o          : out std_logic_vector(4 * sampling_len_g - 1 downto 0);
-			weight_o       : out std_logic_vector(31 downto 0)
-		);
-	end component;
+	signal state_s : std_logic_vector(state_width_c - 1 downto 0);
+	signal coarse_delay_s : std_logic_vector(coarse_width_c - 1 downto 0);
+	signal fine_delay_s : std_logic_vector(fine_width_c - 1 downto 0);
+	signal weights_s : std_logic_vector(weights_width_c - 1 downto 0);
+	signal weight_s : std_logic_vector(width_g - 1 downto 0);
+	signal sel_s : std_logic_vector(sel_width_c - 1 downto 0);
 
 	--------------------------------------------------
 	---- Number of Slave Registers 8
@@ -426,20 +417,22 @@ begin
 	-- and the slave is ready to accept the read address.
 	slv_reg_rden <= axi_arready and S_AXI_ARVALID and (not axi_rvalid);
 
-	process (slv_reg0, slv_reg1, slv_reg2, slv_reg3, slv_reg4, slv_reg5, slv_reg6, slv_reg7, weights_s, axi_araddr, S_AXI_ARESETN, slv_reg_rden)
+	process (weight_s, state_s, slv_reg2, slv_reg3, slv_reg4, slv_reg5, slv_reg6, slv_reg7, weights_s, axi_araddr, S_AXI_ARESETN, slv_reg_rden)
 		variable loc_addr : std_logic_vector(OPT_MEM_ADDR_BITS downto 0);
 	begin
 		-- Address decoding for reading registers
 		loc_addr := axi_araddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
 		case loc_addr is
 			when b"000" =>
-				reg_data_out <= weights_s(C_S_AXI_DATA_WIDTH - 1 downto 0);
+				reg_data_out(width_g - 1 downto 0) <= weight_s;
+				reg_data_out(C_S_AXI_DATA_WIDTH - 1 downto width_g) <= (others => '0');
 			when b"001" =>
-				reg_data_out <= weights_s(2 * C_S_AXI_DATA_WIDTH - 1 downto C_S_AXI_DATA_WIDTH);
+				reg_data_out(state_width_c - 1 downto 0) <= state_s;
+				reg_data_out(C_S_AXI_DATA_WIDTH - 1 downto state_width_c) <= (others => '0');
 			when b"010" =>
-				reg_data_out <= raw_s;
+				reg_data_out <= slv_reg2;
 			when b"011" =>
-				reg_data_out <= weight_s;
+				reg_data_out <= slv_reg3;
 			when b"100" =>
 				reg_data_out <= slv_reg4;
 			when b"101" =>
@@ -472,32 +465,42 @@ begin
 	end process;
 	-- Add user logic here
 
-	weights_o <= weights_s(8 * count_tdc_g - 1 downto 0);
-	weights_s(4 * C_S_AXI_DATA_WIDTH - 1 downto 8 * count_tdc_g) <= (others => '0');
+	out_state : if mode_g = "state" generate
+		data_o(state_width_c - 1 downto 0) <= state_s;
+		data_o(width_g - 1 downto state_width_c) <= (others => '0');
+	end generate;
 
-	raw_o <= raw_s(4 * sampling_len_g - 1 downto 0);
-	raw_s(C_S_AXI_DATA_WIDTH - 1 downto 4 * sampling_len_g) <= (others => '0');
+	out_weights : if mode_g = "weights" generate
+		data_o(weights_width_c - 1 downto 0) <= weights_s;
+		data_o(width_g - 1 downto weights_width_c) <= (others => '0');
+	end generate;
 
-	weight_o <= weight_s;
+	out_weight : if mode_g = "weight" generate
+		data_o <= weight_s;
+	end generate;
 
-	top : tdc_bank
-	generic map(
-		coarse_len_g   => coarse_len_g,
-		fine_len_g     => fine_len_g,
-		sampling_len_g => sampling_len_g,
-		count_tdc_g    => count_tdc_g
-	)
-	port map(
-		clock_i        => clock_i,
-		delta_i        => delta_i,
-		coarse_delay_i => slv_reg5(2 * count_tdc_g - 1 downto 0),
-		fine_delay_i   => slv_reg4(4 * count_tdc_g - 1 downto 0),
-		sel_i          => slv_reg6(integer(ceil(log2(real(count_tdc_g)))) - 1 downto 0),
-		delta_o        => delta_o,
-		weights_o      => weights_s(8 * count_tdc_g - 1 downto 0),
-		raw_o          => raw_s(4 * sampling_len_g - 1 downto 0),
-		weight_o       => weight_s
-	);
+	sel_s <= slv_reg2(sel_width_c - 1 downto 0);
+	coarse_delay_s <= slv_reg3(coarse_width_c - 1 downto 0);
+	fine_delay_s <= slv_reg4(fine_width_c - 1 downto 0);
+
+	top : entity rtl.tdc_bank
+		generic map(
+			length_coarse_g => length_coarse_g,
+			length_fine_g   => length_fine_g,
+			count_g         => count_g,
+			depth_g         => depth_g,
+			width_g         => width_g
+		)
+		port map(
+			clock_i        => clock_i,
+			delta_i        => delta_i,
+			sel_i          => sel_s,
+			coarse_delay_i => coarse_delay_s,
+			fine_delay_i   => fine_delay_s,
+			state_o        => state_s,
+			weights_o      => weights_s,
+			weight_o       => weight_s
+		);
 
 	-- User logic ends
 

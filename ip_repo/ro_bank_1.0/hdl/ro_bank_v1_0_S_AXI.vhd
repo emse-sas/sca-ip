@@ -427,6 +427,7 @@ begin
 			when b"011" =>
 				reg_data_out <= slv_reg3;
 			when b"100" =>
+			
 				reg_data_out <= slv_reg4;
 			when b"101" =>
 				reg_data_out <= slv_reg5;
@@ -457,6 +458,8 @@ begin
 		end if;
 	end process;
 	-- Add user logic here
+
+	
 
 	out_state: if mode_g = "state" generate
 		data_o(state_width_c - 1 downto 0) <= state_s;
