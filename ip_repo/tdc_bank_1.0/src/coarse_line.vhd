@@ -29,7 +29,6 @@ architecture coarse_line_arch of coarse_line is
 
 	type delta_array_t is array (0 to length_g) of std_logic_vector(4 downto 0);
 	signal delta_s : delta_array_t;
-	attribute dont_touch of delta_s : signal is "true";
 
 	component coarse_block
 		port (
@@ -49,7 +48,6 @@ begin
 
 	delta_s(0)(0) <= delta_i;
 	delta_o <= delta_s(length_g - 1)(4);
-	delta_s(length_g)(4 downto 1) <= (others => '0');
 	clock_o <= delta_s(length_g)(0);
 
 	delay_line : for k in 0 to length_g - 1 generate

@@ -31,13 +31,12 @@ architecture fine_line_arch of fine_line is
 	type clock_array_t is array (0 to length_g - 1) of std_logic_vector(3 downto 0);
 	signal delta_s : delta_array_t;
 	signal clocks_s : clock_array_t;
-	attribute dont_touch of delta_s : signal is "true";
 
 	component fine_block
 		port (
 			delta_i : in std_logic;
 			delta_o : out std_logic;
-			delay_i : in std_logic_vector(bits_per_fine_c - 1 downto 0);
+			delay_i : in std_logic_vector(1 downto 0);
 			clock_o : out std_logic
 		);
 	end component;
@@ -53,42 +52,42 @@ architecture fine_line_arch of fine_line is
 begin
 	delta_s(0)(0) <= delta_i;
 	delta_o <= delta_s(length_g - 1)(4);
-	delta_s(length_g)(4 downto 1) <= (others => '0');
 	clock_o <= delta_s(length_g)(0);
-	delay_line : for i in 0 to length_g - 1 generate
+
+	delay_line : for k in 0 to length_g - 1 generate
 		block_0 : fine_block
 		port map(
-			delta_i => delta_s(i)(0),
-			delay_i => delay_i(bits_per_fine_c - 1 downto 0),
-			clock_o => clocks_s(i)(0),
-			delta_o => delta_s(i)(1)
+			delta_i => delta_s(k)(0),
+			delay_i => delay_i(1 downto 0),
+			clock_o => clocks_s(k)(0),
+			delta_o => delta_s(k)(1)
 		);
 		block_1 : fine_block
 		port map(
-			delta_i => delta_s(i)(1),
-			delay_i => delay_i(bits_per_fine_c - 1 downto 0),
-			clock_o => clocks_s(i)(1),
-			delta_o => delta_s(i)(2)
+			delta_i => delta_s(k)(1),
+			delay_i => delay_i(1 downto 0),
+			clock_o => clocks_s(k)(1),
+			delta_o => delta_s(k)(2)
 		);
 		block_2 : fine_block
 		port map(
-			delta_i => delta_s(i)(2),
-			delay_i => delay_i(bits_per_fine_c - 1 downto 0),
-			clock_o => clocks_s(i)(2),
-			delta_o => delta_s(i)(3)
+			delta_i => delta_s(k)(2),
+			delay_i => delay_i(1 downto 0),
+			clock_o => clocks_s(k)(2),
+			delta_o => delta_s(k)(3)
 		);
 		block_3 : fine_block
 		port map(
-			delta_i => delta_s(i)(3),
-			delay_i => delay_i(bits_per_fine_c - 1 downto 0),
-			clock_o => clocks_s(i)(3),
-			delta_o => delta_s(i)(4)
+			delta_i => delta_s(k)(3),
+			delay_i => delay_i(1 downto 0),
+			clock_o => clocks_s(k)(3),
+			delta_o => delta_s(k)(4)
 		);
 		mux : clock_mux
 		port map(
-			clocks_i => clocks_s(i),
+			clocks_i => clocks_s(k),
 			delay_i  => delay_i(3 downto 2),
-			clock_o  => delta_s(i + 1)(0)
+			clock_o  => delta_s(k + 1)(0)
 		);
 	end generate; -- blocks
 

@@ -38,15 +38,15 @@ begin
     begin
         sel_v := to_integer(unsigned(sel_i));
         sum_v := (others => '0');
-        concat : for k in 0 to count_g - 1 loop
-            weight_v(k) := (others => '0');
+        concat : for i in 0 to count_g - 1 loop
+            weight_v(i) := (others => '0');
             filter : for j in 0 to state_width_c - 1 loop
-                if state_i(state_width_c * k + j) = '1' then
-                    weight_v(k) := weight_v(k) + 1;
+                if state_i(state_width_c * i + j) = '1' then
+                    weight_v(i) := weight_v(i) + 1;
                 end if;
             end loop; -- weights
-            weights_o(weight_width_c * (k + 1) - 1 downto weights_width_c * k) <= std_logic_vector(weight_v(k));
-            sum_v := sum_v + weight_v(k);
+            weights_o(weight_width_c * (i + 1) - 1 downto weights_width_c * i) <= std_logic_vector(weight_v(i));
+            sum_v := sum_v + weight_v(i);
         end loop; -- concat 
         weight_o <= std_logic_vector(sum_v);
         state_o <= state_i(state_width_c * (sel_v + 1) - 1 downto state_width_c * sel_v);

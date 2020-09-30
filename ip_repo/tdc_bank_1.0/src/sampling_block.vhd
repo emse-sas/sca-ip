@@ -41,17 +41,17 @@ begin
 		S      => "1111"
 	);
 
-	sampling_path : for n in 0 to 3 generate
+	sampling_path : for k in 0 to 3 generate
 		attribute dont_touch of reg : label is "true";
 	begin
 		reg : fdce
 		generic map(INIT => '0')
 		port map(
-			Q   => state_o(n),
+			Q   => state_o(k),
 			C   => clock_i,
 			CE  => '1',
 			CLR => '0',
-			D   => carry_s(n)
+			D   => carry_s(k)
 		);
 	end generate; -- delay_reg
 

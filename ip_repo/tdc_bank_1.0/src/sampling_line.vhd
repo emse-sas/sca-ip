@@ -42,7 +42,7 @@ begin
 	delta_s(0) <= delta_i;
 	delta_o <= delta_s(depth_g);
 	delay_line : for k in 0 to depth_g - 1 generate
-		blocks : sampling_block
+		block_n : sampling_block
 		port map(
 			clock_i => clock_i,
 			delta_i => delta_s(k),

@@ -16,7 +16,7 @@ entity fine_block is
     port (
         delta_i : in std_logic;
         delta_o : out std_logic;
-        delay_i : in std_logic_vector(bits_per_fine_c - 1 downto 0);
+        delay_i : in std_logic_vector(1 downto 0);
         clock_o : out std_logic
     );
     attribute dont_touch : string;

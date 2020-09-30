@@ -75,7 +75,7 @@ architecture tdc_bank_arch of tdc_bank is
     end component;
 
 begin
-    bank : for k in 0 to count_g - 1 generate
+    bank : for i in 0 to count_g - 1 generate
 
         sensors : tdc
         generic map(
@@ -86,10 +86,10 @@ begin
         port map(
             clock_i        => clock_i,
             delta_i        => delta_i,
-            delta_o        => delta_o(k),
-            coarse_delay_i => coarse_delay_i(bits_per_coarse_c * (k + 1) - 1 downto bits_per_coarse_c * k),
-            fine_delay_i   => fine_delay_i(bits_per_fine_c * (k + 1) - 1 downto bits_per_fine_c * k),
-            state_o        => state_s(state_width_c * (k + 1) - 1 downto state_width_c * k)
+            delta_o        => delta_o(i),
+            coarse_delay_i => coarse_delay_i(bits_per_coarse_c * (i + 1) - 1 downto bits_per_coarse_c * i),
+            fine_delay_i   => fine_delay_i(bits_per_fine_c * (i + 1) - 1 downto bits_per_fine_c * i),
+            state_o        => state_s(state_width_c * (i + 1) - 1 downto state_width_c * i)
         );
     end generate; -- sensors
 
