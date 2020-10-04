@@ -1,4 +1,4 @@
-#define XRO_COUNT_OFFSET 0x00
+#define XRO_DATA_OFFSET 0x00
 #define XRO_STATE_OFFSET 0x04
 #define XRO_SEL_OFFSET 0x08
 

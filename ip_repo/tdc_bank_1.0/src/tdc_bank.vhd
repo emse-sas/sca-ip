@@ -60,9 +60,9 @@ architecture tdc_bank_arch of tdc_bank is
 
     component tdc_output is
         generic (
-            depth_g : positive := 8;
-            count_g : positive := 8;
-            width_g : positive := 8
+            depth_g : positive := 4;
+            count_g : positive := 2;
+            width_g : positive := 32
         );
         port (
             clock_i   : in std_logic;

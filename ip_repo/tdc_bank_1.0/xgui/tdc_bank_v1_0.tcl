@@ -1,12 +1,18 @@
 # Definitional proc to organize widgets for parameters.
 proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "Component_Name"
-  ipgui::add_param $IPINST -name "length_coarse_g"
-  ipgui::add_param $IPINST -name "length_fine_g"
-  ipgui::add_param $IPINST -name "depth_g"
-  ipgui::add_param $IPINST -name "count_g"
-  ipgui::add_param $IPINST -name "width_g"
-  ipgui::add_param $IPINST -name "mode_g"
+  set length_coarse_g [ipgui::add_param $IPINST -name "length_coarse_g"]
+  set_property tooltip {Length of coarse delay line} ${length_coarse_g}
+  set length_fine_g [ipgui::add_param $IPINST -name "length_fine_g"]
+  set_property tooltip {Length of fine delay line} ${length_fine_g}
+  set depth_g [ipgui::add_param $IPINST -name "depth_g"]
+  set_property tooltip {Depth of the sampling delay line} ${depth_g}
+  set count_g [ipgui::add_param $IPINST -name "count_g"]
+  set_property tooltip {Count of sensors} ${count_g}
+  set width_g [ipgui::add_param $IPINST -name "width_g"]
+  set_property tooltip {Output data width} ${width_g}
+  set mode_g [ipgui::add_param $IPINST -name "mode_g" -widget comboBox]
+  set_property tooltip {Output data mode} ${mode_g}
   ipgui::add_param $IPINST -name "C_S_AXI_DATA_WIDTH"
   ipgui::add_param $IPINST -name "C_S_AXI_ADDR_WIDTH"
 

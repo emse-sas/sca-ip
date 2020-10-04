@@ -28,8 +28,8 @@ XRO_Config XRO_ConfigTable[];
 #define XRO_ReadState(BaseAddr) \
     XRO_ReadReg((BaseAddr), XRO_STATE_OFFSET)
 
-#define XRO_Read(BaseAddr) \
-    XRO_ReadReg((BaseAddr), XRO_COUNT_OFFSET)
+#define XRO_ReadData(BaseAddr) \
+    XRO_ReadReg((BaseAddr), XRO_DATA_OFFSET)
 
 int XRO_CfgInitialize(XRO *InstancePtr, XRO_Config *ConfigPtr);
 

@@ -29,8 +29,8 @@ typedef struct
 {
     u16 DeviceId;
     u32 BaseAddr;
-    u8 SamplingLen;
-    u8 CountTdc;
+    u8 Depth;
+    u8 Count;
 } XTDC_Config;
 
 typedef struct
@@ -38,23 +38,22 @@ typedef struct
     XTDC_Config Config;
     u32 IsReady;
     u32 IsStarted;
+    u32 Fine;
+    u32 Coarse;
 } XTDC;
 
 #define XTDC_SetId(BaseAddr, Id) \
     XTDC_WriteReg((BaseAddr), XTDC_SEL_OFFSET, (Id))
 
-#define XTDC_ReadRaw(BaseAddr) \
-    XTDC_ReadReg((BaseAddr), XTDC_RAW_OFFSET)
+#define XTDC_ReadState(BaseAddr) \
+    XTDC_ReadReg((BaseAddr), XTDC_STATE_OFFSET)
 
-#define XTDC_ReadAll(BaseAddr, Offset) \
-    XTDC_ReadReg((BaseAddr), (Offset) * 4)
-
-#define XTDC_Read(BaseAddr, Id) \
-    XTDC_Weight(XTDC_ReadReg(InstancePtr->Config.BaseAddr, ((Id) / 4) * 4), (Id % 4))
+#define XTDC_ReadData(BaseAddr) \
+    XTDC_ReadReg((BaseAddr), XTDC_DATA_OFFSET)
 
 XTDC_Config XTDC_ConfigTable[];
 
-u8 XTDC_RawWeight(u32 value);
+u8 XTDC_StateWeight(u32 value);
 
 int XTDC_BitPolarity(u32 value);
 

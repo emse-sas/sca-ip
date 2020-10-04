@@ -1,7 +1,7 @@
 #include "xtdc.h"
 #include "xtdc_g.c"
 
-u8 XTDC_RawWeight(u32 value)
+u8 XTDC_StateWeight(u32 value)
 {
     u8 weight = 0;
     for (; value > 0; value >>= 0x1)
@@ -40,10 +40,12 @@ int XTDC_CfgInitialize(XTDC *InstancePtr, XTDC_Config *ConfigPtr)
     }
     InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
     InstancePtr->Config.BaseAddr = ConfigPtr->BaseAddr;
-    InstancePtr->Config.SamplingLen = ConfigPtr->SamplingLen;
-    InstancePtr->Config.CountTdc = ConfigPtr->CountTdc;
+    InstancePtr->Config.Depth = ConfigPtr->Depth;
+    InstancePtr->Config.Count = ConfigPtr->Count;
     InstancePtr->IsStarted = 0;
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+    InstancePtr->Coarse = 0;
+    InstancePtr->Fine = 0;
 
     return XST_SUCCESS;
 }
@@ -83,7 +85,7 @@ u64 XTDC_Calibrate(XTDC *InstancePtr, int iterations, int verbose)
     u32 addr = InstancePtr->Config.BaseAddr;
     u32 best_fine = 0, best_coarse = 0;
     u32 value, best_value, raw;
-    u32 target = InstancePtr->Config.SamplingLen * 2 * iterations;
+    u32 target = InstancePtr->Config.Depth * 2 * iterations;
     int polarity;
 
     if (verbose)
@@ -93,7 +95,7 @@ u64 XTDC_Calibrate(XTDC *InstancePtr, int iterations, int verbose)
     }
 
     XTDC_WriteDelay(InstancePtr, -1, 0, 0);
-    for (int id = 0; id < InstancePtr->Config.CountTdc; id++)
+    for (int id = 0; id < InstancePtr->Config.Count; id++)
     {
         if (verbose)
         {
@@ -110,8 +112,8 @@ u64 XTDC_Calibrate(XTDC *InstancePtr, int iterations, int verbose)
                 XTDC_WriteDelay(InstancePtr, id, fine, coarse);
                 for (int i = 0; i < iterations; i++)
                 {
-                    raw = XTDC_ReadReg(addr, XTDC_RAW_OFFSET);
-                    value += XTDC_RawWeight(raw);
+                    raw = XTDC_ReadReg(addr, XTDC_STATE_OFFSET);
+                    value += XTDC_StateWeight(raw);
                     polarity += XTDC_BitPolarity(raw);
                 }
                 if (verbose)
