@@ -7,82 +7,37 @@ entity fifo_counter is
         width_g : positive
     );
     port (
-        clock_i  : in std_logic;
-        reset_i  : in std_logic;
-        up_i     : in std_logic;
-        en_i     : in std_logic;
-        target_i : in std_logic_vector(width_g - 1 downto 0);
-        count_o  : out std_logic_vector(width_g - 1 downto 0);
-        locked_o : out std_logic
+        clock_i : in std_logic;
+        reset_i : in std_logic;
+        up_i    : in std_logic;
+        en_i    : in std_logic;
+        count_o : out std_logic_vector(width_g - 1 downto 0)
     );
 end fifo_counter;
 
 architecture fifo_counter_arch of fifo_counter is
-    type counter_state_t is (reset, run, locked);
-    signal current_count, next_count : unsigned(width_g - 1 downto 0);
-    signal current_target, next_target : unsigned(width_g - 1 downto 0);
-    signal current_state, next_state : counter_state_t;
-
+    signal count_s : unsigned(width_g - 1 downto 0);
 begin
-    locked_o <= '1' when current_state = locked else '0';
-    count_o <= std_logic_vector(current_count);
+
+    count_o <= std_logic_vector(count_s);
 
     counter : process (clock_i, reset_i)
     begin
         if reset_i = '1' then
-            current_state <= reset;
-            current_count <= (others => '0');
-            current_target <= (others => '0');
+            count_s <= (others => '0');
         elsif rising_edge(clock_i) then
-            current_state <= next_state;
-            current_count <= next_count;
-            current_target <= next_target;
+            if en_i = '1' then
+                if up_i = '1' then
+                    count_s <= count_s + 1;
+                else
+                    count_s <= count_s - 1;
+                end if;
+            else
+                count_s <= count_s;
+            end if;
+        else
+            count_s <= count_s;
         end if;
     end process counter;
-
-    state_comb : process (current_state, current_count, current_target, target_i, en_i, up_i)
-    begin
-        case current_state is
-            when reset =>
-                next_state <= run;
-                next_target <= current_target;
-                next_count <= current_count;
-                
-            when run =>
-                if en_i = '1' then
-                    if current_count = current_target - 1 and up_i = '1' then
-                        next_state <= locked;
-                    elsif current_count = current_target + 1 and up_i = '0' then
-                        next_state <= locked;
-                    else
-                        next_state <= run;
-                    end if;
-
-                    if up_i = '1' then
-                        next_count <= current_count + 1;
-                    else
-                        next_count <= current_count - 1;
-                    end if;
-                else
-                    next_state <= run;
-                    next_count <= current_count;
-                end if;
-                next_target <= unsigned(target_i);
-
-            when locked =>
-                if unsigned(target_i) /= current_target then
-                    next_state <= run;
-                else
-                    next_state <= locked;
-                end if;
-                next_target <= current_target;
-                next_count <= current_count;
-
-            when others =>
-                next_target <= current_target;
-                next_state <= current_state;
-                next_count <= current_count;
-        end case;
-    end process; -- state_comb
 
 end fifo_counter_arch; -- fifo_counter_arch
