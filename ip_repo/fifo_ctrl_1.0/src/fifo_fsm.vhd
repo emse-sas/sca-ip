@@ -88,7 +88,7 @@ begin
 			when reset =>
 				write_o <= '0';
 				read_o <= '0';
-				resetœ_o <= '1';
+				reset_o <= '1';
 				en_o <= '0';
 				up_o <= '0';
 				clk_sel_o <= '0';

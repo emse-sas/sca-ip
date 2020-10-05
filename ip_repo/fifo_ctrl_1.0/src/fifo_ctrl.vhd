@@ -73,6 +73,7 @@ architecture fifo_ctrl_arch of fifo_ctrl is
 begin
 	clock_s <= clock_wr_i when clk_sel_s = '1' else clock_rd_i;
 	count_o <= count_s;
+
 	counter : fifo_counter
 	generic map(
 		width_g => width_g
