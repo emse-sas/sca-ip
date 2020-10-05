@@ -41,32 +41,25 @@ begin
 		end if;
 	end process state_reg;
 
-	state_comb : process (current_state, read_i, write_i, empty_i, full_i, target_i, count_i)
-	variable count_v, target_v : unsigned(width_g - 1 downto 0);
+	state_comb : process (current_state, read_i, write_i, empty_i, full_i)
 		
 	begin
-		count_v := unsigned(count_i); 
-		target_v := unsigned(target_i); 
 
 		case current_state is
 			when reset =>
 				next_state <= hold;
 			when hold =>
-				if count_v = target_v then
-					next_state <= hold;
+				if read_i = '1' and empty_i = '0' then
+					next_state <= pop;
+				elsif write_i = '1' and full_i = '0' then
+					next_state <= push;
 				else
-					if read_i = '1' and empty_i = '0' then
-						next_state <= pop;
-					elsif write_i = '1' and full_i = '0' then
-						next_state <= push;
-					else
-						next_state <= hold;
-					end if;
+					next_state <= hold;
 				end if;
 			when pop =>
 				next_state <= popped;
 			when push =>
-				if write_i = '0' or full_i = '1' or count_v + 1 = target_v then
+				if write_i = '0' or full_i = '1' then
 					next_state <= hold;
 				else
 					next_state <= push;
@@ -82,8 +75,15 @@ begin
 		end case;
 	end process state_comb;
 
-	out_comb : process (current_state, full_i)
+	out_comb : process (current_state, full_i, count_i, target_i)
+	variable remaining_v : std_logic;
 	begin
+		if unsigned(count_i) = unsigned(target_i) then
+			remaining_v := '0';
+		else
+			remaining_v := '1';
+		end if;
+
 		case current_state is
 			when reset =>
 				write_o <= '0';
@@ -107,10 +107,10 @@ begin
 				up_o <= '0';
 				clk_sel_o <= '0';
 			when push =>
-				write_o <= not full_i;
+				write_o <= not full_i and remaining_v;
 				read_o <= '0';
 				reset_o <= '0';
-				en_o <= not full_i;
+				en_o <= not full_i and remaining_v;
 				up_o <= '1';
 				clk_sel_o <= '1';
 			when popped =>

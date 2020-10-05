@@ -2,6 +2,7 @@
 #define XRO_H
 
 #include "xil_io.h"
+#include "xstatus.h"
 #include "xro_hw.h"
 
 typedef struct

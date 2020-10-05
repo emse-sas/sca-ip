@@ -18,6 +18,7 @@
 #define XFIFO_H
 
 #include "xil_io.h"
+#include "xstatus.h"
 #include "xfifo_hw.h"
 
 #define XFIFO_MODE_SW XFIFO_STATUS_NULL_MASK

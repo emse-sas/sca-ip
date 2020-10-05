@@ -18,6 +18,7 @@
 #define XTDC_H
 
 #include "xil_io.h"
+#include "xstatus.h"
 #include "xtdc_hw.h"
 #include <limits.h>
 #include <stdio.h>
