@@ -8,7 +8,7 @@ package tdc_pack is
     function fine_width(count : positive) return positive;
     function coarse_width(count : positive) return positive;
     function state_width(depth : positive) return positive;
-    function weights_width(count, depth : positive) return positive;
+    function weight_width(depth : positive) return positive;
 
     constant bits_per_fine_c : positive := 4;
     constant bits_per_coarse_c : positive := 2;
@@ -36,8 +36,8 @@ package body tdc_pack is
         return bits_per_depth_c * depth;
     end function;
 
-    function weights_width(count, depth : positive) return positive is
+    function weight_width(depth : positive) return positive is
     begin
-        return integer(ceil(log2(real(bits_per_depth_c * depth)))) * count;
+        return integer(ceil(log2(real(bits_per_depth_c * depth))));
     end function;
 end tdc_pack;

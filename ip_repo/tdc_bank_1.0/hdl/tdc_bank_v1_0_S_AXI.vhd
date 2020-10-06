@@ -124,7 +124,7 @@ architecture arch_imp of tdc_bank_v1_0_S_AXI is
 	constant sel_width_c : positive := sel_width(count_g);
 	constant coarse_width_c : positive := coarse_width(count_g);
 	constant fine_width_c : positive := fine_width(count_g);
-	constant weights_width_c : positive := weights_width(count_g, depth_g);
+	constant weights_width_c : positive := weight_width(depth_g) * count_g;
 
 	signal state_s : std_logic_vector(state_width_c - 1 downto 0);
 	signal coarse_delay_s : std_logic_vector(coarse_width_c - 1 downto 0);

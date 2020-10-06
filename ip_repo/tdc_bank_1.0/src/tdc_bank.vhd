@@ -28,7 +28,7 @@ entity tdc_bank is
         coarse_delay_i : in std_logic_vector(coarse_width(count_g) - 1 downto 0);
         fine_delay_i   : in std_logic_vector(fine_width(count_g) - 1 downto 0);
         delta_o        : out std_logic_vector(count_g - 1 downto 0);
-        weights_o      : out std_logic_vector(weights_width(count_g, depth_g) - 1 downto 0);
+        weights_o      : out std_logic_vector(weight_width(depth_g) * count_g - 1 downto 0);
         state_o        : out std_logic_vector(state_width(depth_g) - 1 downto 0);
         weight_o       : out std_logic_vector(width_g - 1 downto 0)
     );
@@ -39,7 +39,7 @@ architecture tdc_bank_arch of tdc_bank is
     constant coarse_width_c : positive := coarse_width(count_g);
     constant fine_width_c : positive := fine_width(count_g);
     constant state_width_c : positive := state_width(depth_g);
-    constant weights_width_c : positive := weights_width(count_g, depth_g);
+    constant weights_width_c : positive := weight_width(depth_g) * count_g;
 
     signal state_s : std_logic_vector(state_width_c * count_g - 1 downto 0);
     component tdc
