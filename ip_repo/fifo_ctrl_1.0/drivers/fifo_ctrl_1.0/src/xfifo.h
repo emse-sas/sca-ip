@@ -45,6 +45,7 @@ typedef struct
     u32 IsFull;
     u32 Mode;
     u32 Count;
+    u32 Reached;
 } XFIFO;
 
 /**
@@ -61,6 +62,10 @@ typedef struct
  */
 #define XFIFO_IsFull(BaseAddr)              \
     XFIFO_GetStatus(XFIFO_STATUS_FULL_MASK, \
+                    XFIFO_ReadReg((BaseAddr), XFIFO_STATUS_RD_OFFSET))
+
+#define XFIFO_ReachedThs(BaseAddr)             \
+    XFIFO_GetStatus(XFIFO_STATUS_REACHED_MASK, \
                     XFIFO_ReadReg((BaseAddr), XFIFO_STATUS_RD_OFFSET))
 
 /**

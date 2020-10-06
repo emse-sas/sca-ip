@@ -13,8 +13,7 @@ entity fifo_fsm is
 		write_i   : in std_logic;
 		empty_i   : in std_logic;
 		full_i    : in std_logic;
-		target_i  : in std_logic_vector(width_g - 1 downto 0);
-		count_i   : in std_logic_vector(width_g - 1 downto 0);
+		reached_i : in std_logic;
 		write_o   : out std_logic;
 		read_o    : out std_logic;
 		reset_o   : out std_logic;
@@ -30,8 +29,6 @@ architecture fifo_fsm_arch of fifo_fsm is
 
 	signal current_state, next_state : fifo_state_t;
 begin
-
-
 	state_reg : process (clock_i, reset_i)
 	begin
 		if reset_i = '1' then
@@ -42,7 +39,7 @@ begin
 	end process state_reg;
 
 	state_comb : process (current_state, read_i, write_i, empty_i, full_i)
-		
+
 	begin
 
 		case current_state is
@@ -59,7 +56,7 @@ begin
 			when pop =>
 				next_state <= popped;
 			when push =>
-				if write_i = '0' or full_i = '1' then
+				if write_i = '0' or full_i = '1' or reached_i = '1' then
 					next_state <= hold;
 				else
 					next_state <= push;
@@ -75,15 +72,9 @@ begin
 		end case;
 	end process state_comb;
 
-	out_comb : process (current_state, full_i, count_i, target_i)
-	variable remaining_v : std_logic;
+	out_comb : process (current_state, full_i)
+		variable remaining_v : std_logic;
 	begin
-		if unsigned(count_i) = unsigned(target_i) then
-			remaining_v := '0';
-		else
-			remaining_v := '1';
-		end if;
-
 		case current_state is
 			when reset =>
 				write_o <= '0';
@@ -107,10 +98,10 @@ begin
 				up_o <= '0';
 				clk_sel_o <= '0';
 			when push =>
-				write_o <= not full_i and remaining_v;
+				write_o <= not full_i and not reached_i;
 				read_o <= '0';
 				reset_o <= '0';
-				en_o <= not full_i and remaining_v;
+				en_o <= not full_i and not reached_i;
 				up_o <= '1';
 				clk_sel_o <= '1';
 			when popped =>

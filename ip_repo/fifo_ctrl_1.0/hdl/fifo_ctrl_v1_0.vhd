@@ -17,17 +17,19 @@ entity fifo_ctrl_v1_0 is
 	);
 	port (
 		-- Users to add ports here
-		clock_rd_i : in std_logic;
-		clock_wr_i : in std_logic;
-		empty_i    : in std_logic;
-		full_i     : in std_logic;
-		start_i    : in std_logic;
-		done_i     : in std_logic;
-		data_i     : in std_logic_vector(width_g - 1 downto 0);
-		reset_o    : out std_logic;
-		write_o    : out std_logic;
-		read_o     : out std_logic;
-		count_o    : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+		clock_rd_i  : in std_logic;
+		clock_wr_i  : in std_logic;
+		empty_i     : in std_logic;
+		full_i      : in std_logic;
+		reached_i   : in std_logic;
+		start_i     : in std_logic;
+		done_i      : in std_logic;
+		data_i      : in std_logic_vector(width_g - 1 downto 0);
+		count_i     : in std_logic_vector(12 downto 0);
+		reset_o     : out std_logic;
+		write_o     : out std_logic;
+		read_o      : out std_logic;
+		threshold_o : out std_logic_vector(12 downto 0);
 
 		-- User ports ends
 		-- Do not modify the ports beyond this line
@@ -68,17 +70,19 @@ architecture arch_imp of fifo_ctrl_v1_0 is
 			C_S_AXI_ADDR_WIDTH : integer := 5
 		);
 		port (
-			clock_rd_i : in std_logic;
-			clock_wr_i : in std_logic;
-			empty_i    : in std_logic;
-			full_i     : in std_logic;
-			start_i    : in std_logic;
-			done_i     : in std_logic;
-			data_i     : in std_logic_vector(width_g - 1 downto 0);
-			reset_o    : out std_logic;
-			write_o    : out std_logic;
-			read_o     : out std_logic;
-			count_o    : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+			clock_rd_i  : in std_logic;
+			clock_wr_i  : in std_logic;
+			empty_i     : in std_logic;
+			full_i      : in std_logic;
+			reached_i   : in std_logic;
+			start_i     : in std_logic;
+			done_i      : in std_logic;
+			data_i      : in std_logic_vector(width_g - 1 downto 0);
+			count_i     : in std_logic_vector(12 downto 0);
+			reset_o     : out std_logic;
+			write_o     : out std_logic;
+			read_o      : out std_logic;
+			threshold_o : out std_logic_vector(12 downto 0);
 
 			S_AXI_ACLK    : in std_logic;
 			S_AXI_ARESETN : in std_logic;
@@ -119,13 +123,15 @@ begin
 		clock_wr_i    => clock_wr_i,
 		empty_i       => empty_i,
 		full_i        => full_i,
+		reached_i     => reached_i,
 		start_i       => start_i,
 		done_i        => done_i,
 		data_i        => data_i,
+		count_i       => count_i,
 		reset_o       => reset_o,
 		read_o        => read_o,
+		threshold_o   => threshold_o,
 		write_o       => write_o,
-		count_o       => count_o,
 		S_AXI_ACLK    => s_axi_aclk,
 		S_AXI_ARESETN => s_axi_aresetn,
 		S_AXI_AWADDR  => s_axi_awaddr,

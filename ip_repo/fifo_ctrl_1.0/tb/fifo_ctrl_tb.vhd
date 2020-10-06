@@ -27,8 +27,8 @@ architecture fifo_ctrl_tb_arch of fifo_ctrl_tb is
     signal count_os : std_logic_vector(width_c - 1 downto 0);
 
 begin
-    clock_rd_s <= not clock_rd_s after 100 ns;
-    clock_wr_s <= not clock_wr_s after 20 ns;
+    clock_rd_s <= not clock_rd_s after 10 ns;
+    clock_wr_s <= not clock_wr_s after 2.5 ns;
 
     DUT : entity work.fifo_ctrl(fifo_ctrl_arch)
         generic map(

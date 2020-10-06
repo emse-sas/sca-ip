@@ -314,7 +314,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>7d3d26b9</spirit:value>
+            <spirit:value>769c361a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -330,7 +330,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>7d3d26b9</spirit:value>
+            <spirit:value>769c361a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -372,7 +372,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>899a778e</spirit:value>
+            <spirit:value>42208116</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -388,7 +388,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>5326a327</spirit:value>
+            <spirit:value>f3a27066</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -447,6 +447,19 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
+        <spirit:name>reached_i</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
         <spirit:name>start_i</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
@@ -478,6 +491,23 @@
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
             <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.width_g&apos;)) - 1)">31</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>count_i</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">12</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -529,11 +559,11 @@
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>count_o</spirit:name>
+        <spirit:name>threshold_o</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S_AXI_DATA_WIDTH&apos;)) - 1)">31</spirit:left>
+            <spirit:left spirit:format="long">12</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -898,11 +928,6 @@
     <spirit:fileSet>
       <spirit:name>xilinx_vhdlsynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>src/fifo_counter.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:logicalName>work</spirit:logicalName>
-      </spirit:file>
-      <spirit:file>
         <spirit:name>src/fifo_fsm.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>work</spirit:logicalName>
@@ -919,16 +944,11 @@
       <spirit:file>
         <spirit:name>hdl/fifo_ctrl_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_eca887d1</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_e5f5bfa4</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
       <spirit:name>xilinx_vhdlbehavioralsimulation_view_fileset</spirit:name>
-      <spirit:file>
-        <spirit:name>src/fifo_counter.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:logicalName>work</spirit:logicalName>
-      </spirit:file>
       <spirit:file>
         <spirit:name>src/fifo_fsm.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
@@ -1063,8 +1083,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>FIFO Controller</xilinx:displayName>
-      <xilinx:coreRevision>11</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2020-09-14T07:20:18Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>18</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2020-10-06T14:53:18Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@786330a4_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@1271429b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
@@ -1563,14 +1583,166 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@97ce9d2_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@3e425f59_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@6983c241_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2a239224_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f28f0a2_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@69d0384e_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ec5c86_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5aaf5662_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@47e927c3_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@736e7a12_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ac97455_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2cdef86f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6d6ed792_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c095e3c_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@798902bb_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@60eb714_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@41fd5ba8_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@73fbc34b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ae542cf_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ee14d64_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7188254f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@72aa76da_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@64c6baf7_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2dff31eb_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@52827d97_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@12c36499_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@348d5882_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@56d19c93_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@242bbeb0_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b33beb_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@53136aa6_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2fb79c8_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@29e03380_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f4e9eff_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5ea2c843_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1326d2ee_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4b61a7ef_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@597c6af2_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ecd6928_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@733a3299_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@64bd4a86_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2b261b3a_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3f2d2b50_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@70d5b5ee_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@22f95786_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@421715d2_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@758b8356_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@11d1b99_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b3c5e5f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@197687ef_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7e8f819b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7f95c2ad_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b4d9167_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7f12c369_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@158ec465_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b030089_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5ace2b08_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7640e213_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4786307c_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@626e2876_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@58247f07_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7773c20a_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3e5ad9de_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@789f4ef9_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@59cf5b46_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f6c46cf_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2253241b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@174973e2_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6948e51e_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1bef9202_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@307bc172_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3521d380_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4c608c46_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ca58ea7_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@50d66c2f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@688f25b6_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@78daab98_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@34e72bb2_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@21b808b6_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6d961c4_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d7d5fd8_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@53819a7d_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@30dbc8b7_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5ac34264_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@17741018_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@38067859_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6cb2c242_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7aa497ff_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@737a703d_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@358ca736_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@379a0d2e_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1d12ba36_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@facac37_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@44d8b040_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@63467211_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@49b32d4b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b893b71_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6c8b9a81_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@68223220_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@440b04e7_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f472e02_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@441bd937_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@25badcb3_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3dd44a99_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@754a834b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@23522d5_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3ea6525a_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@189fc96a_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1c52fa1_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1bf23ca4_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@30fe11a6_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2785bf84_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@47c4daff_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d8c2fa7_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@403590a_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@414e144a_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1cafb6ea_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6fc8e82f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6089dbdd_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4ddbb9b8_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@36f180bb_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3408b43c_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57b659f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4d8f12e9_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ef5a4a9_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@c7c7ce4_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@288903cf_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@77c7e294_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@725cfdd9_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@33108d0b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@8ac841e_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@394d85cf_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ef97b48_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@217c140f_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1cd0a339_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9856153_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@25fafb1b_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5f90bc79_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@123fc4c6_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@32aaea6a_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2edb6088_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@154152c_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@60ede967_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@19a43be8_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2dc04f9_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5f28931d_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@74bcba5c_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@26fcb18e_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4d7a3f40_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5231e8bf_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@30a8d3c1_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5f050cd4_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@78b9b05e_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@44c2b730_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@50a96caf_ARCHIVE_LOCATION">/home/bendou/Documents/code/vhdl/vivado/ip/sca-ip/ip_repo/fifo_ctrl_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="91cd14f7"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="c30980da"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="0fb3d2e4"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="0770f60d"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="2609cb9a"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="d9f606e4"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="e20db940"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="3d3b598c"/>
     </xilinx:packagingInfo>

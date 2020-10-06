@@ -6,9 +6,9 @@ use ieee.math_real.all;
 entity fifo_ctrl_v1_0_S_AXI is
 	generic (
 		-- Users to add parameters here
-		depth_g : positive := 8192;
-		width_g : positive := 32;
-		state_width_g  : positive range 1 to 32 := 32;
+		depth_g       : positive               := 8192;
+		width_g       : positive               := 32;
+		state_width_g : positive range 1 to 32 := 32;
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
@@ -19,17 +19,19 @@ entity fifo_ctrl_v1_0_S_AXI is
 	);
 	port (
 		-- Users to add ports here
-		clock_rd_i : in std_logic;
-		clock_wr_i : in std_logic;
-		empty_i    : in std_logic;
-		full_i     : in std_logic;
-		start_i    : in std_logic;
-		done_i     : in std_logic;
-		data_i     : in std_logic_vector(width_g - 1 downto 0);
-		reset_o    : out std_logic;
-		write_o    : out std_logic;
-		read_o     : out std_logic;
-		count_o    : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+		clock_rd_i  : in std_logic;
+		clock_wr_i  : in std_logic;
+		empty_i     : in std_logic;
+		full_i      : in std_logic;
+		reached_i   : in std_logic;
+		start_i     : in std_logic;
+		done_i      : in std_logic;
+		data_i      : in std_logic_vector(width_g - 1 downto 0);
+		count_i     : in std_logic_vector(12 downto 0);
+		reset_o     : out std_logic;
+		write_o     : out std_logic;
+		read_o      : out std_logic;
+		threshold_o : out std_logic_vector(12 downto 0);
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 
@@ -121,7 +123,6 @@ architecture arch_imp of fifo_ctrl_v1_0_S_AXI is
 	---- Signals for user logic register space example
 
 	signal reset_s, read_s, write_s, mode_s : std_logic;
-	signal count_os, count_is : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 	signal data_s : std_logic_vector(4 * C_S_AXI_DATA_WIDTH - 1 downto 0);
 
 	constant count_width_c : positive := positive(ceil(log2(real(depth_g)))) + 1;
@@ -409,7 +410,7 @@ begin
 	-- and the slave is ready to accept the read address.
 	slv_reg_rden <= axi_arready and S_AXI_ARVALID and (not axi_rvalid);
 
-	process (data_s, empty_i, full_i, slv_reg5, count_os, slv_reg7, axi_araddr, S_AXI_ARESETN, slv_reg_rden)
+	process (data_s, empty_i, full_i, slv_reg5, slv_reg7, axi_araddr, S_AXI_ARESETN, slv_reg_rden)
 		variable loc_addr : std_logic_vector(OPT_MEM_ADDR_BITS downto 0);
 	begin
 		-- Address decoding for reading registers
@@ -426,12 +427,14 @@ begin
 			when b"100" =>
 				reg_data_out(0) <= empty_i;
 				reg_data_out(1) <= full_i;
-				reg_data_out(C_S_AXI_DATA_WIDTH - 1 downto 2) <= (others => '0');
+				reg_data_out(2) <= reached_i;
+				reg_data_out(C_S_AXI_DATA_WIDTH - 1 downto 3) <= (others => '0');
 
 			when b"101" =>
 				reg_data_out <= slv_reg5;
 			when b"110" =>
-				reg_data_out <= count_os;
+				reg_data_out(12 downto 0) <= count_i;
+				reg_data_out(C_S_AXI_DATA_WIDTH -1 downto 13) <= (others => '0');
 
 			when b"111" =>
 				reg_data_out <= slv_reg7;
@@ -464,10 +467,7 @@ begin
 	mode_s <= slv_reg5(3);
 	write_s <= slv_reg5(2) when mode_s = '0' else (start_i and slv_reg5(2));
 
-	count_is <= slv_reg7;
-
-	count_os(C_S_AXI_DATA_WIDTH - 1 downto count_width_c) <= (others => '0');
-	count_o <= count_os;
+	threshold_o <= slv_reg7(12 downto 0);
 
 	data_s(width_g - 1 downto 0) <= data_i;
 	data_s(4 * C_S_AXI_DATA_WIDTH - 1 downto width_g) <= (others => '0');
@@ -484,11 +484,10 @@ begin
 			write_i    => write_s,
 			empty_i    => empty_i,
 			full_i     => full_i,
-			count_i    => count_is(count_width_c - 1 downto 0),
+			reached_i  => reached_i,
 			write_o    => write_o,
 			read_o     => read_o,
-			reset_o    => reset_o,
-			count_o    => count_os(count_width_c - 1 downto 0)
+			reset_o    => reset_o
 		);
 	-- User logic ends
 

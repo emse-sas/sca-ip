@@ -33,8 +33,9 @@ void XFIFO_Reset(XFIFO *InstancePtr)
 
     u32 addr = InstancePtr->Config.BaseAddr;
 
-    XFIFO_SetCount(addr, 0);
+    
     XFIFO_StartReset(addr, InstancePtr->Mode);
+    XFIFO_SetCount(addr, InstancePtr->Config.Depth);
     XFIFO_StopReset(addr);
 
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
@@ -81,11 +82,7 @@ u32 XFIFO_Read(XFIFO *InstancePtr, u32 Data[], u32 Start, u32 End, u32 Words)
             }
         }
         XFIFO_StopRead(addr);
-        if (count != (InstancePtr->Count = XFIFO_GetCount(addr)))
-        {
-            read++;
-        }
-        count = InstancePtr->Count;
+        read++;
     }
     InstancePtr->IsEmpty = XFIFO_IsEmpty(addr);
     InstancePtr->IsFull = XFIFO_IsFull(addr);
@@ -107,7 +104,10 @@ u32 XFIFO_Write(XFIFO *InstancePtr, u32 Count, XFIFO_WrAction Action)
     }
 
     InstancePtr->IsStarted = XIL_COMPONENT_IS_STARTED;
+
+    XFIFO_StartReset(addr, InstancePtr->Mode);
     XFIFO_SetCount(addr, Count);
+    XFIFO_StopReset(addr);
 
     if (Action != NULL)
     {
@@ -118,7 +118,7 @@ u32 XFIFO_Write(XFIFO *InstancePtr, u32 Count, XFIFO_WrAction Action)
     else
     {
         XFIFO_StartWrite(addr);
-        while ((InstancePtr->Count = XFIFO_GetCount(addr)) < Count && !(InstancePtr->IsFull = XFIFO_IsFull(addr)))
+        while (!(InstancePtr->Reached = XFIFO_ReachedThs(addr)) && !(InstancePtr->IsFull = XFIFO_IsFull(addr)))
         {
         }
         XFIFO_StopWrite(addr);
@@ -126,7 +126,7 @@ u32 XFIFO_Write(XFIFO *InstancePtr, u32 Count, XFIFO_WrAction Action)
 
     InstancePtr->IsEmpty = XFIFO_IsEmpty(addr);
     InstancePtr->IsFull = XFIFO_IsFull(addr);
-    InstancePtr->Count = XFIFO_GetCount(addr);
+    InstancePtr->Reached = XFIFO_ReachedThs(addr);
     InstancePtr->IsStarted = 0;
     return InstancePtr->Count;
 }
