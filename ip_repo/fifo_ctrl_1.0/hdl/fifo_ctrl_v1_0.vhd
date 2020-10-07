@@ -17,8 +17,7 @@ entity fifo_ctrl_v1_0 is
 	);
 	port (
 		-- Users to add ports here
-		clock_rd_i  : in std_logic;
-		clock_wr_i  : in std_logic;
+		clock_i     : in std_logic;
 		empty_i     : in std_logic;
 		full_i      : in std_logic;
 		reached_i   : in std_logic;
@@ -70,8 +69,7 @@ architecture arch_imp of fifo_ctrl_v1_0 is
 			C_S_AXI_ADDR_WIDTH : integer := 5
 		);
 		port (
-			clock_rd_i  : in std_logic;
-			clock_wr_i  : in std_logic;
+			clock_i     : in std_logic;
 			empty_i     : in std_logic;
 			full_i      : in std_logic;
 			reached_i   : in std_logic;
@@ -119,8 +117,7 @@ begin
 		C_S_AXI_ADDR_WIDTH => C_S_AXI_ADDR_WIDTH
 	)
 	port map(
-		clock_rd_i    => clock_rd_i,
-		clock_wr_i    => clock_wr_i,
+		clock_i       => clock_i,
 		empty_i       => empty_i,
 		full_i        => full_i,
 		reached_i     => reached_i,

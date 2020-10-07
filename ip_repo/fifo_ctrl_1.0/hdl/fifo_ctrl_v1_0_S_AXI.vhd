@@ -19,8 +19,7 @@ entity fifo_ctrl_v1_0_S_AXI is
 	);
 	port (
 		-- Users to add ports here
-		clock_rd_i  : in std_logic;
-		clock_wr_i  : in std_logic;
+		clock_i     : in std_logic;
 		empty_i     : in std_logic;
 		full_i      : in std_logic;
 		reached_i   : in std_logic;
@@ -434,7 +433,7 @@ begin
 				reg_data_out <= slv_reg5;
 			when b"110" =>
 				reg_data_out(12 downto 0) <= count_i;
-				reg_data_out(C_S_AXI_DATA_WIDTH -1 downto 13) <= (others => '0');
+				reg_data_out(C_S_AXI_DATA_WIDTH - 1 downto 13) <= (others => '0');
 
 			when b"111" =>
 				reg_data_out <= slv_reg7;
@@ -463,6 +462,8 @@ begin
 	-- Add user logic here
 
 	reset_s <= slv_reg5(0);
+	reset_o <= reset_s;
+
 	read_s <= slv_reg5(1);
 	mode_s <= slv_reg5(3);
 	write_s <= slv_reg5(2) when mode_s = '0' else (start_i and slv_reg5(2));
@@ -477,17 +478,15 @@ begin
 			width_g => count_width_c
 		)
 		port map(
-			clock_rd_i => clock_rd_i,
-			clock_wr_i => clock_wr_i,
-			reset_i    => reset_s,
-			read_i     => read_s,
-			write_i    => write_s,
-			empty_i    => empty_i,
-			full_i     => full_i,
-			reached_i  => reached_i,
-			write_o    => write_o,
-			read_o     => read_o,
-			reset_o    => reset_o
+			clock_i   => clock_i,
+			reset_i   => reset_s,
+			read_i    => read_s,
+			write_i   => write_s,
+			empty_i   => empty_i,
+			full_i    => full_i,
+			reached_i => reached_i,
+			write_o   => write_o,
+			read_o    => read_o
 		);
 	-- User logic ends
 

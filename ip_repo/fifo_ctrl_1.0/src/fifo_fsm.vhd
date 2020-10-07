@@ -15,11 +15,7 @@ entity fifo_fsm is
 		full_i    : in std_logic;
 		reached_i : in std_logic;
 		write_o   : out std_logic;
-		read_o    : out std_logic;
-		reset_o   : out std_logic;
-		en_o      : out std_logic;
-		up_o      : out std_logic;
-		clk_sel_o : out std_logic
+		read_o    : out std_logic
 	);
 end fifo_fsm;
 
@@ -38,17 +34,16 @@ begin
 		end if;
 	end process state_reg;
 
-	state_comb : process (current_state, read_i, write_i, empty_i, full_i)
+	state_comb : process (current_state, read_i, write_i)
 
 	begin
-
 		case current_state is
 			when reset =>
 				next_state <= hold;
 			when hold =>
-				if read_i = '1' and empty_i = '0' then
+				if read_i = '1' then
 					next_state <= pop;
-				elsif write_i = '1' and full_i = '0' then
+				elsif write_i = '1' then
 					next_state <= push;
 				else
 					next_state <= hold;
@@ -56,7 +51,7 @@ begin
 			when pop =>
 				next_state <= popped;
 			when push =>
-				if write_i = '0' or full_i = '1' or reached_i = '1' then
+				if write_i = '0' then
 					next_state <= hold;
 				else
 					next_state <= push;
@@ -72,52 +67,28 @@ begin
 		end case;
 	end process state_comb;
 
-	out_comb : process (current_state, full_i)
+	out_comb : process (current_state, empty_i, full_i, reached_i)
 		variable remaining_v : std_logic;
 	begin
 		case current_state is
 			when reset =>
 				write_o <= '0';
 				read_o <= '0';
-				reset_o <= '1';
-				en_o <= '0';
-				up_o <= '0';
-				clk_sel_o <= '0';
 			when hold =>
 				write_o <= '0';
 				read_o <= '0';
-				reset_o <= '0';
-				en_o <= '0';
-				up_o <= '1';
-				clk_sel_o <= '0';
 			when pop =>
 				write_o <= '0';
-				read_o <= '1';
-				reset_o <= '0';
-				en_o <= '1';
-				up_o <= '0';
-				clk_sel_o <= '0';
+				read_o <= not empty_i;
 			when push =>
 				write_o <= not full_i and not reached_i;
 				read_o <= '0';
-				reset_o <= '0';
-				en_o <= not full_i and not reached_i;
-				up_o <= '1';
-				clk_sel_o <= '1';
 			when popped =>
 				write_o <= '0';
 				read_o <= '0';
-				reset_o <= '0';
-				en_o <= '0';
-				up_o <= '0';
-				clk_sel_o <= '0';
 			when others =>
 				write_o <= '0';
 				read_o <= '0';
-				reset_o <= '0';
-				en_o <= '0';
-				up_o <= '0';
-				clk_sel_o <= '0';
 		end case;
 	end process out_comb;
 end fifo_fsm_arch; -- fifo_fsm_arch
