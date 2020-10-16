@@ -8,7 +8,7 @@ use rtl.ro_pack.all;
 entity ro_bank_v1_0 is
 	generic (
 		-- Users to add parameters here
-		count_g : positive   := 2;
+		count_g : positive   := 16;
 		depth_g : positive   := 8;
 		width_g : positive   := 32;
 		mode_g  : string := "step";

@@ -31,7 +31,7 @@ architecture tdc_output_arch of tdc_output is
     type weight_array_t is array (0 to count_g - 1) of std_logic_vector(weight_width_c - 1 downto 0);
     type state_array_t is array (0 to count_g - 1) of std_logic_vector(state_width_c - 1 downto 0);
 
-    component exp_sum is
+    component tdc_exp_sum is
         generic (
             depth_g     : positive := 4;
             in_width_g  : positive := 8;
@@ -79,7 +79,7 @@ begin
     end process; -- weight_reg
 
     concat_sum : for i in 0 to count_g - 1 generate
-        weights : exp_sum
+        weights : tdc_exp_sum
         generic map(
             depth_g     => depth_g,
             in_width_g  => state_width_c,
@@ -92,7 +92,7 @@ begin
         );
     end generate; -- concat_sum
 
-    sum : exp_sum
+    sum : tdc_exp_sum
     generic map(
         depth_g     => depth_g,
         in_width_g  => state_width_c * count_g,

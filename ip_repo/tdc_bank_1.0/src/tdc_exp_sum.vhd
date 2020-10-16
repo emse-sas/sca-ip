@@ -5,7 +5,7 @@ use ieee.math_real.all;
 library rtl;
 use rtl.tdc_pack.all;
 
-entity exp_sum is
+entity tdc_exp_sum is
     generic (
         depth_g : positive := 4;
         in_width_g : positive := 8;
@@ -16,9 +16,9 @@ entity exp_sum is
         state_i  : in std_logic_vector(in_width_g - 1 downto 0);
         weight_o : out std_logic_vector(out_width_g - 1 downto 0)
     );
-end exp_sum;
+end tdc_exp_sum;
 
-architecture exp_sum_arch of exp_sum is
+architecture tdc_exp_sum_arch of tdc_exp_sum is
     constant state_width_c : positive := in_width_g;
     constant weight_width_c : positive := out_width_g;
     constant sum_depth_c : positive := integer(ceil(log2(real(in_width_g))));
@@ -51,4 +51,4 @@ begin
 
     weight_o <= std_logic_vector(curr_sums_s(sum_depth_c - 1)(0) + curr_sums_s(sum_depth_c - 1)(1));
 
-end exp_sum_arch; -- exp_sum_arch
+end tdc_exp_sum_arch; -- tdc_exp_sum_arch
