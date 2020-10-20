@@ -21,19 +21,31 @@ Vivado block design
 The IPs have been tested on the Zybo-Z7010 board but are meant to work on any Xilinx board
 except for the power sensors. The targeted frequency is 200MHz on the Z7.
 
+
+Install
+===============================================================
+
+To install the repository you must first clone the sources from GitHub
+
+.. code-block:: shell
+
+    $ git clone https://github.com/samiBendou/sca-ip
+
+Then, launch Vivado and add each IP you need into your IP repositories.
+
 Usage
 ===============================================================
 
-Our IP can be integrated to any Vivado block design as you can do why already existing IPs.
+Our IPs can be integrated to any Vivado block design as you can do with already existing IP blocks.
 To integrate an IP just add the directory containing the IP to your IP repositories.
+Use the customization GUI to change the parameters of each IP.
 
 Documentation
 ===============================================================
 
-The complete documentation of the IP repo is available at `<https://samibendou.github.io/sca-ip/>`_
+The complete documentation of the IP repo is available `here <https://samibendou.github.io/sca-ip/>`_.
 The project contains both hardware and software parts, 
-therefore, the documentation is split into two different websites.
-
+therefore this documentation is split into two different websites.
 
 Drivers
 ---------------------------------------------------------------
@@ -48,8 +60,8 @@ The documentation of the IPs RTL can be found `here <../hdl/html/index.html>`_
 Build
 ---------------------------------------------------------------
 
-To generate the documentation of this project from the sources using Doxygen and sphinx,
-input the following commands from the root of the project :
+You can generate the documentation of this repository from the sources using Doxygen and sphinx.
+To do so, input the following commands from the root of the project :
 
 .. code-block:: shell
 
@@ -65,7 +77,7 @@ More
 SCABox is a project on the topic of side-channel analysis.
 The goal of SCABox is to provide a cheap and efficient test-bench for side-channel analysis.
 
-To know more about SCABox please visit our website `<https://samibendou.github.io/sca_framework/>`_.
+To know more about SCABox please visit our `website <https://samibendou.github.io/sca_framework/>`_.
 It provides a full documentation of project and a wiki about side-channel analysis.
 
 - `IP repository <https://github.com/samiBendou/sca-ip/>`_
