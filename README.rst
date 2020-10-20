@@ -1,13 +1,13 @@
-SCABox IP repository
+SCABox IPs
 ***************************************************************
 
 Overview
 ===============================================================
 
-This repository contains IPs related to side-channel analysis and used in the [SCABox](https://samibendou.github.io/sca_framework/) project
+This repository contains FPGA IPs related to side-channel analysis and used in the `SCABox <https://samibendou.github.io/sca_framework/>`_ project
 
 - Cores : cryptographic accelerators
-- Sensors : power sensors
+- Sensors : electrical power sensors
 - Acquisition : synchronous sensors monitoring
 
 Each IP in this repository is provided with all the interface needed to be reusable in any
@@ -19,7 +19,7 @@ Vivado block design
 - Embedded drivers
 
 The IPs have been tested on the Zybo-Z7010 board but are meant to work on any Xilinx board
-except for the power sensors. The targeted frequency is 200MHz.
+except for the power sensors. The targeted frequency is 200MHz on the Z7.
 
 Usage
 ===============================================================
@@ -27,15 +27,47 @@ Usage
 Our IP can be integrated to any Vivado block design as you can do why already existing IPs.
 To integrate an IP just add the directory containing the IP to your IP repositories.
 
+Documentation
+===============================================================
+
+The complete documentation of the IP repo is available at `<https://samibendou.github.io/sca-ip/>`_
+The project contains both hardware and software parts, 
+therefore, the documentation is split into two different websites.
+
+
+Drivers
+---------------------------------------------------------------
+
+The documentation for the C drivers of the IPs can be found `here <../c/html/index.html>`_
+
+Hardware
+---------------------------------------------------------------
+
+The documentation of the IPs RTL can be found `here <../hdl/html/index.html>`_
+
+Build
+---------------------------------------------------------------
+
+To generate the documentation of this project from the sources using Doxygen and sphinx,
+input the following commands from the root of the project :
+
+.. code-block:: shell
+
+    $ cd docs
+    $ doxygen Doxyfile_c
+    $ doxygen Doxyfile_vhd
+    $ make html
+
+
 More
 ===============================================================
 
 SCABox is a project on the topic of side-channel analysis.
 The goal of SCABox is to provide a cheap and efficient test-bench for side-channel analysis.
 
-To know more about SCABox please visit our [website](https://samibendou.github.io/sca_framework/), it provides a full documentation on the project
-and a introduction about side-channel analysis.
+To know more about SCABox please visit our website `<https://samibendou.github.io/sca_framework/>`_.
+It provides a full documentation of project and a wiki about side-channel analysis.
 
-- IP repository
-- Acquisition demo
-- Attack demo
+- `IP repository <https://github.com/samiBendou/sca-ip/>`_
+- `Acquisition demo <https://github.com/samiBendou/sca-demo-tdc-aes/>`_
+- `Attack demo <https://github.com/samiBendou/sca-automation/>`_

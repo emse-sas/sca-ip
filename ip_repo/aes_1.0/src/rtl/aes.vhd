@@ -1,8 +1,8 @@
--------------------------------------------------------
+---------------------------------------------------------------
 --! @author Sami Dahoux (s.dahoux@emse.fr)
 --! @file aes.vhd
 --! @brief top level wrapper
--------------------------------------------------------
+---------------------------------------------------------------
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -14,6 +14,10 @@ use lib_thirdparty.crypt_pack.all;
 library lib_rtl;
 use lib_rtl.all;
 
+--! RTL Top level of AES ecryption core.
+
+--! This top level is intented to provide an interface to perform
+--! AES128 encryptions using the accelerator.
 entity aes is
 	port (
 		data_i  : in bit128;
