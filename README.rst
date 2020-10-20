@@ -123,4 +123,4 @@ a very heterogeneous technical stack, it is difficult to maintain the quality wi
 License
 ---------------------------------------------------------------
 
-All the contents of the SCABox project are licensed under
+ocAll the contents of the SCABox project are licensed under the `MIT license <https://choosealicense.com/licenses/mit/>` provided in each GitHub repository.
