@@ -1,6 +1,14 @@
 SCABox IPs
 ***************************************************************
 
+.. image:: https://img.shields.io/github/license/samiBendou/sca-ip
+    :target: https://choosealicense.com/licenses/mit/
+    :alt: license
+
+.. image:: https://img.shields.io/github/deployments/samiBendou/sca-ip/github-pages
+    :target: https://samibendou.github.io/sca-ip/
+    :alt: pages
+
 Overview
 ===============================================================
 
@@ -123,4 +131,4 @@ a very heterogeneous technical stack, it is difficult to maintain the quality wi
 License
 ---------------------------------------------------------------
 
-ocAll the contents of the SCABox project are licensed under the `MIT license <https://choosealicense.com/licenses/mit/>` provided in each GitHub repository.
+All the contents of the SCABox project are licensed under the `MIT license <https://choosealicense.com/licenses/mit/>`_ provided in each GitHub repository.
