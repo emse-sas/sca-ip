@@ -9,13 +9,13 @@ addons:
     - doxygen
 
 scripts:
-- cd docs/source
+- cd docs/
 - doxygen Doxyfile_c
 - doxygen Doxyfile_hdl
 - make html
-- cd ../build/html
+- cd build/html
 - touch .nojekyll
-- cd ../../../
+- cd ../../
 
 deploy:
   provider: pages:git
