@@ -1,6 +1,6 @@
 addons:
   apt:
-- doxygen
+    - doxygen
 
 scripts:
 - cd docs/source
