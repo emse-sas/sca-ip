@@ -1,6 +1,6 @@
 scripts:
 - echo "Generating documentation..."
-- cd docs/sources
+- cd docs/source
 - doxygen Doxyfile_c
 - doxygen Doxyfile_hdl
 - make html
