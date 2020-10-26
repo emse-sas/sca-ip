@@ -25,5 +25,6 @@ deploy:
   github_token: $GH_PAGES_TOKEN
   keep_history: true
   skip_cleanup: true
+  edge: true
   on:
     branch: master
