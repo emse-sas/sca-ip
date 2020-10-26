@@ -10,18 +10,18 @@ addons:
 
 scripts:
 - cd docs/
-- mkdir build && mkdir build/html && mkdir build/html/c build/html/hdl
+- mkdir build && mkdir build/html
 - doxygen Doxyfile_c
 - doxygen Doxyfile_hdl
 - make html
 - cd build/html
 - touch .nojekyll
-- cd ../../
+- cd ../../../
 
 deploy:
   provider: pages:git
   email: sami@dahoux.net
-  local_dir: build/html
+  local_dir: docs/build/html
   github_token: $GH_PAGES_TOKEN
   keep_history: true
   edge: true
