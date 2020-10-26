@@ -81,12 +81,12 @@ therefore this documentation is split into two different websites.
 Drivers
 ---------------------------------------------------------------
 
-The documentation for the C drivers of the IPs can be found `here <../c/html/index.html>`_
+The documentation for the C drivers of the IPs can be found `here <c/index.html>`_
 
 Hardware
 ---------------------------------------------------------------
 
-The documentation of the IPs RTL can be found `here <../hdl/html/index.html>`_
+The documentation of the IPs RTL can be found `here <hdl/index.html>`_
 
 Build
 ---------------------------------------------------------------
