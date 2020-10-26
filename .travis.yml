@@ -3,7 +3,6 @@ python:
 - 3.6
 install:
 - pip install sphinx sphinx_rtd_theme sphinx-argparse recommonmark
-- pip install -r requirements.txt
 
 addons:
   apt:
