@@ -3,13 +3,6 @@
   <compound kind="struct">
     <name>XAES</name>
     <filename>struct_x_a_e_s.html</filename>
-    <member kind="variable">
-      <type>XAES_Config</type>
-      <name>Config</name>
-      <anchorfile>struct_x_a_e_s.html</anchorfile>
-      <anchor>a451540ca639a2c3cb559807f5ee78351</anchor>
-      <arglist></arglist>
-    </member>
   </compound>
   <compound kind="struct">
     <name>XAES_Config</name>

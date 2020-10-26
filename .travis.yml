@@ -1,0 +1,18 @@
+scripts:
+- echo "Generating documentation..."
+- cd docs/sources
+- doxygen Doxyfile_c
+- doxygen Doxyfile_hdl
+- make html
+- cd ../build/html
+- touch .nojekyll
+- cd ../../../
+
+deploy:
+  provider: pages:git
+  email: sami@dahoux.net
+  local_dir: docs/build/html
+  keep_history: true
+  edge: true
+  on:
+    branch: master
