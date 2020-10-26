@@ -9,6 +9,8 @@ SCABox IPs
     :target: https://samibendou.github.io/sca-ip/
     :alt: pages
 
+`Website <https://samibendou.github.io/sca-ip/>`_
+
 Overview
 ===============================================================
 
