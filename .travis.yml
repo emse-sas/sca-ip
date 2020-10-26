@@ -3,7 +3,6 @@ addons:
 - doxygen
 
 scripts:
-- sudo apt install doxygen
 - echo "Generating documentation..."
 - cd docs/source
 - doxygen Doxyfile_c
