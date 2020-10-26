@@ -1,3 +1,7 @@
+addons:
+  apt:
+- doxygen
+
 scripts:
 - sudo apt install doxygen
 - echo "Generating documentation..."
