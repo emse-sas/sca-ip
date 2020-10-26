@@ -19,12 +19,12 @@ scripts:
 - cd ../../../
 
 deploy:
-  provider: pages:git
+  provider: pages
+  keep_history: true
+  skip_cleanup: true
   email: sami@dahoux.net
   local_dir: docs/build/html
   github_token: $GH_PAGES_TOKEN
-  keep_history: true
-  skip_cleanup: true
   edge: true
   on:
     branch: master
