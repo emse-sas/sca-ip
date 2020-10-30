@@ -6,16 +6,16 @@ SCABox IPs
     :alt: license
 
 .. image:: https://img.shields.io/github/deployments/samiBendou/sca-ip/github-pages
-    :target: https://samibendou.github.io/sca-ip/
+    :target: https://emse-sas.github.io/sca-ip/
     :alt: pages
 
-`Website <https://samibendou.github.io/sca-ip/>`_
+`Website <https://emse-sas.github.io/sca-ip/>`_
 
 Overview
 ===============================================================
 
 This repository contains FPGA IPs related to side-channel analysis and used in the 
-`SCABox <https://samibendou.github.io/sca_framework/>`_ project
+`SCABox <https://emse-sas.github.io/sca_framework/>`_ project
 
 - Cores : cryptographic accelerators
 - Sensors : electrical power sensors
@@ -76,7 +76,7 @@ Use the customization GUI to change the parameters of each IP.
 Documentation
 ===============================================================
 
-The complete documentation of the IP repo is available `here <https://samibendou.github.io/sca-ip/>`_.
+The complete documentation of the IP repo is available `here <https://emse-sas.github.io/sca-ip/>`_.
 The project contains both hardware and software parts, 
 therefore this documentation is split into two different websites.
 
@@ -109,7 +109,7 @@ More
 SCABox is a project on the topic of side-channel analysis.
 The goal of SCABox is to provide a cheap and efficient test-bench for side-channel analysis.
 
-To know more about SCABox please visit our `website <https://samibendou.github.io/sca_framework/>`_.
+To know more about SCABox please visit our `website <https://emse-sas.github.io/sca_framework/>`_.
 It provides a tutorials and a wiki about side-channel analysis.
 
 SCABox is an open-source project, all the sources are hosted on GitHub
