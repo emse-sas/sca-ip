@@ -216,27 +216,30 @@ Vivado block design</p>
 <div class="section" id="cores">
 <h3>Cores<a class="headerlink" href="#cores" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Advanced Encryption Standard (AES)</p></li>
+<li><p>Advanced Encryption Standard Block Cipher (AES)</p></li>
+<li><p>Present Block Cipher (PRESENT)</p></li>
+<li><p>Klein Block Cipher (KLEIN)</p></li>
+<li><p>Crypton Block Cipher (CRYPTON)</p></li>
 </ul>
 </div>
 <div class="section" id="acquisition">
 <h3>Acquisition<a class="headerlink" href="#acquisition" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>FIFO hybrid acquisition controller</p></li>
+<li><p>FIFO hybrid acquisition controller (to be interfaced with a FIFO)</p></li>
+<li><p>FIFO hybrid acquisition controller + embedded FIFO</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="install">
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
 <p>To install the repository you must first clone the sources from GitHub</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/samiBendou/sca-ip
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/emse-sas/sca-ip
 </pre></div>
 </div>
 <p>Then, launch Vivado and add each IP you need into your IP repositories.</p>
 <div class="section" id="compatibility">
 <h3>Compatibility<a class="headerlink" href="#compatibility" title="Permalink to this headline">¶</a></h3>
-<p>The IPs have been tested on the Zybo-Z7010 board but are meant to work on any Xilinx board
-except for the power sensors. The targeted acquisition frequency is 200MHz on the Z7.</p>
+<p>The IPs have been tested on the Zybo-Z7010 board but are meant to work on any Zynq Xilinx board.</p>
 </div>
 </div>
 <div class="section" id="usage">
@@ -278,10 +281,10 @@ The goal of SCABox is to provide a cheap and efficient test-bench for side-chann
 It provides a tutorials and a wiki about side-channel analysis.</p>
 <p>SCABox is an open-source project, all the sources are hosted on GitHub</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/samiBendou/sca-ip/">IP repository</a></p></li>
-<li><p><a class="reference external" href="https://github.com/samiBendou/sca-demo-tdc-aes/">Acquisition demo</a></p></li>
-<li><p><a class="reference external" href="https://github.com/samiBendou/sca-automation/">Attack demo</a></p></li>
-<li><p><a class="reference external" href="https://github.com/samiBendou/sca_framework/">SCABox website</a></p></li>
+<li><p><a class="reference external" href="https://github.com/emse-sas/sca-ip/">IP repository</a></p></li>
+<li><p><a class="reference external" href="https://github.com/emse-sas/sca-demo-tdc-aes/">Acquisition demo</a></p></li>
+<li><p><a class="reference external" href="https://github.com/emse-sas/sca-automation/">Attack demo</a></p></li>
+<li><p><a class="reference external" href="https://github.com/emse-sas/sca_framework/">SCABox website</a></p></li>
 </ul>
 <div class="section" id="contributing">
 <h3>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h3>
