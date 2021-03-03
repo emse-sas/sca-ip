@@ -41,12 +41,16 @@ Sensors
 Cores
 ---------------------------------------------------------------
 
-- Advanced Encryption Standard (AES)
+- Advanced Encryption Standard Block Cipher (AES) 
+- Present Block Cipher (PRESENT)
+- Klein Block Cipher (KLEIN)
+- Crypton Block Cipher (CRYPTON)
 
 Acquisition
 ---------------------------------------------------------------
 
-- FIFO hybrid acquisition controller
+- FIFO hybrid acquisition controller (to be interfaced with a FIFO)
+- FIFO hybrid acquisition controller + embedded FIFO 
 
 Install
 ===============================================================
@@ -55,7 +59,7 @@ To install the repository you must first clone the sources from GitHub
 
 .. code-block:: shell
 
-    $ git clone https://github.com/samiBendou/sca-ip
+    $ git clone https://github.com/emse-sas/sca-ip
     
 Then, launch Vivado and add each IP you need into your IP repositories.
 
@@ -63,8 +67,7 @@ Then, launch Vivado and add each IP you need into your IP repositories.
 Compatibility
 ---------------------------------------------------------------
 
-The IPs have been tested on the Zybo-Z7010 board but are meant to work on any Xilinx board
-except for the power sensors. The targeted acquisition frequency is 200MHz on the Z7.
+The IPs have been tested on the Zybo-Z7010 board but are meant to work on any Zynq Xilinx board. 
 
 Usage
 ===============================================================
@@ -114,10 +117,10 @@ It provides a tutorials and a wiki about side-channel analysis.
 
 SCABox is an open-source project, all the sources are hosted on GitHub
 
-- `IP repository <https://github.com/samiBendou/sca-ip/>`_
-- `Acquisition demo <https://github.com/samiBendou/sca-demo-tdc-aes/>`_
-- `Attack demo <https://github.com/samiBendou/sca-automation/>`_
-- `SCABox website  <https://github.com/samiBendou/sca_framework/>`_
+- `IP repository <https://github.com/emse-sas/sca-ip/>`_
+- `Acquisition demo <https://github.com/emse-sas/sca-demo-tdc-aes/>`_
+- `Attack demo <https://github.com/emse-sas/sca-automation/>`_
+- `SCABox website  <https://github.com/emse-sas/sca_framework/>`_
 
 Contributing
 ---------------------------------------------------------------
