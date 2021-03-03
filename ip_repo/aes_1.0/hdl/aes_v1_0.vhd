@@ -15,9 +15,9 @@ entity aes_v1_0 is
 	port (
 		-- Users to add ports here
 		clock_i : in std_logic;
-		reset_o : out std_logic;
+		--reset_o : out std_logic;
 		start_o : out std_logic;
-		inv_o   : out std_logic;
+		--inv_o   : out std_logic;
 		done_o  : out std_logic;
 		-- User ports ends
 		-- Do not modify the ports beyond this line
@@ -47,6 +47,9 @@ entity aes_v1_0 is
 end aes_v1_0;
 
 architecture arch_imp of aes_v1_0 is
+
+     signal s_inv_o : std_logic;
+    signal s_reset_o : std_logic;
 
 	-- component declaration
 	component aes_v1_0_S_AXI is
@@ -86,6 +89,8 @@ architecture arch_imp of aes_v1_0 is
 
 begin
 
+
+    
 	-- Instantiation of Axi Bus Interface S_AXI
 	aes_v1_0_S_AXI_inst : aes_v1_0_S_AXI
 	generic map(
@@ -94,9 +99,9 @@ begin
 	)
 	port map(
 		clock_i       => clock_i,
-		reset_o       => reset_o,
+		reset_o       => s_reset_o,
 		start_o       => start_o,
-		inv_o         => inv_o,
+		inv_o         => s_inv_o,
 		done_o        => done_o,
 		S_AXI_ACLK    => s_axi_aclk,
 		S_AXI_ARESETN => s_axi_aresetn,

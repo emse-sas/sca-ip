@@ -13,20 +13,7 @@ u8 XTDC_StateWeight(u32 value)
 
 int XTDC_BitPolarity(u32 value)
 {
-    if (value == UINT32_MAX || value == 0)
-    {
-        return -1;
-    }
-
-    int polarity = ((value & 0x1) == 0);
-    for (; value > 0; value >>= 1)
-    {
-        if (((value & 0x1) == 0) != polarity)
-        {
-            return -2;
-        }
-    }
-    return polarity;
+    return ((value & 0x80000000) == 0);
 }
 
 int XTDC_CfgInitialize(XTDC *InstancePtr, XTDC_Config *ConfigPtr)
@@ -84,14 +71,18 @@ u64 XTDC_Calibrate(XTDC *InstancePtr, int iterations, int verbose)
     iterations = iterations ? iterations : XTDC_DEFAULT_CALIBRATE_IT;
     u32 addr = InstancePtr->Config.BaseAddr;
     u32 best_fine = 0, best_coarse = 0;
-    u32 value, best_value, raw;
+    u32 value;
+    float avg_value = 0.0;
+    float current_best_value = 0.0;
+	float best_value = 16.0;
+	u32 raw;
     u32 target = InstancePtr->Config.Depth * 2 * iterations;
     int polarity;
 
     if (verbose)
     {
-        printf("target: %u\n", target / iterations);
-        printf("iterations: %u\n", iterations);
+        printf("target: %lu\n", target / iterations);
+        printf("iterations: %d\n", iterations);
     }
 
     XTDC_WriteDelay(InstancePtr, -1, 0, 0);
@@ -101,8 +92,9 @@ u64 XTDC_Calibrate(XTDC *InstancePtr, int iterations, int verbose)
         {
             printf("id: %d\n", id);
         }
-        best_value = UINT32_MAX;
+        current_best_value = 0.0;
         XTDC_WriteReg(addr, XTDC_SEL_OFFSET, id);
+
         for (u32 coarse = 0; coarse <= XTDC_COARSE_MAX; coarse++)
         {
             for (u32 fine = 0; fine <= XTDC_FINE_MAX; fine++)
@@ -110,19 +102,24 @@ u64 XTDC_Calibrate(XTDC *InstancePtr, int iterations, int verbose)
                 value = 0;
                 polarity = 0;
                 XTDC_WriteDelay(InstancePtr, id, fine, coarse);
+
                 for (int i = 0; i < iterations; i++)
                 {
                     raw = XTDC_ReadReg(addr, XTDC_STATE_OFFSET);
                     value += XTDC_StateWeight(raw);
                     polarity += XTDC_BitPolarity(raw);
                 }
+
+                avg_value = (float)(value) / iterations;
+
                 if (verbose)
                 {
-                    printf("(%lx, %lx): %5.2f (p: %5.2f)\n", fine, coarse, (float)value / iterations, (float)polarity / iterations);
+                    printf("(%lx, %lx): pol= %d it= %d (avg=%5.2f, best=%5.2f)\n", fine, coarse, polarity, iterations,avg_value,current_best_value);
                 }
-                if ((DIST(target, value) < DIST(target, best_value)) && polarity > -iterations / 2)
+
+                if((DIST(avg_value,best_value) < DIST(current_best_value,best_value)) && (polarity > (iterations / 2)))
                 {
-                    best_value = value;
+                    current_best_value = avg_value;
                     best_fine = fine;
                     best_coarse = coarse;
                 }
@@ -136,3 +133,5 @@ u64 XTDC_Calibrate(XTDC *InstancePtr, int iterations, int verbose)
     }
     return XTDC_ReadDelay(InstancePtr, -1);
 }
+
+
