@@ -11,5 +11,6 @@ var searchData=
   ['aes_5ffsm_5farch',['aes_fsm_arch',['../classaes__fsm_1_1aes__fsm__arch.html',1,'aes_fsm']]],
   ['aes_5fround',['aes_round',['../classaes__round.html',1,'']]],
   ['aes_5fround_2evhd',['aes_round.vhd',['../aes__round_8vhd.html',1,'']]],
-  ['aes_5fround_5farch',['aes_round_arch',['../classaes__round_1_1aes__round__arch.html',1,'aes_round']]]
+  ['aes_5fround_5farch',['aes_round_arch',['../classaes__round_1_1aes__round__arch.html',1,'aes_round']]],
+  ['arch_5fimp',['arch_imp',['../classpresent___s___a_x_i__top_1_1arch__imp.html',1,'present_S_AXI_top']]]
 ];
