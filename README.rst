@@ -1,4 +1,4 @@
-SCABox IPs
+SCAbox IPs
 ***************************************************************
 
 .. image:: https://img.shields.io/github/license/samiBendou/sca-ip
@@ -14,12 +14,12 @@ SCABox IPs
 Overview
 ===============================================================
 
-This repository contains FPGA IPs related to side-channel analysis and used in the 
-`SCABox <https://emse-sas.github.io/sca_framework/>`_ project
+This repository contains FPGA IP cores built for the
+`SCAbox <https://emse-sas.github.io/sca_framework/>`_ project
 
-- Cores : cryptographic accelerators
-- Sensors : electrical power sensors
-- Acquisition : synchronous sensors monitoring
+- Targets : cryptographic accelerators
+- Sensors : voltage sensors
+- Storage : synchronous sensor data storage
 
 Each IP in this repository is provided with all the interface needed to be reusable in any
 Vivado block design 
@@ -38,7 +38,7 @@ Sensors
 - Time-to-Digital Converter based sensor (TDC)
 - Ring-Oscillator-based sensor (RO)
 
-Cores
+Targets
 ---------------------------------------------------------------
 
 - Advanced Encryption Standard Block Cipher (AES) 
@@ -46,7 +46,7 @@ Cores
 - Klein Block Cipher (KLEIN)
 - Crypton Block Cipher (CRYPTON)
 
-Acquisition
+Storage
 ---------------------------------------------------------------
 
 - FIFO hybrid acquisition controller (to be interfaced with a FIFO)
